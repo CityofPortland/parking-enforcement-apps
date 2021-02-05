@@ -1,4 +1,29 @@
-# Parking Enforcement Apps
-This repository contains web applications for use by the public and PBOT Parking Enforcement.
-## Area Parking Permit (APP) license lookup
-This application is intended to be used by the public to quickly determine if a vehicle has an active area parking permit.
+# parking-enforcement-apps
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Run your unit tests
+```
+npm run test:unit
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
