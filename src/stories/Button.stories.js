@@ -1,10 +1,9 @@
-import MyButton from "./Button.vue";
+import MyButton from "@/components/Button.vue";
 
 export default {
   title: "Example/Button",
   component: MyButton,
   argTypes: {
-    backgroundColor: { control: "color" },
     size: { control: { type: "select", options: ["small", "medium", "large"] } }
   }
 };
