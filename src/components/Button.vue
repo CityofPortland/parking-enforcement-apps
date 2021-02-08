@@ -51,7 +51,7 @@ export default defineComponent({
 
       classes.push(
         ...(props.primary
-          ? ["bg-blue-500", "text-white"]
+          ? ["bg-blue-600", "text-white"]
           : ["bg-gray-100", "text-gray-900"])
       );
 
