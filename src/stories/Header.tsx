@@ -1,6 +1,7 @@
-import React from 'react';
+import React from "react";
 
 import { Button } from "../components/Button";
+import "./header.css";
 
 export interface HeaderProps {
   user?: {};
@@ -9,11 +10,21 @@ export interface HeaderProps {
   onCreateAccount: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ user, onLogin, onLogout, onCreateAccount }) => (
+export const Header: React.FC<HeaderProps> = ({
+  user,
+  onLogin,
+  onLogout,
+  onCreateAccount,
+}) => (
   <header>
-    <div className="wrapper">
-      <div>
-        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <div className="flex items-center justify-between">
+      <div className="flex items-center">
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <g fill="none" fillRule="evenodd">
             <path
               d="M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z"
@@ -29,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogin, onLogout, onCreat
             />
           </g>
         </svg>
-        <h1>Acme</h1>
+        <h1 className="ml-3 font-bold text-xl leading-none">Acme</h1>
       </div>
       <div>
         {user ? (
@@ -37,7 +48,12 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogin, onLogout, onCreat
         ) : (
           <>
             <Button size="small" onClick={onLogin} label="Log in" />
-            <Button primary size="small" onClick={onCreateAccount} label="Sign up" />
+            <Button
+              primary
+              size="small"
+              onClick={onCreateAccount}
+              label="Sign up"
+            />
           </>
         )}
       </div>
