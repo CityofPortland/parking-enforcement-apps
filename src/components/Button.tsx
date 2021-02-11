@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export interface ButtonProps {
   /**
@@ -8,7 +8,7 @@ export interface ButtonProps {
   /**
    * How large should the button be?
    */
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   /**
    * Button contents
    */
@@ -24,34 +24,32 @@ export interface ButtonProps {
  */
 export const Button: React.FC<ButtonProps> = ({
   primary = false,
-  size = "medium",
+  size = 'medium',
   label,
   ...props
 }) => {
   const classes: String[] = [];
 
-  switch (size) {
-    case "small":
-      classes.push("px-2", "py-1");
-      break;
-    case "large":
-      classes.push("px-4", "py-3");
-      break;
-    default:
-      classes.push("px-3", "py-2");
-      break;
+  const sizeMap = new Map<string, string[]>([
+    ['small', ['px-2', 'py-1']],
+    ['medium', ['px-3', 'py-2']],
+    ['large', ['px-4', 'py-3']],
+  ]);
+
+  if (sizeMap.has(size)) {
+    classes.push(...sizeMap.get(size)!);
   }
 
   classes.push(
     ...(primary
-      ? ["bg-blue-600", "text-white"]
-      : ["bg-gray-100", "text-gray-900"])
+      ? ['bg-blue-600', 'text-white']
+      : ['bg-gray-100', 'text-gray-900'])
   );
 
-  classes.push("rounded", "shadow");
+  classes.push('rounded', 'shadow');
 
   return (
-    <button type="button" className={classes.join(" ")} {...props}>
+    <button type="button" className={classes.join(' ')} {...props}>
       {label}
     </button>
   );
