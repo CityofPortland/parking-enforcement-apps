@@ -62,7 +62,25 @@ module.exports = {
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   darkMode: 'media', // or 'media' or 'class'
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        transparent: 'transparent',
+        inherit: 'inherit',
+        current: 'currentColor',
+        black: mix('#000000', mix('#FF6666', '#005CB9', 0.5).hex(), 0.2).hex(),
+        white: '#ffffff',
+        gray: generateColors('#666'),
+        cyan: generateColors('#00A0AE'),
+        orange: generateColors('#F58220'),
+        red: generateColors('#FF6666'),
+        green: generateColors('#66AD83'),
+        blue: generateColors('#005CB9'),
+        marine: generateColors('#99CCCC'),
+        tangerine: generateColors('#FCB040'),
+        fog: generateColors('#E7E8EA'),
+        purple: generateColors(mix('#FF6666', '#005CB9', 0.5).hex())
+      }
+    }
   },
   variants: {
     extend: {}
