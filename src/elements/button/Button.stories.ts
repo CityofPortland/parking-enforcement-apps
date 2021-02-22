@@ -1,17 +1,24 @@
-import MyButton from '@/components/Button.vue';
+import { Story } from '@storybook/vue3';
+
+import Button from './Button.vue';
+import { ButtonProps } from '@/elements/button/Button.types';
 
 export default {
   title: 'Element/Button',
-  component: MyButton,
+  component: Button,
   argTypes: {
     size: { control: { type: 'select', options: ['small', 'medium', 'large'] } }
   }
 };
 
-const Template = (args, { argTypes }) => ({
+const Template: Story<ButtonProps> = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { MyButton },
-  template: '<my-button @onClick="onClick" v-bind="$props" />'
+  components: { Button },
+  setup() {
+    return { ...args };
+  },
+  template:
+    '<Button @onClick="onClick" :primary="primary" :size="size" :label="label" />'
 });
 
 export const Primary = Template.bind({});
