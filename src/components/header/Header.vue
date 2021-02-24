@@ -93,9 +93,9 @@ export default defineComponent({
     const headerClasses = computed(() => {
       const classMap = new Map([
         ['white', []],
-        ['cyan', ['bg-cyan-800', 'text-cyan-100']],
-        ['gray', ['bg-gray-800', 'text-gray-100']],
-        ['orange', ['bg-orange-800', 'text-orange-100']]
+        ['cyan', ['bg-cyan-500', 'text-cyan-900']],
+        ['gray', ['bg-gray-500', 'text-gray-100']],
+        ['orange', ['bg-orange-500', 'text-orange-900']]
       ]);
 
       return classMap.get(props.theme);
@@ -104,9 +104,9 @@ export default defineComponent({
     const buttonClasses = computed(() => {
       const classMap = new Map([
         ['white', []],
-        ['cyan', ['hover:bg-cyan-500', 'focus:ring-offset-cyan-600']],
-        ['gray', ['hover:bg-gray-600', 'focus:ring-offset-gray-800']],
-        ['orange', ['hover:bg-orange-600', 'focus:ring-offset-orange-500']]
+        ['cyan', ['hover:bg-cyan-400', 'focus:ring-offset-cyan-500']],
+        ['gray', ['hover:bg-gray-400', 'focus:ring-offset-gray-500']],
+        ['orange', ['hover:bg-orange-400', 'focus:ring-offset-orange-500']]
       ]);
 
       return classMap.get(props.theme);

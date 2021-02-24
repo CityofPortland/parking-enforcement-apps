@@ -33,9 +33,9 @@ const Template: Story = (args, { argTypes }) => ({
   setup: () => {
     const menuHoverMap = new Map([
       ['white', ['hover:bg-gray-100']],
-      ['gray', ['hover:bg-gray-600']],
-      ['cyan', ['hover:bg-cyan-600']],
-      ['orange', ['hover:bg-orange-600']]
+      ['gray', ['hover:bg-gray-700']],
+      ['cyan', ['hover:bg-cyan-300']],
+      ['orange', ['hover:bg-orange-300']]
     ]);
 
     return { menuHover: menuHoverMap.get(args.theme), ...args };
