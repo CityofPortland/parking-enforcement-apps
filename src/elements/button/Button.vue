@@ -7,11 +7,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 
-interface ButtonProps {
-  label: string;
-  primary: boolean;
-  size: string;
-}
+import { ButtonProps, ButtonSize } from './Button.types';
 
 export default defineComponent({
   name: 'pbot-button',
@@ -25,7 +21,7 @@ export default defineComponent({
       default: false
     },
     size: {
-      type: String,
+      type: String as () => ButtonSize,
       default: 'medium',
       validator: function(value: string) {
         return ['small', 'medium', 'large'].indexOf(value) !== -1;
@@ -55,7 +51,7 @@ export default defineComponent({
           : ['bg-gray-100', 'text-gray-900'])
       );
 
-      classes.push('rounded', 'shadow');
+      classes.push('rounded-md', 'shadow');
 
       return classes;
     });
