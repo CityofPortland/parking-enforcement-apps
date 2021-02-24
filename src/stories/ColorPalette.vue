@@ -1,31 +1,115 @@
 <template>
-  <ul class="flex -mx-3">
-    <li
-      v-for="(weight, index) in weights"
-      :key="index"
-      class="flex flex-col my-1 mx-3"
-    >
-      <span
-        class="w-16 h-12 rounded-lg"
-        :class="[`bg-${color}-${weight}`]"
-      ></span>
-      <div class="flex flex-col">
-        <span>{{ weight }}</span>
-        <span class="text-base text-gray-500">{{
-          colorValue(color, weight)
-        }}</span>
+  <div class="flex flex-col space-y-4">
+    <div class="flex flex-col">
+      <div class="h-32" :class="[`bg-${color}-500`]"></div>
+      <div class="flex flex-row">
+        <span
+          v-for="(weight, index) in weights"
+          :key="index"
+          class="w-full h-8"
+          :class="[`bg-${color}-${weight}`]"
+        ></span>
       </div>
-    </li>
-  </ul>
+    </div>
+    <ul class="list-none flex flex-col space-y-3">
+      <li
+        v-for="(bgWeight, index) in weights"
+        :key="index"
+        class="flex flex-col"
+      >
+        <dl class="flex flex-row space-x-4 text-xl">
+          <dt class="font-semibold">Weight:</dt>
+          <dd>{{ bgWeight }}</dd>
+
+          <dt class="font-semibold">Hex:</dt>
+          <dd>{{ colorValue(color, bgWeight) }}</dd>
+
+          <dt class="font-semibold">HSL:</dt>
+          <dd>{{ hslText(color, bgWeight) }}</dd>
+        </dl>
+        <div
+          class="rounded-lg flex flex-row flex-wrap space-x-4 p-4"
+          :class="[`bg-${color}-${bgWeight}`]"
+        >
+          <div
+            v-for="(textWeight, index) in weights"
+            :key="index"
+            class="p-4 flex flex-row space-x-1"
+            :class="`text-${color}-${textWeight}`"
+          >
+            <div class="flex flex-row space-x-2">
+              <div
+                class="flex flex-col items-center justify-between"
+                style="font-size: 18px;"
+              >
+                <span>{{ textWeight }}</span>
+                <span
+                  v-if="contrast(color, bgWeight, textWeight) < 3"
+                  class="px-2 bg-red-600 text-white text-base font-medium rounded-lg"
+                  >Fail
+                </span>
+                <span
+                  v-else
+                  class="px-2 bg-black text-white text-base font-medium rounded-lg"
+                  >{{
+                    contrast(color, bgWeight, textWeight) > 4.5 ? 'AAA' : 'AA'
+                  }}
+                </span>
+              </div>
+              <div
+                class="flex flex-col items-center justify-between"
+                style="font-size: 16px;"
+              >
+                <span>{{ textWeight }}</span>
+                <span
+                  v-if="contrast(color, bgWeight, textWeight) < 4.5"
+                  class="px-2 bg-red-600 text-white text-base font-medium rounded-lg"
+                  >Fail
+                </span>
+                <span
+                  v-else
+                  class="px-2 bg-black text-white text-base font-medium rounded-lg"
+                  >{{
+                    contrast(color, bgWeight, textWeight) > 7 ? 'AAA' : 'AA'
+                  }}
+                </span>
+              </div>
+              <div
+                class="flex flex-col items-center justify-between"
+                style="font-size: 14px; font-weight: bold;"
+              >
+                <span>{{ textWeight }}</span>
+                <span
+                  v-if="contrast(color, bgWeight, textWeight) < 4.5"
+                  class="px-2 bg-red-600 text-white text-base font-medium rounded-lg"
+                  >Fail
+                </span>
+                <span
+                  v-else
+                  class="px-2 bg-black text-white text-base font-medium rounded-lg"
+                  >{{
+                    contrast(color, bgWeight, textWeight) > 7 ? 'AAA' : 'AA'
+                  }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
+import Color from 'color';
 import resolveConfig from 'tailwindcss/resolveConfig';
+
 import tailwindConfig from '../../tailwind.config.js';
 
 const fullConfig = resolveConfig(tailwindConfig);
 
-export default {
+export default defineComponent({
   name: 'ColorPalette',
   props: {
     color: {
@@ -39,9 +123,22 @@ export default {
     };
   },
   methods: {
-    colorValue(color, weight) {
+    colorValue(color: string, weight: number) {
       return fullConfig.theme.colors[color][weight];
+    },
+    hslText(color: string, weight: number) {
+      const c = Color(fullConfig.theme.colors[color][weight])
+        .hsl()
+        .array();
+      return `${c[0].toPrecision(3)}°, ${c[1].toPrecision(
+        3
+      )}%, ${c[2].toPrecision(3)}%`;
+    },
+    contrast(color: string, bgWeight: number, textWeight: number) {
+      const bg = Color(fullConfig.theme.colors[color][bgWeight]);
+      const text = Color(fullConfig.theme.colors[color][textWeight]);
+      return text.contrast(bg);
     }
   }
-};
+});
 </script>
