@@ -13,8 +13,7 @@ export default {
     },
     navItemClasses: {
       control: {
-        type: 'text',
-        default: 'hover:bg-gray-100'
+        type: 'text'
       },
       description: 'Classes applied to each NavItem'
     }
