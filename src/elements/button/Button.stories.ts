@@ -7,7 +7,12 @@ export default {
   title: 'Element/Button',
   component: Button,
   argTypes: {
-    size: { control: { type: 'select', options: ['small', 'medium', 'large'] } }
+    size: {
+      control: { type: 'select', options: ['small', 'medium', 'large'] }
+    },
+    color: {
+      control: { type: 'select', options: ['gray', 'blue', 'green', 'red'] }
+    }
   }
 };
 
@@ -18,17 +23,11 @@ const Template: Story<ButtonProps> = (args, { argTypes }) => ({
     return { ...args };
   },
   template:
-    '<Button @onClick="onClick" :primary="primary" :size="size" :label="label" />'
+    '<Button @onClick="onClick" :color="color" :size="size" :label="label" />'
 });
 
-export const Primary = Template.bind({});
-Primary.args = {
-  primary: true,
-  label: 'Button'
-};
-
-export const Secondary = Template.bind({});
-Secondary.args = {
+export const Medium = Template.bind({});
+Medium.args = {
   label: 'Button'
 };
 

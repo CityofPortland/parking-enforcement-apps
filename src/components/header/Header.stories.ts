@@ -12,7 +12,7 @@ export default {
   component: Header,
   argTypes: {
     appName: { control: { type: 'text', default: 'PBOT App' } },
-    theme: {
+    color: {
       control: { type: 'select', options: ['white', 'gray', 'cyan', 'orange'] }
     }
   }
@@ -38,9 +38,9 @@ const Template: Story = (args, { argTypes }) => ({
       ['orange', ['hover:bg-orange-300']]
     ]);
 
-    return { menuHover: menuHoverMap.get(args.theme), ...args };
+    return { menuHover: menuHoverMap.get(args.color), ...args };
   },
-  template: `<Header :theme="theme">
+  template: `<Header :color="color">
       <template v-slot:branding>
         <Logo class="w-16 mr-3 hidden md:inline-flex" />
         <h1 class="truncate">{{ $props.appName }}</h1>
@@ -74,7 +74,7 @@ const NoMenuTemplate: Story = (args, { argTypes }) => ({
   setup: () => {
     return { args };
   },
-  template: `<Header :theme="theme">
+  template: `<Header :color="color">
       <template v-slot:branding>
         <Branding :app-name="$props.appName" />
       </template>

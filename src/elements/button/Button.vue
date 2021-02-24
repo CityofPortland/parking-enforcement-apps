@@ -1,13 +1,17 @@
 <template>
-  <button type="button" :class="classes" @click="onClick">
-    {{ label }}
+  <button
+    type="button"
+    :class="[...sizeClasses, ...colorClasses, ...baseClasses]"
+    @click="onClick"
+  >
+    <slot>{{ label }}</slot>
   </button>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 
-import { ButtonProps, ButtonSize } from './Button.types';
+import { ButtonProps, ButtonSize, ButtonColor } from './Button.types';
 
 export default defineComponent({
   name: 'pbot-button',
@@ -16,44 +20,38 @@ export default defineComponent({
       type: String,
       required: true
     },
-    primary: {
-      type: Boolean,
-      default: false
+    color: {
+      type: String as () => ButtonColor,
+      default: 'gray'
     },
     size: {
       type: String as () => ButtonSize,
-      default: 'medium',
-      validator: function(value: string) {
-        return ['small', 'medium', 'large'].indexOf(value) !== -1;
-      }
+      default: 'medium'
     }
   },
   emits: ['onClick'],
   setup(props: ButtonProps, context) {
-    const classes = computed(() => {
-      const classes = [];
+    const baseClasses = ['rounded-md', 'shadow'];
 
-      switch (props.size) {
-        case 'medium':
-          classes.push('px-3', 'py-2');
-          break;
-        case 'large':
-          classes.push('px-4', 'py-3');
-          break;
-        default:
-          classes.push('px-2', 'py-1');
-          break;
-      }
+    const sizeClasses = computed(() => {
+      const sizeMap = new Map<ButtonSize, string[]>([
+        ['small', ['px-2', 'py-1', 'text-sm']],
+        ['medium', ['px-3', 'py-2']],
+        ['large', ['px-4', 'py-3', 'text-lg']]
+      ]);
 
-      classes.push(
-        ...(props.primary
-          ? ['bg-blue-600', 'text-white']
-          : ['bg-gray-100', 'text-gray-900'])
-      );
+      return props.size && sizeMap.get(props.size);
+    });
 
-      classes.push('rounded-md', 'shadow');
+    const colorClasses = computed(() => {
+      const colorMap = new Map<ButtonColor, string[]>([
+        ['gray', ['bg-gray-100', 'text-gray-900']],
+        ['blue', ['bg-blue-500', 'text-blue-100']],
+        ['red', ['bg-red-600', 'text-red-100']],
+        ['green', ['bg-green-500', 'text-green-900']]
+      ]);
 
-      return classes;
+      return props.color && colorMap.get(props.color);
     });
 
     const onClick = () => {
@@ -61,7 +59,9 @@ export default defineComponent({
     };
 
     return {
-      classes,
+      baseClasses,
+      sizeClasses,
+      colorClasses,
       onClick
     };
   }

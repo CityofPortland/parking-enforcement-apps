@@ -80,9 +80,9 @@ import { computed, defineComponent, ref } from 'vue';
 export default defineComponent({
   name: 'Header',
   props: {
-    theme: {
+    color: {
       type: String,
-      default: 'gray'
+      default: 'white'
     }
   },
   setup(props, { slots }) {
@@ -98,7 +98,7 @@ export default defineComponent({
         ['orange', ['bg-orange-500', 'text-orange-900']]
       ]);
 
-      return classMap.get(props.theme);
+      return classMap.get(props.color);
     });
 
     const buttonClasses = computed(() => {
@@ -109,7 +109,7 @@ export default defineComponent({
         ['orange', ['hover:bg-orange-400', 'focus:ring-offset-orange-500']]
       ]);
 
-      return classMap.get(props.theme);
+      return classMap.get(props.color);
     });
 
     return {
