@@ -18,7 +18,7 @@
           <button
             class="inline-flex items-center justify-center p-2 ml-auto rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
             :class="buttonClasses"
-            @click="open = !open"
+            @click="handleToggle"
           >
             <span class="sr-only">Open main menu</span>
             <!--
@@ -75,19 +75,23 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
+
+import { HeaderColor, HeaderProps } from './Header.types';
 
 export default defineComponent({
   name: 'Header',
   props: {
+    open: {
+      type: Boolean,
+      default: false
+    },
     color: {
-      type: String,
+      type: String as () => HeaderColor,
       default: 'white'
     }
   },
-  setup(props, { slots }) {
-    const open = ref(false);
-
+  setup(props: HeaderProps, { slots, emit }) {
     const hasMenu = !!slots.menu;
 
     const headerClasses = computed(() => {
@@ -112,11 +116,15 @@ export default defineComponent({
       return classMap.get(props.color);
     });
 
+    const handleToggle = () => {
+      emit('toggle');
+    };
+
     return {
-      open,
       hasMenu,
       headerClasses,
-      buttonClasses
+      buttonClasses,
+      handleToggle
     };
   }
 });

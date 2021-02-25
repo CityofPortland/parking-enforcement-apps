@@ -14,7 +14,8 @@ export default {
     appName: { control: { type: 'text', default: 'PBOT App' } },
     color: {
       control: { type: 'select', options: ['white', 'gray', 'cyan', 'orange'] }
-    }
+    },
+    onToggle: { action: 'toggled' }
   }
 };
 
@@ -40,7 +41,7 @@ const Template: Story = (args, { argTypes }) => ({
 
     return { menuHover: menuHoverMap.get(args.color), ...args };
   },
-  template: `<Header :color="color">
+  template: `<Header :color="color" :open="open" @toggle="onToggle">
       <template v-slot:branding>
         <Logo class="w-16 mr-3 hidden md:inline-flex" />
         <h1 class="truncate">{{ $props.appName }}</h1>
@@ -52,7 +53,7 @@ const Template: Story = (args, { argTypes }) => ({
           <NavItem url="#" :class="menuHover">Events</NavItem>
         </Nav>
         <div class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-2 md:space-y-0 px-4 py-2 md:p-0 md:ml-auto">
-          <Button size="small" primary>Log in</Button>
+          <Button label="Log in" size="small" primary>Log in</Button>
         </div>
       </template>
     </Header>`
