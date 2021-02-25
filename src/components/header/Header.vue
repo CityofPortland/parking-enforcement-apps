@@ -1,30 +1,31 @@
 <template>
-  <nav class="bg-gray-800 text-gray-100">
+  <nav :class="headerClasses">
     <div class="max-w-7xl mx-auto px-4">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center overflow-hidden">
-          <div class="flex-shrink-0 truncate">
-            <!--
-              @slot Branding area, should contain app name and logo
-            -->
-            <slot name="branding"></slot>
-          </div>
-          <div v-if="hasMenu" class="hidden md:block">
-            <!--
+      <div class="flex items-center space-x-3 h-16">
+        <div class="flex items-center truncate">
+          <!--
+            @slot Branding area, should contain app name and logo
+          -->
+          <slot name="branding"></slot>
+        </div>
+        <div v-if="hasMenu" class="hidden md:flex md:flex-row flex-grow">
+          <!--
               @slot Menu area, should contain navigation menu for the site
             -->
-            <slot name="menu"></slot>
-          </div>
+          <slot name="menu"></slot>
         </div>
-        <div v-if="userMenu" class="hidden md:block">
-          <component :is="userMenu" />
-        </div>
-        <div v-if="hasMenu" class="-mr-2 flex md:hidden">
+        <div v-if="hasMenu" class="-mr-2 flex md:hidden flex-grow">
           <button
-            class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-            @click="open = !open"
+            class="inline-flex items-center justify-center p-2 ml-auto rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+            :class="buttonClasses"
+            @click="handleToggle"
           >
             <span class="sr-only">Open main menu</span>
+            <!--
+              Heroicon name: outline/menu
+
+              Menu open: "hidden", Menu closed: "block"
+            -->
             <svg
               class="h-6 w-6"
               :class="{ hidden: open, block: !open }"
@@ -61,33 +62,69 @@
         </div>
       </div>
     </div>
-    <div v-if="hasMenu" class="md:hidden" :class="{ hidden: !open }">
+
+    <!--
+      Mobile menu, toggle classes based on menu state.
+
+      Open: "block", closed: "hidden"
+    -->
+    <div class="md:hidden" :class="{ hidden: !open }">
       <slot name="menu"></slot>
-      <div v-if="userMenu">
-        <component :is="userMenu" />
-      </div>
     </div>
   </nav>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
+
+import { HeaderColor, HeaderProps } from './Header.types';
 
 export default defineComponent({
   name: 'Header',
   props: {
-    userMenu: {
-      type: Object
+    open: {
+      type: Boolean,
+      default: false
+    },
+    color: {
+      type: String as () => HeaderColor,
+      default: 'white'
     }
   },
-  setup(_props, { slots }) {
-    const open = ref(false);
-
+  setup(props: HeaderProps, { slots, emit }) {
     const hasMenu = !!slots.menu;
 
+    const headerClasses = computed(() => {
+      const classMap = new Map([
+        ['white', []],
+        ['cyan', ['bg-cyan-500', 'text-cyan-900']],
+        ['gray', ['bg-gray-500', 'text-gray-100']],
+        ['orange', ['bg-orange-500', 'text-orange-900']]
+      ]);
+
+      return classMap.get(props.color);
+    });
+
+    const buttonClasses = computed(() => {
+      const classMap = new Map([
+        ['white', []],
+        ['cyan', ['hover:bg-cyan-400', 'focus:ring-offset-cyan-500']],
+        ['gray', ['hover:bg-gray-400', 'focus:ring-offset-gray-500']],
+        ['orange', ['hover:bg-orange-400', 'focus:ring-offset-orange-500']]
+      ]);
+
+      return classMap.get(props.color);
+    });
+
+    const handleToggle = () => {
+      emit('toggle');
+    };
+
     return {
-      open,
-      hasMenu
+      hasMenu,
+      headerClasses,
+      buttonClasses,
+      handleToggle
     };
   }
 });

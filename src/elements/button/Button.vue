@@ -1,8 +1,9 @@
 <template>
-  <button type="button" :class="classes" @click="onClick">
-    <!--
-      @slot Default slot that will be placed in the button
-    -->
+  <button
+    type="button"
+    :class="[...sizeClasses, ...colorClasses, ...baseClasses]"
+    @click="onClick"
+  >
     <slot>{{ label }}</slot>
   </button>
 </template>
@@ -10,18 +11,18 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 
-import { ButtonSize, ButtonProps } from './Button.types';
+import { ButtonProps, ButtonSize, ButtonColor } from './Button.types';
 
 export default defineComponent({
-  name: 'Button',
+  name: 'pbot-button',
   props: {
     label: {
       type: String,
       required: true
     },
-    primary: {
-      type: Boolean,
-      default: false
+    color: {
+      type: String as () => ButtonColor,
+      default: 'gray'
     },
     size: {
       type: String as () => ButtonSize,
@@ -30,41 +31,27 @@ export default defineComponent({
   },
   emits: ['onClick'],
   setup(props: ButtonProps, context) {
-    const classes = computed(() => {
-      const classes = [];
+    const baseClasses = ['rounded-md', 'shadow'];
 
-      const sizeMap = new Map([
+    const sizeClasses = computed(() => {
+      const sizeMap = new Map<ButtonSize, string[]>([
         ['small', ['px-2', 'py-1', 'text-sm']],
-        ['medium', ['px-3', 'py-2', 'text-base']],
+        ['medium', ['px-3', 'py-2']],
         ['large', ['px-4', 'py-3', 'text-lg']]
       ]);
 
-      sizeMap.has(props.size) && classes.push(sizeMap.get(props.size));
+      return props.size && sizeMap.get(props.size);
+    });
 
-      classes.push(
-        ...(props.primary
-          ? [
-              'bg-blue-500',
-              'text-white',
-              'hover:bg-blue-700',
-              'focus:bg-blue-700'
-            ]
-          : [
-              'bg-gray-100',
-              'text-gray-900',
-              'hover:bg-gray-200',
-              'focus:bg-gray-200'
-            ]),
-        ...[
-          'focus:outline-none',
-          'focus:ring',
-          'focus:border-blue-100',
-          'rounded-md',
-          'shadow'
-        ]
-      );
+    const colorClasses = computed(() => {
+      const colorMap = new Map<ButtonColor, string[]>([
+        ['gray', ['bg-gray-100', 'text-gray-900']],
+        ['blue', ['bg-blue-500', 'text-blue-100']],
+        ['red', ['bg-red-600', 'text-red-100']],
+        ['green', ['bg-green-500', 'text-green-900']]
+      ]);
 
-      return classes;
+      return props.color && colorMap.get(props.color);
     });
 
     const onClick = () => {
@@ -72,7 +59,9 @@ export default defineComponent({
     };
 
     return {
-      classes,
+      baseClasses,
+      sizeClasses,
+      colorClasses,
       onClick
     };
   }
