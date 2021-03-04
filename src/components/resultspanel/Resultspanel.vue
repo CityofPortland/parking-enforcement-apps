@@ -1,84 +1,36 @@
 <template>
   <div v-if="hasSearchResults">
     <div
-      v-if="permitFound"
-      class="bg-white shadow-md overflow-hidden mx-auto m-5 bg-green-200"
+      class="p-5 items-center space-y-4 rounded-md justify-center shadow-md"
+      :class="permitFound ? 'bg-green-200' : 'bg-red-300'"
     >
-      <div class="py-4 px-8 mt-3">
-        <div class="flex flex-col mb-8">
-          <h2 class="text-gray-900 font-semibold text-2xl tracking-wide mb-2">
-            Permit found for '{{ plateSearchedFor }}'
-          </h2>
-          <p class="text-gray-900 text-base">
-            <svg
-              class="h-6 w-6 inline text-green-600"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 27 27"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            The plate '{{ plateSearchedFor }}' has an area parking permit.
-          </p>
-        </div>
+      <StatusIcon :isSuccessIcon="permitFound" />
 
-        <div class="py-4">
-          For more additional information click here or ??
-        </div>
-      </div>
-    </div>
+      <span class="font-semibold block text-2xl text-center">
+        <!-- Permit Found for '{{ plateSearchedFor }}'! -->
+        {{ TopBannerMessage }}
+      </span>
 
-    <div
-      v-else
-      class="bg-white shadow-md overflow-hidden mx-auto m-5 bg-red-300"
-    >
-      <div class="py-4 px-8 mt-3">
-        <div class="flex flex-col mb-8">
-          <h2 class="text-gray-900 font-semibold text-2xl tracking-wide mb-2">
-            Permit not found for '{{ plateSearchedFor }}'
-          </h2>
-          <p class="text-gray-900 text-base">
-            <svg
-              class="h-6 w-6 inline text-red-600"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 27 27"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-
-            The plate '{{ plateSearchedFor }}' does not have an area parking
-            permit.
-          </p>
-        </div>
-
-        <div class="py-4">
-          For more additional information click here or ??
-        </div>
-      </div>
+      <span class="block text-center">
+        {{ BottomBannerMessage }}
+      </span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
+import StatusIcon from '../statusicon/StatusIcon.vue';
 
 export default defineComponent({
   name: 'ResultsPanel',
+  components: { StatusIcon },
   props: {
     plateSearchedFor: {
+      type: String,
+      required: true
+    },
+    zoneSearchedFor: {
       type: String,
       required: true
     },
@@ -90,13 +42,29 @@ export default defineComponent({
       type: Boolean,
       reqquired: true
     }
-  } /*,
+  },
+
   setup(props) {
-    const myProps = toRefs(props);
+    const TopBannerMessage = computed(() => {
+      if (props.permitFound) {
+        return `Permit Found for '${props.plateSearchedFor}'!`;
+      } else {
+        return `No permit found for '${props.plateSearchedFor}' in '${props.zoneSearchedFor}'.`;
+      }
+    });
+
+    const BottomBannerMessage = computed(() => {
+      if (props.permitFound) {
+        return `Vehicle with license '${props.plateSearchedFor}' has an area parking permit in '${props.zoneSearchedFor}'.`;
+      } else {
+        return `Vehicle with license '${props.plateSearchedFor}' does not have an area parking permit in '${props.zoneSearchedFor}'.`;
+      }
+    });
 
     return {
-      myProps
+      TopBannerMessage,
+      BottomBannerMessage
     };
-  }*/
+  }
 });
 </script>

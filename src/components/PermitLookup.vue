@@ -1,31 +1,29 @@
 <template>
-  <div class="max-w-xl mx-auto content-center">
+  <div class="max-w-xl mx-auto content-center flex flex-col space-y-4">
     <form @submit.prevent="LookupPlate">
-      <div class="bg-white shadow p-4 flex">
-        <span class="w-auto flex justify-end items-center text-gray-700 p-2">
-          <svg
-            class="h-6 w-6 inline"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 27 27"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </span>
+      <div
+        class="flex flex-col md:flex-row md:space-x-4 md:space-y-0 space-y-4"
+      >
         <input
-          class="w-full rounded p-2 border-blue-500 pr-4"
+          class="rounded-md w-full p-2 border placeholder-gray-500 border-gray-500 shadow-md bg-gray-100"
           type="text"
-          placeholder="Search by license plate"
+          placeholder="Enter license plate"
           v-model="plateLookupString"
         />
+
+        <select
+          v-model="zoneLookupString"
+          class="rounded-md w-full p-2 border border-gray-500 shadow-md bg-gray-100"
+        >
+          <option value="">Select Zone</option>
+          <option value="APP Zone A">Zone A</option>
+          <option value="APP Zone B">Zone B</option>
+          <option value="APP Zone C">Zone C</option>
+          <option value="APP Zone D">Zone D</option>
+        </select>
+
         <button
-          class="w-48 bg-blue-500 rounded text-white p-2 pl-4 pr-4"
+          class="bg-blue-500 flex-shrink-0 rounded-md text-white px-4 py-3 md:px-3 md:py-2  shadow-md"
           :class="{
             'opacity-50': WaitingForSearchResults,
             'hover:bg-blue-400': !WaitingForSearchResults
@@ -37,56 +35,42 @@
       </div>
     </form>
 
-    <!--<form @submit.prevent="LookupPlate">
-      <input
-        type="text"
-        class="rounded-md px-4 py-3 mt-3 focus:outline-none bg-gray-200 ring-2"
-        v-model="plateLookupString"
-        style="margin-right: 5px"
-      />
-      <input
-        type="submit"
-        class="text-sm py-3 rounded-md font-semibold text-white bg-blue-500 ring-2"
-        value="Lookup &gt;&gt;"
-        :disabled="
-          plateLookupString == '' ||
-            PlateLookupResponse.plateSearchedFor == plateLookup + '/'
-        "
-      /><br /><br />
-    </form>-->
-
     <ResultsPanel
       :plateSearchedFor="PlateLookupResponse.plateSearchedFor"
+      :zoneSearchedFor="PlateLookupResponse.zoneSearchedFor"
       :permitFound="PlateLookupResponse.permitFound"
       :hasSearchResults="PlateLookupResponse.hasSearchResults"
     />
 
-    <div
-      class="bg-white shadow-md overflow-hidden mx-auto m-5 bg-grey-300"
-      v-if="IsLoading"
-    >
-      <div class="py-4 px-8 mt-3">
-        <div class="flex flex-col mb-8">
-          <h2 class="text-gray-900 font-semibold text-2xl tracking-wide mb-2">
-            Searching for '{{ plateLookupString }}'
-          </h2>
-          <p class="text-gray-900 text-base flex justify-center">
-            <svg
-              class="animate-spin h-10 w-10 inline text-grey-800"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
-          </p>
-        </div>
+    <div v-if="IsLoading">
+      <div
+        class="p-5 items-center space-y-4 rounded-md justify-center shadow-md bg-gray-200"
+      >
+        <svg
+          class="animate-spin h-12 w-12 mx-auto text-grey-800"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
+        </svg>
+
+        <span class="font-semibold block text-2xl text-center">
+          <!-- Permit Found for '{{ plateSearchedFor }}'! -->
+          Searching for '{{ plateLookupString }}'
+        </span>
+
+        <span class="block text-center">
+          Searching for '{{ plateLookupString }}' in zone '{{
+            zoneLookupString
+          }}'
+        </span>
       </div>
     </div>
   </div>
@@ -94,7 +78,7 @@
 
 <script>
 import ResultsPanel from './resultspanel/Resultspanel.vue';
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive } from 'vue';
 import axios from 'axios';
 
 export default {
@@ -103,25 +87,31 @@ export default {
   setup() {
     const WaitingForSearchResults = ref(false);
     const plateLookupString = ref('');
+    const zoneLookupString = ref('');
     const IsLoading = ref(false);
 
-    const plateLookup = computed(() => {
-      return plateLookupString.value;
-    });
+    zoneLookupString.value = 'Zone D';
+    plateLookupString.value = 'TEST';
 
     const PlateLookupResponse = reactive({
       hasSearchResults: false,
       permitFound: false,
-      plateSearchedFor: ''
+      plateSearchedFor: '',
+      zoneSearchedFor: ''
     });
 
     function LookupPlate() {
       if (plateLookupString.value != '') {
+        //console.log('zone lookup:', zoneLookupString.value);
+
         IsLoading.value = true;
+        PlateLookupResponse.plateSearchedFor = plateLookupString.value;
+        PlateLookupResponse.zoneSearchedFor = zoneLookupString.value;
         PlateLookupResponse.hasSearchResults = false;
         PlateLookupResponse.permitFound = false;
         WaitingForSearchResults.value = true;
-        const plateLookupData = `{ "query": "{ areapermit(id:\\"${plateLookupString.value}\\") { Code, HasPermit } } " }`;
+        const plateLookupData = `{ "query": "{ areapermit(id:\\"${plateLookupString.value}\\", zone:\\"${zoneLookupString.value}\\") { Code, Zone, HasPermit } } " }`;
+
         setTimeout(() => {
           axios
             .post('http://localhost:4000/graphql', plateLookupData, {
@@ -130,11 +120,10 @@ export default {
               }
             })
             .then(function(response) {
-              //console.log('response', response.data.data.areapermit)
+              //console.log('Zone returned:', response.data.data.areapermit.Zone);
 
               PlateLookupResponse.hasSearchResults = true;
-              PlateLookupResponse.plateSearchedFor =
-                response.data.data.areapermit.Code;
+              //PlateLookupResponse.plateSearchedFor = response.data.data.areapermit.Code;
               plateLookupString.value = response.data.data.areapermit.Code;
               PlateLookupResponse.permitFound = response.data.data.areapermit
                 .HasPermit
@@ -149,7 +138,7 @@ export default {
               IsLoading.value = false;
               WaitingForSearchResults.value = false;
             });
-        }, 1000);
+        }, 250);
       } else {
         PlateLookupResponse.hasSearchResults = false;
         PlateLookupResponse.permitFound = false;
@@ -162,8 +151,9 @@ export default {
       IsLoading,
       LookupPlate,
       plateLookupString,
-      PlateLookupResponse,
-      plateLookup
+      zoneLookupString,
+      PlateLookupResponse
+      //,plateLookup
     };
   }
 };
