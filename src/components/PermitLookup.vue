@@ -1,13 +1,16 @@
 <template>
+  <div class="locale-changer"></div>
+
   <div class="max-w-xl mx-auto content-center flex flex-col space-y-4">
     <form @submit.prevent="LookupPlate">
       <div
         class="flex flex-col md:flex-row md:space-x-4 md:space-y-0 space-y-4"
       >
         <input
-          class="rounded-md w-full p-2 border placeholder-gray-500 border-gray-500 shadow-md bg-gray-100"
+          class="rounded-md w-full p-2 border placeholder-gray-500
+        border-gray-500 shadow-md bg-gray-100"
           type="text"
-          placeholder="Enter license plate"
+          :placeholder="t('enterplateplaceholder')"
           v-model="plateLookupString"
         />
 
@@ -15,7 +18,7 @@
           v-model="zoneLookupString"
           class="rounded-md w-full p-2 border border-gray-500 shadow-md bg-gray-100"
         >
-          <option value="">Select Zone</option>
+          <option value="">{{ t('seletzoneinitialtext') }}</option>
           <option value="APP Zone A">Zone A</option>
           <option value="APP Zone B">Zone B</option>
           <option value="APP Zone C">Zone C</option>
@@ -30,7 +33,7 @@
           }"
           :disabled="WaitingForSearchResults"
         >
-          <p class="font-semibold text-sm">Search &gt;&gt;</p>
+          <p class="font-semibold text-sm">{{ t('search') }} &gt;&gt;</p>
         </button>
       </div>
     </form>
@@ -80,18 +83,17 @@
 import ResultsPanel from './resultspanel/Resultspanel.vue';
 import { ref, reactive } from 'vue';
 import axios from 'axios';
+import { useI18n } from 'vue-i18n';
 
 export default {
   name: 'PermitLookup',
 
   setup() {
+    const { t, locale } = useI18n();
     const WaitingForSearchResults = ref(false);
     const plateLookupString = ref('');
     const zoneLookupString = ref('');
     const IsLoading = ref(false);
-
-    zoneLookupString.value = 'Zone D';
-    plateLookupString.value = 'TEST';
 
     const PlateLookupResponse = reactive({
       hasSearchResults: false,
@@ -146,6 +148,8 @@ export default {
     }
 
     return {
+      t,
+      locale,
       ResultsPanel,
       WaitingForSearchResults,
       IsLoading,
@@ -161,3 +165,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped></style>
+
+<i18n>
+{
+  "en": {
+    "search" : "Search",
+    "enterplateplaceholder" : "Enter License Plate",
+    "seletzoneinitialtext" : "Select Zone",
+  },
+  "no": {
+    "search" : "Søk",
+    "enterplateplaceholder": "Skriv inn lisensplaten",
+    "seletzoneinitialtext" : "Velg sone",
+  }
+}
+</i18n>

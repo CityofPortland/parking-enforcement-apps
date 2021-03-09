@@ -21,6 +21,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import StatusIcon from '../statusicon/StatusIcon.vue';
+import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
   name: 'ResultsPanel',
@@ -45,26 +46,61 @@ export default defineComponent({
   },
 
   setup(props) {
+    const { t } = useI18n();
+
     const TopBannerMessage = computed(() => {
       if (props.permitFound) {
-        return `Permit Found for '${props.plateSearchedFor}'!`;
+        return t('permitFoundHeader', {
+          plateSearchedFor: props.plateSearchedFor
+        });
       } else {
-        return `No permit found for '${props.plateSearchedFor}' in '${props.zoneSearchedFor}'.`;
+        return t('permitNotFoundHeader', {
+          plateSearchedFor: props.plateSearchedFor
+        });
       }
     });
 
     const BottomBannerMessage = computed(() => {
       if (props.permitFound) {
-        return `Vehicle with license '${props.plateSearchedFor}' has an area parking permit in '${props.zoneSearchedFor}'.`;
+        return t('permitFoundBody', {
+          plateSearchedFor: props.plateSearchedFor,
+          zoneSearchedFor: props.zoneSearchedFor
+        });
+        //return `Vehicle with license '${props.plateSearchedFor}' has an area parking permit in '${props.zoneSearchedFor}'.`;
       } else {
-        return `Vehicle with license '${props.plateSearchedFor}' does not have an area parking permit in '${props.zoneSearchedFor}'.`;
+        return t('permitNotFoundBody', {
+          plateSearchedFor: props.plateSearchedFor,
+          zoneSearchedFor: props.zoneSearchedFor
+        });
       }
     });
 
     return {
+      t,
       TopBannerMessage,
       BottomBannerMessage
     };
   }
 });
 </script>
+
+<i18n>
+{
+  "en": {
+    "hello": "hello!",
+    "vehicle" : "vehicle",
+    "permitFoundHeader": "Permit Found for '{plateSearchedFor}'!",
+    "permitNotFoundHeader": "No permit found for '{plateSearchedFor}'.",
+    "permitFoundBody": "Vehicle with license '{plateSearchedFor}' has an area parking permit in '{zoneSearchedFor}'.",
+    "permitNotFoundBody": "Vehicle with license '{plateSearchedFor}' does not have an area parking permit in '{zoneSearchedFor}'."
+  },
+  "no": {
+    "hello": "hei på deg",
+    "vehicle": "kjøretøy",
+    "permitFoundHeader": "Tillatelse funnet for '{plateSearchedFor}'!",
+    "permitNotFoundHeader": "Tillatelse ikke funnet for '{plateSearchedFor}'.",
+    "permitFoundBody": "Kjøretøy med lisens '{plateSearchedFor}' har områdeparkeringstillatelse i '{zoneSearchedFor}'.",
+    "permitNotFoundBody": "Kjøretøy med lisens  '{plateSearchedFor}' har ikke områdeparkeringstillatelse i '{zoneSearchedFor}'."    
+  }
+}
+</i18n>
