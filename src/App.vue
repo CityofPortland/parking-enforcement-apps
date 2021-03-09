@@ -3,18 +3,14 @@
     <template v-slot:branding>
       <Logo class="w-16 mr-3 hidden md:inline-flex" />
       <h1 class="truncate">Parking Enforcement - Area Permit Lookup</h1>
-
-      <div class="object-right">
-        <select
+      <select
           v-model="locale"
           class="h-10 pl-3 pr-6 text-base placeholder-gray-600 border
-          rounded-md"
-          placeholder="Regular input"
+          rounded-md float-right"
         >
           <option value="en">English</option>
           <option value="no">Norwegian</option>
         </select>
-      </div>
     </template>
   </Header>
 
