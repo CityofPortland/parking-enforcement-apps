@@ -39,13 +39,13 @@ module.exports = {
       .loader('@intlify/vue-i18n-loader')
       .end(); // cory added
   },*/
-
+/*
   pluginOptions: {
     i18n: {
-      locale: 'no',
-      fallbackLocale: 'en',
+      locale: 'en',
+      fallbackLocale: 'no',
       localeDir: 'assets/locales',
       enableInSFC: true
     }
-  }
+  }*/
 };
