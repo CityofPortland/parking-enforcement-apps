@@ -1,41 +1,37 @@
 <template>
-  <div class="locale-changer"></div>
+  <div class="flex flex-col space-y-4">
+    <form
+      class="flex flex-col md:flex-row md:space-x-4 md:space-y-0 space-y-4"
+      @submit.prevent="LookupPlate"
+    >
+      <input
+        class="rounded-md p-2 border placeholder-gray-500 border-gray-500 shadow-md bg-gray-100"
+        type="text"
+        :placeholder="t('enterplateplaceholder')"
+        v-model="plateLookupString"
+      />
 
-  <div class="max-w-xl mx-auto content-center flex flex-col space-y-4">
-    <form @submit.prevent="LookupPlate">
-      <div
-        class="flex flex-col md:flex-row md:space-x-4 md:space-y-0 space-y-4"
+      <select
+        v-model="zoneLookupString"
+        class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100"
       >
-        <input
-          class="rounded-md w-full p-2 border placeholder-gray-500
-        border-gray-500 shadow-md bg-gray-100"
-          type="text"
-          :placeholder="t('enterplateplaceholder')"
-          v-model="plateLookupString"
-        />
+        <option value="">{{ t('select-zone') }}</option>
+        <option value="APP Zone A">Zone A</option>
+        <option value="APP Zone B">Zone B</option>
+        <option value="APP Zone C">Zone C</option>
+        <option value="APP Zone D">Zone D</option>
+      </select>
 
-        <select
-          v-model="zoneLookupString"
-          class="rounded-md w-full p-2 border border-gray-500 shadow-md bg-gray-100"
-        >
-          <option value="">{{ t('seletzoneinitialtext') }}</option>
-          <option value="APP Zone A">Zone A</option>
-          <option value="APP Zone B">Zone B</option>
-          <option value="APP Zone C">Zone C</option>
-          <option value="APP Zone D">Zone D</option>
-        </select>
-
-        <button
-          class="bg-blue-500 flex-shrink-0 rounded-md text-white px-4 py-3 md:px-3 md:py-2  shadow-md"
-          :class="{
-            'opacity-50': WaitingForSearchResults,
-            'hover:bg-blue-400': !WaitingForSearchResults
-          }"
-          :disabled="WaitingForSearchResults"
-        >
-          <p class="font-semibold text-sm">{{ t('search') }} &gt;&gt;</p>
-        </button>
-      </div>
+      <Button
+        type="submit"
+        :label="t('search')"
+        color="blue"
+        :class="{
+          'opacity-50': WaitingForSearchResults,
+          'hover:bg-blue-400': !WaitingForSearchResults
+        }"
+        :disabled="WaitingForSearchResults"
+      />
     </form>
 
     <ResultsPanel
@@ -80,14 +76,19 @@
 </template>
 
 <script>
-import ResultsPanel from './resultspanel/Resultspanel.vue';
 import { ref, reactive } from 'vue';
-import axios from 'axios';
 import { useI18n } from 'vue-i18n';
+
+import axios from 'axios';
+
+import Button from '@/elements/button/Button.vue';
+import ResultsPanel from './resultspanel/Resultspanel.vue';
 
 export default {
   name: 'PermitLookup',
-
+  components: {
+    Button
+  },
   setup() {
     const { t, locale } = useI18n();
     const WaitingForSearchResults = ref(false);
@@ -171,12 +172,12 @@ export default {
   "en": {
     "search" : "Search",
     "enterplateplaceholder" : "Enter License Plate",
-    "seletzoneinitialtext" : "Select Zone",
+    "select-zone" : "Select Zone",
   },
   "no": {
     "search" : "Søk",
     "enterplateplaceholder": "Skriv inn lisensplaten",
-    "seletzoneinitialtext" : "Velg sone",
+    "select-zone" : "Velg sone",
   }
 }
 </i18n>
