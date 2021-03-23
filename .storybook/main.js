@@ -32,6 +32,16 @@ module.exports = {
       include: path.resolve(__dirname, '../'),
     });
 
+    config.module.rules.push({
+      resourceQuery: /blockType=i18n/,
+      type: 'javascript/auto',
+      use: [
+        {
+          loader: '@intlify/vue-i18n-loader'
+        }
+      ]
+    })
+
     return config;
   }
 };
