@@ -1,4 +1,4 @@
-export type HeaderColor = 'white' | 'cyan' | 'gray' | 'orange';
+export type HeaderColor = 'white' | 'cyan' | 'gray' | 'orange' | 'blue';
 
 export interface HeaderProps {
   open: boolean;
