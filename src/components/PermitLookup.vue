@@ -9,17 +9,18 @@
         type="text"
         :placeholder="t('enterplateplaceholder')"
         v-model="plateLookupString"
+        required
       />
 
       <select
         v-model="zoneLookupString"
         class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100"
+        required
       >
         <option value="">{{ t('select-zone') }}</option>
-        <option value="APP Zone A">Zone A</option>
-        <option value="APP Zone B">Zone B</option>
-        <option value="APP Zone C">Zone C</option>
-        <option value="APP Zone D">Zone D</option>
+        <option v-for="item in areaZones" :key="item" :value="item.Value">{{
+          item.Text
+        }}</option>
       </select>
 
       <Button
@@ -75,7 +76,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -95,6 +96,7 @@ export default {
     const plateLookupString = ref('');
     const zoneLookupString = ref('');
     const IsLoading = ref(false);
+    const areaZones = ref([]);
 
     const PlateLookupResponse = reactive({
       hasSearchResults: false,
@@ -102,6 +104,23 @@ export default {
       plateSearchedFor: '',
       zoneSearchedFor: ''
     });
+
+    function GetAreaZones() {
+      const areaPermitZoneQuery = `{ "query": "{ areapermitzone { Text Value } }" }`;
+
+      axios
+        .post('http://localhost:4000/graphql', areaPermitZoneQuery, {
+          headers: {
+            'content-type': 'application/json'
+          }
+        })
+        .then(function(response) {
+          areaZones.value = response.data.data.areapermitzone;
+          console.log(response.data.data.areapermitzone);
+        });
+    }
+
+    GetAreaZones();
 
     function LookupPlate() {
       if (plateLookupString.value != '') {
@@ -157,7 +176,8 @@ export default {
       LookupPlate,
       plateLookupString,
       zoneLookupString,
-      PlateLookupResponse
+      PlateLookupResponse,
+      areaZones
       //,plateLookup
     };
   }
