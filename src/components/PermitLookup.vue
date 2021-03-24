@@ -116,7 +116,7 @@ export default {
         })
         .then(function(response) {
           areaZones.value = response.data.data.areapermitzone;
-          console.log(response.data.data.areapermitzone);
+          //console.log(response.data.data.areapermitzone);
         });
     }
 
