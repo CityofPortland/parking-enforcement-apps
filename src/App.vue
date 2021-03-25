@@ -25,7 +25,9 @@
     </template>
   </Header>
   <main class="max-w-7xl mx-auto px-4 mt-8" :lang="locale">
-    <h1 class="text-2xl font-bold mb-8">Area Parking Permit Lookup</h1>
+    <h1 class="text-2xl font-bold mb-8">
+      {{ t('app-header') }}
+    </h1>
     <section class="max-w-xl">
       <p>
         Use the form below to enter a vehicle's license plate number, and select
@@ -67,3 +69,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss"></style>
+<i18n>
+{
+  "en": {
+    "app-header" : "Area Parking Permit Lookup"
+  },
+  "no": {
+    "app-header" : "Område parkering tillatelse oppslag"
+  }
+}
+</i18n>
