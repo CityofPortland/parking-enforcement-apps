@@ -7,7 +7,7 @@
       <input
         class="rounded-md p-2 border placeholder-gray-500 border-gray-500 shadow-md bg-gray-100"
         type="text"
-        :placeholder="t('enterplateplaceholder')"
+        :placeholder="t('enterPlatePlaceholder')"
         v-model="plateLookupString"
         required
       />
@@ -17,7 +17,7 @@
         class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100"
         required
       >
-        <option value="">{{ t('select-zone') }}</option>
+        <option value="">{{ t('selectZone') }}</option>
         <option v-for="item in areaZones" :key="item" :value="item.Value">{{
           item.Text
         }}</option>
@@ -191,13 +191,13 @@ export default {
 {
   "en": {
     "search" : "Search",
-    "enterplateplaceholder" : "Enter License Plate",
-    "select-zone" : "Select Zone",
+    "enterPlatePlaceholder" : "Enter License Plate",
+    "selectZone" : "Select Zone",
   },
   "no": {
     "search" : "Søk",
-    "enterplateplaceholder": "Skriv inn lisensplaten",
-    "select-zone" : "Velg sone",
+    "enterPlatePlaceholder": "Skriv inn lisensplaten",
+    "selectZone" : "Velg sone",
   }
 }
 </i18n>

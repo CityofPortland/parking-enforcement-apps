@@ -26,17 +26,15 @@
   </Header>
   <main class="max-w-7xl mx-auto px-4 mt-8" :lang="locale">
     <h1 class="text-2xl font-bold mb-8">
-      {{ t('app-header') }}
+      {{ t('appHeader') }}
     </h1>
     <section class="max-w-xl">
       <p>
-        Use the form below to enter a vehicle's license plate number, and select
-        a parking permit zone, then query whether the vehicle has an active
-        parking permit for the selected zone. For more information
+        {{ t('appBodyText') }}
         <a
           href="https://www.portland.gov/transportation/parking/appp-info"
           class="border-b-2 border-current font-semibold"
-          >see here</a
+          >{{ t('appBodyTextLink') }}</a
         >.
       </p>
       <PermitLookup class="mt-8" />
@@ -72,10 +70,14 @@ export default defineComponent({
 <i18n>
 {
   "en": {
-    "app-header" : "Area Parking Permit Lookup"
+    "appHeader" : "Area Parking Permit Lookup",
+    "appBodyText" : "Use the form below to enter a vehicle's license plate number, and select a parking permit zone, then query whether the vehicle has an active parking permit for the selected zone. For more information",
+    "appBodyTextLink" : "see here"
   },
   "no": {
-    "app-header" : "Område parkering tillatelse oppslag"
+    "appHeader" : "Område parkering tillatelse oppslag",
+    "appBodyText" : "Bruk skjemaet nedenfor for å skrive inn bilens lisensnummer, og velg en parkeringsstillatelsone, og spør deretter om kjøretøyet har en aktiv parkeringstillatelse for den valgte sonen. For mer informasjon",
+    "appBodyTextLink" : "se her"
   }
 }
 </i18n>

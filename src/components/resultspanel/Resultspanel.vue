@@ -87,7 +87,6 @@ export default defineComponent({
 <i18n>
 {
   "en": {
-    "hello": "hello!",
     "vehicle" : "vehicle",
     "permitFoundHeader": "Permit Found for '{plateSearchedFor}'!",
     "permitNotFoundHeader": "No permit found for '{plateSearchedFor}'.",
@@ -95,7 +94,6 @@ export default defineComponent({
     "permitNotFoundBody": "Vehicle with license '{plateSearchedFor}' does not have an area parking permit in '{zoneSearchedFor}'."
   },
   "no": {
-    "hello": "hei på deg",
     "vehicle": "kjøretøy",
     "permitFoundHeader": "Tillatelse funnet for '{plateSearchedFor}'!",
     "permitNotFoundHeader": "Tillatelse ikke funnet for '{plateSearchedFor}'.",
