@@ -29,9 +29,14 @@ export default defineComponent({
       default: 'medium'
     }
   },
-  emits: ['onClick'],
+  emits: ['click'],
   setup(props: ButtonProps, context) {
-    const baseClasses = ['rounded-md', 'shadow'];
+    const baseClasses = [
+      'rounded-md',
+      'shadow',
+      'focus:outline-none',
+      'focus:ring'
+    ];
 
     const sizeClasses = computed(() => {
       const sizeMap = new Map<ButtonSize, string[]>([
@@ -55,7 +60,7 @@ export default defineComponent({
     });
 
     const onClick = () => {
-      context.emit('onClick');
+      context.emit('click');
     };
 
     return {

@@ -23,7 +23,7 @@ const Template: Story<ButtonProps> = (args, { argTypes }) => ({
     return { ...args };
   },
   template:
-    '<Button @onClick="onClick" :color="color" :size="size" :label="label" />'
+    '<Button @click="onClick" :color="color" :size="size" :label="label" />'
 });
 
 export const Medium = Template.bind({});
