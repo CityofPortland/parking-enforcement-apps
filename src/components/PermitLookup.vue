@@ -9,7 +9,7 @@
         name="licensePlate"
         class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100 placeholder-gray-500 focus:outline-none focus:ring"
         type="text"
-        :placeholder="t('enterplateplaceholder')"
+        :placeholder="t('enterPlatePlaceholder')"
         v-model="licensePlate"
         required
       />
@@ -21,7 +21,7 @@
         class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100 focus:outline-none focus:ring"
         required
       >
-        <option value="" disabled>{{ t('select-zone') }}</option>
+        <option value="" disabled>{{ t('selectZone') }}</option>
         <option v-for="zone in zones" :key="zone.value" :value="zone.value">{{
           zone.text
         }}</option>
@@ -123,13 +123,13 @@ export default {
 {
   "en": {
     "search" : "Search",
-    "enterplateplaceholder" : "Enter License Plate",
-    "select-zone" : "Select Zone",
+    "enterPlatePlaceholder" : "Enter License Plate",
+    "selectZone" : "Select Zone",
   },
   "no": {
     "search" : "Søk",
-    "enterplateplaceholder": "Skriv inn lisensplaten",
-    "select-zone" : "Velg sone",
+    "enterPlatePlaceholder": "Skriv inn lisensplaten",
+    "selectZone" : "Velg sone",
   }
 }
 </i18n>
