@@ -2,24 +2,29 @@
   <div class="flex flex-col space-y-4">
     <form
       class="flex flex-col md:flex-row md:space-x-4 md:space-y-0 space-y-4"
-      @submit.prevent="LookupPlate"
+      @submit.prevent="handleSubmit"
     >
       <input
-        class="rounded-md p-2 border placeholder-gray-500 border-gray-500 shadow-md bg-gray-100"
+        id="licensePlateInput"
+        name="licensePlate"
+        class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100 placeholder-gray-500 focus:outline-none focus:ring"
         type="text"
         :placeholder="t('enterplateplaceholder')"
-        v-model="plateLookupString"
+        v-model="licensePlate"
+        required
       />
 
       <select
-        v-model="zoneLookupString"
-        class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100"
+        id="zoneInput"
+        name="zone"
+        v-model="zone"
+        class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100 focus:outline-none focus:ring"
+        required
       >
-        <option value="">{{ t('select-zone') }}</option>
-        <option value="APP Zone A">Zone A</option>
-        <option value="APP Zone B">Zone B</option>
-        <option value="APP Zone C">Zone C</option>
-        <option value="APP Zone D">Zone D</option>
+        <option value="" disabled>{{ t('select-zone') }}</option>
+        <option v-for="zone in zones" :key="zone.value" :value="zone.value">{{
+          zone.text
+        }}</option>
       </select>
 
       <Button
@@ -27,138 +32,85 @@
         :label="t('search')"
         color="blue"
         :class="{
-          'opacity-50': WaitingForSearchResults,
-          'hover:bg-blue-400': !WaitingForSearchResults
+          'opacity-50': isLoading
         }"
-        :disabled="WaitingForSearchResults"
-      />
+        :disabled="isLoading"
+      >
+        <div
+          v-if="isLoading"
+          class="flex items-center justify-center space-x-3"
+        >
+          <span>Loading</span>
+          <svg
+            class="animate-spin h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+        </div>
+        <span v-else>{{ t('search') }}</span>
+      </Button>
     </form>
 
-    <ResultsPanel
-      :plateSearchedFor="PlateLookupResponse.plateSearchedFor"
-      :zoneSearchedFor="PlateLookupResponse.zoneSearchedFor"
-      :permitFound="PlateLookupResponse.permitFound"
-      :hasSearchResults="PlateLookupResponse.hasSearchResults"
-    />
-
-    <div v-if="IsLoading">
-      <div
-        class="p-5 items-center space-y-4 rounded-md justify-center shadow-md bg-gray-200"
-      >
-        <svg
-          class="animate-spin h-12 w-12 mx-auto text-grey-800"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-          />
-        </svg>
-
-        <span class="font-semibold block text-2xl text-center">
-          <!-- Permit Found for '{{ plateSearchedFor }}'! -->
-          Searching for '{{ plateLookupString }}'
-        </span>
-
-        <span class="block text-center">
-          Searching for '{{ plateLookupString }}' in zone '{{
-            zoneLookupString
-          }}'
-        </span>
-      </div>
-    </div>
+    <Result v-if="permit" :permit="permit" />
   </div>
 </template>
 
 <script>
-import { ref, reactive } from 'vue';
+import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-
-import axios from 'axios';
+import { useStore } from 'vuex';
 
 import Button from '@/elements/button/Button.vue';
-import ResultsPanel from './resultspanel/Resultspanel.vue';
+import Result from '@/components/permit/PermitLookupResult.vue';
 
 export default {
   name: 'PermitLookup',
   components: {
-    Button
+    Button,
+    Result
   },
   setup() {
     const { t, locale } = useI18n();
-    const WaitingForSearchResults = ref(false);
-    const plateLookupString = ref('');
-    const zoneLookupString = ref('');
-    const IsLoading = ref(false);
+    const licensePlate = ref('');
+    const zone = ref('');
 
-    const PlateLookupResponse = reactive({
-      hasSearchResults: false,
-      permitFound: false,
-      plateSearchedFor: '',
-      zoneSearchedFor: ''
-    });
+    const store = useStore();
 
-    function LookupPlate() {
-      if (plateLookupString.value != '') {
-        //console.log('zone lookup:', zoneLookupString.value);
+    store.dispatch('retrieveZones');
 
-        IsLoading.value = true;
-        PlateLookupResponse.plateSearchedFor = plateLookupString.value;
-        PlateLookupResponse.zoneSearchedFor = zoneLookupString.value;
-        PlateLookupResponse.hasSearchResults = false;
-        PlateLookupResponse.permitFound = false;
-        WaitingForSearchResults.value = true;
-        const plateLookupData = `{ "query": "{ areapermit(id:\\"${plateLookupString.value}\\", zone:\\"${zoneLookupString.value}\\") { Code, Zone, HasPermit } } " }`;
-
-        setTimeout(() => {
-          axios
-            .post('http://localhost:4000/graphql', plateLookupData, {
-              headers: {
-                'content-type': 'application/json'
-              }
-            })
-            .then(function(response) {
-              //console.log('Zone returned:', response.data.data.areapermit.Zone);
-
-              PlateLookupResponse.hasSearchResults = true;
-              //PlateLookupResponse.plateSearchedFor = response.data.data.areapermit.Code;
-              plateLookupString.value = response.data.data.areapermit.Code;
-              PlateLookupResponse.permitFound = response.data.data.areapermit
-                .HasPermit
-                ? true
-                : false;
-            })
-            .catch(function(err) {
-              console.log('Error', err);
-              WaitingForSearchResults.value = false;
-            })
-            .finally(function() {
-              IsLoading.value = false;
-              WaitingForSearchResults.value = false;
-            });
-        }, 250);
-      } else {
-        PlateLookupResponse.hasSearchResults = false;
-        PlateLookupResponse.permitFound = false;
+    function handleSubmit() {
+      if (licensePlate.value && zone.value) {
+        store.dispatch('searchLicense', {
+          licensePlate: licensePlate.value,
+          zone: zone.value
+        });
       }
     }
 
     return {
       t,
       locale,
-      ResultsPanel,
-      WaitingForSearchResults,
-      IsLoading,
-      LookupPlate,
-      plateLookupString,
-      zoneLookupString,
-      PlateLookupResponse
-      //,plateLookup
+      licensePlate,
+      zone,
+      handleSubmit,
+      isLoading: computed(() => store.state.loading),
+      permit: computed(() => store.state.permit),
+      zones: computed(() => store.state.zones)
     };
   }
 };
