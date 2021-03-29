@@ -1,10 +1,23 @@
 <template>
-  <div class="flex flex-col space-y-4">
+  <h1 class="text-2xl font-bold mb-8">
+    {{ t('appHeader') }}
+  </h1>
+  <section class="max-w-xl flex flex-col space-y-4">
+    <i18n-t keypath="help" tag="p" for="seeHere" class="">
+      <template v-slot:seeHere>
+        <a
+          href="https://www.portland.gov/transportation/parking/appp-info"
+          class="border-b-2 border-current font-semibold"
+          target="_blank"
+          >{{ t('seeHere') }}</a
+        >
+      </template>
+    </i18n-t>
     <form
       class="flex flex-col md:flex-row md:space-x-4 md:space-y-0 space-y-4"
       @submit.prevent="handleSubmit"
     >
-      <input
+      <Input
         id="licensePlateInput"
         name="licensePlate"
         class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100 placeholder-gray-500 focus:outline-none focus:ring"
@@ -14,18 +27,18 @@
         required
       />
 
-      <select
+      <Select
         id="zoneInput"
         name="zone"
         v-model="zone"
         class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100 focus:outline-none focus:ring"
         required
+        :placeholder="t('selectZone')"
       >
-        <option value="" disabled>{{ t('selectZone') }}</option>
         <option v-for="zone in zones" :key="zone.value" :value="zone.value">{{
           zone.text
         }}</option>
-      </select>
+      </Select>
 
       <Button
         type="submit"
@@ -67,7 +80,7 @@
     </form>
 
     <Result v-if="permit" :permit="permit" />
-  </div>
+  </section>
 </template>
 
 <script>
@@ -76,13 +89,17 @@ import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
 
 import Button from '@/elements/button/Button.vue';
+import Input from '@/elements/inputs/Input.vue';
 import Result from '@/components/permit/PermitLookupResult.vue';
+import Select from '@/elements/inputs/Select.vue';
 
 export default {
   name: 'PermitLookup',
   components: {
     Button,
-    Result
+    Input,
+    Result,
+    Select
   },
   setup() {
     const { t, locale } = useI18n();
@@ -122,11 +139,17 @@ export default {
     "search" : "Search",
     "enterPlatePlaceholder" : "Enter License Plate",
     "selectZone" : "Select Zone",
+    "appHeader" : "Area Parking Permit Lookup",
+    "help": "Use the form below to enter a vehicle's license plate number, and select a parking permit zone, then query whether the vehicle has an active parking permit for the selected zone. For more information {seeHere}.",
+    "seeHere": "see here"
   },
   "no": {
     "search" : "Søk",
     "enterPlatePlaceholder": "Skriv inn lisensplaten",
     "selectZone" : "Velg sone",
+    "appHeader" : "Område parkering tillatelse oppslag",
+    "help" : "Bruk skjemaet nedenfor for å skrive inn bilens lisensnummer, og velg en parkeringsstillatelsone, og spør deretter om kjøretøyet har en aktiv parkeringstillatelse for den valgte sonen. For mer informasjon {seeHere}.",
+    "seeHere" : "se her"
   }
 }
 </i18n>
