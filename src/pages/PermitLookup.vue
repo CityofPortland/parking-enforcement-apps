@@ -20,18 +20,17 @@
       <Input
         id="licensePlateInput"
         name="licensePlate"
-        class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100 placeholder-gray-500 focus:outline-none focus:ring"
         type="text"
         :placeholder="t('enterPlatePlaceholder')"
         v-model="licensePlate"
         required
+        pattern="[A-Za-z0-9]+"
       />
 
       <Select
         id="zoneInput"
         name="zone"
         v-model="zone"
-        class="rounded-md p-2 border border-gray-500 shadow-md bg-gray-100 focus:outline-none focus:ring"
         required
         :placeholder="t('selectZone')"
       >
