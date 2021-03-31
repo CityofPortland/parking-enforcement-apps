@@ -16,7 +16,7 @@
         </div>
         <div v-if="hasMenu" class="-mr-2 flex md:hidden flex-grow">
           <button
-            class="inline-flex items-center justify-center p-2 ml-auto rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+            class="inline-flex items-center justify-center p-2 ml-auto rounded-md hover:opacity-50"
             :class="buttonClasses"
             @click="handleToggle"
           >
@@ -92,14 +92,15 @@ export default defineComponent({
     }
   },
   setup(props: HeaderProps, { slots, emit }) {
-    const hasMenu = !!slots.menu;
+    const hasMenu = slots.menu !== undefined;
 
     const headerClasses = computed(() => {
       const classMap = new Map([
-        ['white', []],
+        ['white', ['bg-transparent']],
         ['cyan', ['bg-cyan-500', 'text-cyan-900']],
         ['gray', ['bg-gray-500', 'text-gray-100']],
-        ['orange', ['bg-orange-500', 'text-orange-900']]
+        ['orange', ['bg-orange-500', 'text-orange-900']],
+        ['blue', ['bg-blue-500', 'text-blue-100']]
       ]);
 
       return classMap.get(props.color);
@@ -108,9 +109,38 @@ export default defineComponent({
     const buttonClasses = computed(() => {
       const classMap = new Map([
         ['white', []],
-        ['cyan', ['hover:bg-cyan-400', 'focus:ring-offset-cyan-500']],
-        ['gray', ['hover:bg-gray-400', 'focus:ring-offset-gray-500']],
-        ['orange', ['hover:bg-orange-400', 'focus:ring-offset-orange-500']]
+        [
+          'cyan',
+          [
+            'hover:bg-cyan-300',
+            'focus:bg-cyan-300',
+            'focus:ring-offset-cyan-500'
+          ]
+        ],
+        [
+          'gray',
+          [
+            'hover:bg-gray-400',
+            'focus:bg-gray-400',
+            'focus:ring-offset-gray-500'
+          ]
+        ],
+        [
+          'orange',
+          [
+            'hover:bg-orange-400',
+            'focus:bg-orange-400',
+            'focus:ring-offset-orange-500'
+          ]
+        ],
+        [
+          'blue',
+          [
+            'hover:bg-blue-400',
+            'focus:bg-blue-400',
+            'focus:ring-offset-blue-500'
+          ]
+        ]
       ]);
 
       return classMap.get(props.color);

@@ -13,7 +13,10 @@ export default {
   argTypes: {
     appName: { control: { type: 'text', default: 'PBOT App' } },
     color: {
-      control: { type: 'select', options: ['white', 'gray', 'cyan', 'orange'] }
+      control: {
+        type: 'select',
+        options: ['white', 'gray', 'cyan', 'orange', 'blue']
+      }
     },
     onToggle: { action: 'toggled' }
   }
@@ -33,24 +36,33 @@ const Template: Story = (args, { argTypes }) => ({
   components: { Header, Logo, Button, Nav, NavItem },
   setup: () => {
     const menuHoverMap = new Map([
-      ['white', ['hover:bg-gray-100']],
-      ['gray', ['hover:bg-gray-700']],
-      ['cyan', ['hover:bg-cyan-300']],
-      ['orange', ['hover:bg-orange-300']]
+      ['white', ['hover:bg-gray-100', 'focus:bg-gray-100']],
+      ['gray', ['hover:bg-gray-700', 'focus:bg-gray-700']],
+      ['cyan', ['hover:bg-cyan-300', 'focus:bg-cyan-300']],
+      ['orange', ['hover:bg-orange-300', 'focus:bg-orange-300']],
+      [
+        'blue',
+        [
+          'hover:bg-blue-300',
+          'focus:bg-blue-300',
+          'hover:text-blue-900',
+          'focus:text-blue-900'
+        ]
+      ]
     ]);
 
-    return { menuHover: menuHoverMap.get(args.color), ...args };
+    return { navItemClasses: menuHoverMap.get(args.color), ...args };
   },
   template: `<Header :color="color" :open="open" @toggle="onToggle">
       <template v-slot:branding>
         <Logo class="w-16 mr-3 hidden md:inline-flex" />
-        <h1 class="truncate">{{ $props.appName }}</h1>
+        <h1 class="truncate">{{ appName }}</h1>
       </template>
       <template v-slot:menu>
-        <Nav class="flex flex-col md:flex-row">
-          <NavItem url="#" :class="menuHover">Home</NavItem>
-          <NavItem url="#" :class="menuHover">News</NavItem>
-          <NavItem url="#" :class="menuHover">Events</NavItem>
+        <Nav class="flex flex-col md:flex-row md:items-center">
+          <NavItem url="#" :class="navItemClasses">Home</NavItem>
+          <NavItem url="#" :class="navItemClasses">News</NavItem>
+          <NavItem url="#" :class="navItemClasses">Events</NavItem>
         </Nav>
         <div class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-2 md:space-y-0 px-4 py-2 md:p-0 md:ml-auto">
           <Button label="Log in" size="small" primary>Log in</Button>
