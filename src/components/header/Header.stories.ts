@@ -35,36 +35,20 @@ const Template: Story = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Header, Logo, Button, Nav, NavItem },
   setup: () => {
-    const menuHoverMap = new Map([
-      ['white', ['hover:bg-gray-100', 'focus:bg-gray-100']],
-      ['gray', ['hover:bg-gray-700', 'focus:bg-gray-700']],
-      ['cyan', ['hover:bg-cyan-300', 'focus:bg-cyan-300']],
-      ['orange', ['hover:bg-orange-300', 'focus:bg-orange-300']],
-      [
-        'blue',
-        [
-          'hover:bg-blue-300',
-          'focus:bg-blue-300',
-          'hover:text-blue-900',
-          'focus:text-blue-900'
-        ]
-      ]
-    ]);
-
-    return { navItemClasses: menuHoverMap.get(args.color), ...args };
+    return { ...args };
   },
   template: `<Header :color="color" :open="open" @toggle="onToggle">
       <template v-slot:branding>
-        <Logo class="w-16 mr-3 hidden md:inline-flex" />
-        <h1 class="truncate">{{ appName }}</h1>
+        <Logo class="w-20 mr-3 hidden md:inline-flex" />
+        <h1 class="truncate text-xl">{{ appName }}</h1>
       </template>
       <template v-slot:menu>
-        <Nav class="flex flex-col md:flex-row md:items-center">
-          <NavItem url="#" :class="navItemClasses">Home</NavItem>
-          <NavItem url="#" :class="navItemClasses">News</NavItem>
-          <NavItem url="#" :class="navItemClasses">Events</NavItem>
+        <Nav class="grid grid-cols-1 gap-3 md:flex md:flex-row md:gap-0 md:space-x-3 md:items-center">
+          <NavItem url="#" text="Home"></NavItem>
+          <NavItem url="#" text="News"></NavItem>
+          <NavItem url="#" text="Events"></NavItem>
         </Nav>
-        <div class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-2 md:space-y-0 px-4 py-2 md:p-0 md:ml-auto">
+        <div class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-2 md:space-y-0 py-2 md:p-0 md:ml-auto">
           <Button label="Log in" size="small" primary>Log in</Button>
         </div>
       </template>
