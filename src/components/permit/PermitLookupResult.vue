@@ -4,7 +4,10 @@
     variant="light"
     class="p-6 flex flex-col items-center justify-center space-y-4 border border-current rounded-md shadow-md"
   >
-    <Icon :type="permit.isValid ? 'check' : 'x-circle'" class="h-12 w-12" />
+    <Icon
+      :type="permit.isValid ? 'check-circle' : 'x-circle'"
+      class="h-12 w-12"
+    />
 
     <span class="font-semibold block text-2xl text-center">
       <!-- Permit Found for '{{ plateSearchedFor }}'! -->
