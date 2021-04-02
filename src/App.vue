@@ -1,43 +1,79 @@
 <template>
-  <Header
-    color="white"
-    :open="menuOpen"
-    @toggle="menuOpen = !menuOpen"
-    :lang="locale"
-  >
-    <template v-slot:branding>
-      <a href="/" class="w-full flex items-center">
-        <Logo class="w-16 md:w-20 mr-3 flex-shrink-0" />
-        <span class="truncate text-xl">Parking Enforcement</span>
-      </a>
-    </template>
+  <div class="min-h-screen flex flex-col">
+    <Header
+      color="white"
+      :open="menuOpen"
+      @toggle="menuOpen = !menuOpen"
+      :lang="locale"
+    >
+      <template v-slot:branding>
+        <a href="/" class="w-full flex items-center">
+          <Logo class="w-16 md:w-20 mr-3 flex-shrink-0" />
+          <span class="truncate text-xl">Parking Services</span>
+        </a>
+      </template>
 
-    <template v-slot:menu>
-      <div class="p-4 md:ml-auto">
-        <select
-          id="locale"
-          name="locale"
-          aria-label="Select locale"
-          v-model="locale"
-          class="px-3 py-2 placeholder-gray-600 rounded-md text-gray-900 border border-gray-500 shadow-md bg-gray-100 focus:outline-none focus:ring"
-        >
-          <option value="en">English</option>
-          <option value="no">Norwegian</option>
-        </select>
-      </div>
-    </template>
-  </Header>
-  <main class="max-w-7xl mx-auto px-4 mt-8" :lang="locale">
-    <router-view />
-  </main>
+      <template v-slot:menu>
+        <div class="p-4 md:ml-auto">
+          <select
+            id="locale"
+            name="locale"
+            aria-label="Select locale"
+            v-model="locale"
+            class="px-3 py-2 placeholder-gray-600 rounded-md text-gray-900 border border-gray-500 shadow-md bg-gray-100 focus:outline-none focus:ring"
+          >
+            <option value="en">English</option>
+            <option value="no">Norwegian</option>
+          </select>
+        </div>
+      </template>
+    </Header>
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 mt-8" :lang="locale">
+      <router-view />
+    </main>
+    <Footer color="gray">
+      <template v-slot:middle>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <Nav title="General information">
+            <nav-item>
+              <Anchor url="https://portland.gov">City of Portland</Anchor>
+            </nav-item>
+            <nav-item>
+              <Anchor url="https://portland.gov/transportation"
+                >Portland Bureau of Transportation</Anchor
+              >
+            </nav-item>
+            <nav-item>
+              <Anchor url="https://www.portland.gov/transportation/parking"
+                >PBOT Parking Enforcement and Operations</Anchor
+              >
+            </nav-item>
+          </Nav>
+          <Nav title="Legal notices">
+            <nav-item>
+              <router-link
+                to="/disclaimer"
+                class="border-b-2 border-current font-medium"
+                >Disclaimer</router-link
+              >
+            </nav-item>
+          </Nav>
+        </div>
+      </template>
+    </Footer>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import Anchor from '@/elements/anchor/Anchor.vue';
+import Footer from '@/components/footer/Footer.vue';
 import Header from '@/components/header/Header.vue';
 import Logo from '@/assets/Logo.vue';
+import Nav from '@/components/nav/Nav.vue';
+import NavItem from '@/components/nav/NavItem.vue';
 
 export default defineComponent({
   setup() {
@@ -48,8 +84,18 @@ export default defineComponent({
     return { t, locale, menuOpen };
   },
   components: {
+    Anchor,
+    Footer,
     Header,
-    Logo
+    Logo,
+    Nav,
+    NavItem
   }
 });
 </script>
+
+<style>
+.prose {
+  max-width: 65ch;
+}
+</style>
