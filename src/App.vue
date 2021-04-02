@@ -96,6 +96,6 @@ export default defineComponent({
 
 <style>
 .prose {
-  max-width: 65ch;
+  max-width: 72ex;
 }
 </style>
