@@ -5,8 +5,14 @@ import axios from 'axios';
 import { AreaPermit, AreaPermitZone, GraphQLResponse } from './types';
 
 function submitQuery<T>(query: unknown) {
+  if (!process.env.VUE_APP_GRAPHQL_URL) {
+    throw Error(
+      'VUE_APP_GRAPHQL_URL is not defined and required to query the GraphQL server!'
+    );
+  }
+
   return axios
-    .post<GraphQLResponse<T>>('http://localhost:4000/graphql', query, {
+    .post<GraphQLResponse<T>>(process.env.VUE_APP_GRAPHQL_URL, query, {
       headers: {
         'content-type': 'application/json'
       }
