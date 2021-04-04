@@ -8,6 +8,6 @@ const routes: RouteRecordRaw[] = [
 ];
 
 export default createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   routes
 });
