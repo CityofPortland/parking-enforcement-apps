@@ -1,5 +1,5 @@
 <template>
-  <li class="flex">
+  <li>
     <slot>
       <Anchor :url="url" v-bind="$attrs">
         {{ display }}

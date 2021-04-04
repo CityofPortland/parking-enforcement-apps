@@ -5,11 +5,11 @@
   <section class="max-w-xl flex flex-col space-y-4">
     <i18n-t keypath="help" tag="p" for="seeHere" class="">
       <template v-slot:seeHere>
-        <a
-          href="https://www.portland.gov/transportation/parking/appp-info"
-          class="border-b-2 border-current font-semibold"
+        <Anchor
+          url="https://www.portland.gov/transportation/parking/appp-info"
           target="_blank"
-          >{{ t('seeHere') }}</a
+          rel="noopener"
+          >{{ t('seeHere') }}</Anchor
         >
       </template>
     </i18n-t>
@@ -87,6 +87,7 @@ import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
 
+import Anchor from '@/elements/anchor/Anchor.vue';
 import Button from '@/elements/button/Button.vue';
 import Input from '@/elements/inputs/Input.vue';
 import Result from '@/components/permit/PermitLookupResult.vue';
@@ -95,6 +96,7 @@ import Select from '@/elements/inputs/Select.vue';
 export default {
   name: 'PermitLookup',
   components: {
+    Anchor,
     Button,
     Input,
     Result,

@@ -1,17 +1,9 @@
 <template>
-  <a
-    :href="url"
-    :class="{
-      'inline-flex': external,
-      'items-center': external
-    }"
-  >
-    <span
-      class="inline-flex items-center border-b-2 border-current font-medium hover:font-bold"
-    >
+  <a :href="url">
+    <span class="border-b-2 border-current font-medium hover:font-bold">
       <slot>{{ url }}</slot>
     </span>
-    <Icon v-if="external" type="external-link" class="h-4 w-4 ml-1" />
+    <Icon v-if="external" type="external-link" class="h-4 w-4 ml-1 inline" />
   </a>
 </template>
 
