@@ -3,15 +3,11 @@
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex items-center space-x-3 h-16">
         <div class="flex items-center truncate">
-          <!--
-            @slot Branding area, should contain app name and logo
-          -->
+          <!-- @slot Branding area, should contain app name and logo -->
           <slot name="branding"></slot>
         </div>
         <div v-if="hasMenu" class="hidden md:flex md:flex-row flex-grow">
-          <!--
-              @slot Menu area, should contain navigation menu for the site
-            -->
+          <!-- @slot Menu area, should contain navigation menu for the site -->
           <slot name="menu"></slot>
         </div>
         <div v-if="hasMenu" class="-mr-2 flex md:hidden flex-grow">
@@ -21,11 +17,6 @@
             @click="handleToggle"
           >
             <span class="sr-only">Open main menu</span>
-            <!--
-              Heroicon name: outline/menu
-
-              Menu open: "hidden", Menu closed: "block"
-            -->
             <svg
               class="h-6 w-6"
               :class="{ hidden: open, block: !open }"
@@ -62,13 +53,7 @@
         </div>
       </div>
     </div>
-
-    <!--
-      Mobile menu, toggle classes based on menu state.
-
-      Open: "block", closed: "hidden"
-    -->
-    <div class="md:hidden" :class="{ hidden: !open }">
+    <div class="px-4 md:hidden" :class="{ hidden: !open }">
       <slot name="menu"></slot>
     </div>
   </nav>

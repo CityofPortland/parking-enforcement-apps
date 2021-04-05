@@ -1,24 +1,34 @@
 <template>
-  <li class="flex md:rounded-md text-sm font-medium">
-    <a
-      :href="url"
-      class="flex px-4 py-2 w-full md:rounded-md text-sm font-medium"
-    >
-      <slot></slot>
-    </a>
+  <li class="flex">
+    <slot>
+      <Anchor :url="url" v-bind="$attrs">
+        {{ display }}
+      </Anchor>
+    </slot>
   </li>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import Anchor from '@/elements/anchor/Anchor.vue';
+
 export default defineComponent({
   name: 'NavItem',
+  components: { Anchor },
+  inheritAttrs: false,
   props: {
     url: {
-      type: String,
-      required: true
+      type: String
+    },
+    text: {
+      type: String
     }
+  },
+  setup(props) {
+    return {
+      display: props.text ? props.text : props.url
+    };
   }
 });
 </script>

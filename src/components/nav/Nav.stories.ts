@@ -1,4 +1,4 @@
-import { Story } from '@storybook/vue3';
+import { Meta, Story } from '@storybook/vue3';
 
 import Nav from './Nav.vue';
 import NavItem from './NavItem.vue';
@@ -6,6 +6,7 @@ import NavItem from './NavItem.vue';
 export default {
   title: 'Component/Nav',
   component: Nav,
+  subcomponents: { NavItem },
   argTypes: {
     navClasses: {
       control: { type: 'text' },
@@ -18,7 +19,7 @@ export default {
       description: 'Classes applied to each NavItem'
     }
   }
-};
+} as Meta;
 
 const Template: Story = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -27,17 +28,17 @@ const Template: Story = (args, { argTypes }) => ({
     return { ...args };
   },
   template: `<Nav :class="navClasses">
-    <NavItem url="#" :class="navItemClasses">Home</NavItem>
-    <NavItem url="#" :class="navItemClasses">News</NavItem>
-    <NavItem url="#" :class="navItemClasses">Events</NavItem>
-    <NavItem url="#" :class="navItemClasses">Apps</NavItem>
+    <NavItem url="#" :class="navItemClasses" text="Home"></NavItem>
+    <NavItem url="#" :class="navItemClasses" text="News"></NavItem>
+    <NavItem url="#" :class="navItemClasses" text="Events"></NavItem>
+    <NavItem url="#" :class="navItemClasses" text="Apps"></NavItem>
   </Nav>`
 });
 
 export const Basic = Template.bind({});
+Basic.args = {};
 
 export const Header = Template.bind({});
 Header.args = {
-  navClasses: 'flex flex-col md:flex-row',
-  navItemClasses: 'hover:bg-gray-100'
+  navClasses: 'flex flex-col md:flex-row md:space-x-3'
 };
