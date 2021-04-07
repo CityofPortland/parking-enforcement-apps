@@ -2,6 +2,11 @@
   <h1 class="text-2xl font-bold mb-8">
     {{ t('appHeader') }}
   </h1>
+  <img
+    class="max-h-48 md:max-h-64"
+    src="../assets/pbot_appp_logo.png"
+    alt="PBOT Area parking permit program logo"
+  />
   <section class="max-w-xl flex flex-col space-y-4">
     <i18n-t keypath="help" tag="p" for="seeHere" class="">
       <template v-slot:seeHere>
