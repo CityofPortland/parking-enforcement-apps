@@ -14,7 +14,7 @@
       </template>
 
       <template v-slot:menu>
-        <div class="p-4 md:ml-auto">
+        <div class="md:ml-auto">
           <select
             id="locale"
             name="locale"
@@ -28,7 +28,7 @@
         </div>
       </template>
     </Header>
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 mt-8" :lang="locale">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 mt-4" :lang="locale">
       <router-view />
     </main>
     <Footer color="gray">
