@@ -1,0 +1,8 @@
+# Shell scripts are for Unix and MUST have LF's maintained for Docker containers
+*.sh    text eol=lf
+
+# Pulling from ESLint documentation: https://eslint.org/docs/rules/linebreak-style#using-this-rule-with-version-control-systems
+*.js    text eol=lf
+*.ts    text eol=lf
+
+*       text=auto eol=lf
