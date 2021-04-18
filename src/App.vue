@@ -12,21 +12,6 @@
           <span class="truncate text-xl">Parking Services</span>
         </a>
       </template>
-
-      <template v-slot:menu>
-        <div class="md:ml-auto">
-          <select
-            id="locale"
-            name="locale"
-            aria-label="Select locale"
-            v-model="locale"
-            class="px-3 py-2 placeholder-gray-600 rounded-md text-gray-900 border border-gray-500 shadow-md bg-gray-100 focus:outline-none focus:ring"
-          >
-            <option value="en">English</option>
-            <option value="no">Norwegian</option>
-          </select>
-        </div>
-      </template>
     </Header>
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 mt-4" :lang="locale">
       <router-view />
