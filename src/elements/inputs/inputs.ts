@@ -8,8 +8,6 @@ export function useInput(
 ) {
   return {
     classes: computed(() => [
-      'max-w-full',
-      'p-2',
       'border',
       required.value && !modelValue?.value
         ? 'border-red-500'
@@ -22,7 +20,8 @@ export function useInput(
         : 'placeholder-gray-500',
       'truncate',
       'focus:outline-none',
-      'focus:ring'
+      'focus:ring',
+      'focus:ring-blue-500'
     ])
   };
 }
