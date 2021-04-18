@@ -1,5 +1,5 @@
 <template>
-  <Box as="footer" :color="color" variant="light" class="mt-8">
+  <Box as="footer" :color="color" :variant="variant" class="mt-8">
     <div class="max-w-7xl mx-auto p-4">
       <div class="grid grid-cols-1 gap-3">
         <section>
@@ -53,10 +53,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { FooterColor } from './Footer.types';
-
 import Anchor from '@/elements/anchor/Anchor.vue';
-import Box from '@/elements/box/Box';
+import Box, { BoxColor, BoxColorVariant } from '@/elements/box/Box';
 import Copyright from '@/components/copyright/Copyright.vue';
 
 export default defineComponent({
@@ -64,8 +62,12 @@ export default defineComponent({
   components: { Anchor, Box, Copyright },
   props: {
     color: {
-      type: String as () => FooterColor,
+      type: String as () => BoxColor,
       default: 'white'
+    },
+    variant: {
+      type: String as () => BoxColorVariant,
+      default: 'neutral'
     }
   },
   setup(_, { slots }) {

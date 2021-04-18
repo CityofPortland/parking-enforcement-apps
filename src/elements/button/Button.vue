@@ -1,36 +1,45 @@
 <template>
-  <button
-    type="button"
-    :class="[...sizeClasses, ...colorClasses, ...baseClasses]"
+  <Box
+    as="button"
+    :color="color"
+    :variant="variant"
+    :class="[...sizeClasses, ...baseClasses]"
     @click="onClick"
   >
     <slot>{{ label }}</slot>
-  </button>
+  </Box>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 
-import { ButtonProps, ButtonSize, ButtonColor } from './Button.types';
+import { ButtonProps, ButtonSize } from './Button.types';
+
+import Box, { BoxColor, BoxColorVariant } from '@/elements/box/Box';
 
 export default defineComponent({
   name: 'pbot-button',
+  components: { Box },
   props: {
     label: {
       type: String,
       required: true
     },
-    color: {
-      type: String as () => ButtonColor,
-      default: 'gray'
-    },
     size: {
       type: String as () => ButtonSize,
       default: 'medium'
+    },
+    color: {
+      type: String as () => BoxColor,
+      default: 'blue'
+    },
+    variant: {
+      type: String as () => BoxColorVariant,
+      default: 'neutral'
     }
   },
   emits: ['click'],
-  setup(props: ButtonProps, context) {
+  setup(props: ButtonProps, { emit }) {
     const baseClasses = [
       'rounded-md',
       'shadow',
@@ -48,25 +57,13 @@ export default defineComponent({
       return props.size && sizeMap.get(props.size);
     });
 
-    const colorClasses = computed(() => {
-      const colorMap = new Map<ButtonColor, string[]>([
-        ['gray', ['bg-gray-100', 'text-gray-900']],
-        ['blue', ['bg-blue-500', 'text-blue-100']],
-        ['red', ['bg-red-600', 'text-red-100']],
-        ['green', ['bg-green-500', 'text-green-900']]
-      ]);
-
-      return props.color && colorMap.get(props.color);
-    });
-
     const onClick = () => {
-      context.emit('click');
+      emit('click');
     };
 
     return {
       baseClasses,
       sizeClasses,
-      colorClasses,
       onClick
     };
   }

@@ -1,5 +1,5 @@
 <template>
-  <nav :class="headerClasses">
+  <Box as="nav" :color="color" :variant="variant">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex items-center space-x-3 h-16">
         <div class="flex items-center truncate">
@@ -56,40 +56,35 @@
     <div class="px-4 md:hidden" :class="{ hidden: !open }">
       <slot name="menu"></slot>
     </div>
-  </nav>
+  </Box>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 
-import { HeaderColor, HeaderProps } from './Header.types';
+import Box, { BoxColor, BoxColorVariant, ColorProps } from '@/elements/box/Box';
+
+import { HeaderProps } from './Header.types';
 
 export default defineComponent({
   name: 'Header',
+  components: { Box },
   props: {
     open: {
       type: Boolean,
       default: false
     },
     color: {
-      type: String as () => HeaderColor,
+      type: String as () => BoxColor,
       default: 'white'
+    },
+    variant: {
+      type: String as () => BoxColorVariant,
+      default: 'neutral'
     }
   },
-  setup(props: HeaderProps, { slots, emit }) {
+  setup(props: HeaderProps & ColorProps, { slots, emit }) {
     const hasMenu = slots.menu !== undefined;
-
-    const headerClasses = computed(() => {
-      const classMap = new Map([
-        ['white', ['bg-transparent']],
-        ['cyan', ['bg-cyan-500', 'text-cyan-900']],
-        ['gray', ['bg-gray-500', 'text-gray-100']],
-        ['orange', ['bg-orange-500', 'text-orange-900']],
-        ['blue', ['bg-blue-500', 'text-blue-100']]
-      ]);
-
-      return classMap.get(props.color);
-    });
 
     const buttonClasses = computed(() => {
       const classMap = new Map([
@@ -137,7 +132,6 @@ export default defineComponent({
 
     return {
       hasMenu,
-      headerClasses,
       buttonClasses,
       handleToggle
     };

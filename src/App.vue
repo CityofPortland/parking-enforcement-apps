@@ -16,7 +16,7 @@
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 mt-4" :lang="locale">
       <router-view />
     </main>
-    <Footer color="gray">
+    <Footer color="gray" variant="light">
       <template v-slot:middle>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <Nav title="General information">
