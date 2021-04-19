@@ -28,9 +28,9 @@
         <Input
           id="licensePlateInput"
           name="licensePlate"
+          aria-label="License plate"
           type="text"
           :placeholder="t('enterPlatePlaceholder')"
-          v-model="licensePlate"
           required
           pattern="[A-Za-z0-9]+"
           :size="10"
@@ -40,6 +40,7 @@
         <Select
           id="zoneInput"
           name="zone"
+          aria-label="Area parking permit zone"
           v-model="zone"
           required
           :placeholder="t('selectZone')"
