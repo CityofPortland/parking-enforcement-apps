@@ -43,6 +43,7 @@ export default defineComponent({
     const baseClasses = [
       'rounded-md',
       'shadow',
+      'cursor-pointer',
       'focus:outline-none',
       'focus:ring'
     ];
