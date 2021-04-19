@@ -33,6 +33,8 @@
           v-model="licensePlate"
           required
           pattern="[A-Za-z0-9]+"
+          :size="10"
+          v-model.uppercase="licensePlate"
         />
 
         <Select
