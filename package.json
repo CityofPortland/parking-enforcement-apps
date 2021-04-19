@@ -1,6 +1,6 @@
 {
   "name": "parking-services-apps",
-  "version": "0.1.0",
+  "version": "1.0.0-beta.2",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -24,10 +24,10 @@
     "@intlify/vue-i18n-loader": "^2.0.3",
     "@storybook/addon-a11y": "6.2.0-alpha.24",
     "@storybook/addon-actions": "6.2.0-alpha.24",
-    "@storybook/addon-essentials": "^6.2.8",
+    "@storybook/addon-essentials": "6.2.0-alpha.24",
     "@storybook/addon-links": "6.2.0-alpha.24",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/vue3": "^6.2.8",
+    "@storybook/vue3": "6.2.0-alpha.24",
     "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "@types/color": "^3.0.1",
