@@ -1,32 +1,41 @@
 import { Meta, Story } from '@storybook/vue3';
+import { ref } from 'vue';
 
 import Component from './Input.vue';
 
 export default {
-  title: 'Element/Inputs/Input',
+  title: 'Element/Inputs/TextInput',
   component: Component,
   argTypes: {
-    onInput: { action: 'input' }
+    onInput: { action: 'input' },
+    onKeypress: { action: 'keypress' }
   }
 } as Meta;
 
-const Template: Story = (args, { argTypes }) => ({
+const Basic: Story = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Component },
   setup() {
-    return { ...args, onInput: (input: string) => (args.modelValue = input) };
+    return {
+      ...args
+    };
   },
   template: `<Component
       :id="id"
       :name="name"
       :type="type"
       :required="required"
+      :pattern="pattern"
+      :pattern-modifiers="patternModifiers"
+      :size="size"
       :placeholder="placeholder"
-      :modelValue="modelValue"
-      @update:modelValue="onInput" />`
+      :model-value="value"
+      :model-modifiers="modelModifiers"
+      @keypress="onKeypress"
+      @update:model-value="onInput" />`
 });
 
-export const Input = Template.bind({});
+export const Input = Basic.bind({});
 Input.args = {
   id: 'input',
   name: 'input',

@@ -7,8 +7,7 @@
     :pattern="pattern"
     :class="classes"
     :value="modelValue"
-    @keypress="handleKeypress"
-    @input.prevent="handleInput($event)"
+    @input.prevent="handleInput"
   />
 </template>
 
@@ -38,69 +37,74 @@ export default defineComponent({
     pattern: {
       type: String
     },
+    patternModifiers: {
+      type: Object,
+      default: () => ({})
+    },
     size: {
       type: Number
     },
-    modelValue: String,
+    modelValue: {
+      type: String,
+      default: ''
+    },
     modelModifiers: {
       type: Object,
       default: () => ({})
     }
   },
+  emits: ['keypress', 'update:modelValue'],
   setup(props, { emit }) {
     const { required, modelValue } = toRefs(props);
 
     const { classes } = useInput(required, modelValue);
 
     const handleInput = (event: Event) => {
-      let value: string | undefined = (event.target as HTMLInputElement).value;
+      const target = event.target as HTMLInputElement;
+      let value: string | undefined = target.value;
+
+      if (props.pattern && props.patternModifiers.input) {
+        const regex = new RegExp(props.pattern);
+        const matches = regex.exec(value);
+
+        // if any part matches, keep the first part, otherwise, clear
+        matches
+          ? (value = target.value = matches[0])
+          : (value = target.value = '');
+      }
+
+      if (props.size) {
+        if (value.length >= props.size) {
+          value = value.substr(0, props.size);
+          target.value = value;
+        }
+      }
 
       const modifierMap = new Map<string, (value: string) => string>([
         ['uppercase', value => value.toLocaleUpperCase()],
         ['lowercase', value => value.toLocaleLowerCase()],
-        ['capitalize', value => value.charAt(0) + value.slice(1)]
+        [
+          'capitalize',
+          value => value.charAt(0).toLocaleUpperCase() + value.slice(1)
+        ]
       ]);
 
       if (value) {
-        for (const entry of modifierMap.entries()) {
-          const [modifier, func] = entry;
+        Object.keys(props.modelModifiers).forEach(modifier => {
+          const func = modifierMap.get(modifier);
 
-          if (Object.keys(props.modelModifiers).find(k => modifier == k)) {
+          if (func && value) {
             value = func(value);
           }
-        }
+        });
       }
 
-      emit('update:modelValue', value);
-    };
-
-    const handleKeypress = (event: KeyboardEvent) => {
-      const value = event.key;
-
-      if (value) {
-        if (props.pattern) {
-          const regex = new RegExp(props.pattern);
-          const matches = regex.exec(value);
-
-          if (!matches) {
-            return event.preventDefault();
-          }
-        }
-
-        if (props.size) {
-          if (modelValue?.value && modelValue.value.length >= props.size) {
-            return event.preventDefault();
-          }
-        }
-      }
-
-      return true;
+      !(value == modelValue.value) && emit('update:modelValue', value);
     };
 
     return {
       classes,
-      handleInput,
-      handleKeypress
+      handleInput
     };
   }
 });

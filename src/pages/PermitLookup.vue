@@ -33,6 +33,7 @@
           :placeholder="t('enterPlatePlaceholder')"
           required
           pattern="[A-Za-z0-9]+"
+          :patternModifiers="{ input: true }"
           :size="10"
           v-model.uppercase="licensePlate"
         />
@@ -51,7 +52,6 @@
         </Select>
 
         <Button
-          type="submit"
           :label="t('search')"
           color="blue"
           :class="{

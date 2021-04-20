@@ -2,6 +2,16 @@ import { computed, Ref } from 'vue';
 
 export type TextInputType = 'email' | 'text';
 
+export interface TextInputProps {
+  id: string;
+  name: string;
+  pattern?: string;
+  patternModifiers?: Record<string, boolean>;
+  size?: number;
+  modelValue?: string;
+  modelProperties?: Record<string, boolean>;
+}
+
 export function useInput(
   required: Ref<boolean>,
   modelValue: Ref<string | undefined> | undefined
