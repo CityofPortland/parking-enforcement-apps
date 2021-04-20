@@ -13,3 +13,9 @@ export type AreaPermit = {
   zone: AreaPermitZone;
   isValid: boolean;
 };
+
+export type State = {
+  loading: boolean;
+  zones: Array<AreaPermitZone>;
+  permit?: AreaPermit;
+};
