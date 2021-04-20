@@ -5,7 +5,7 @@ FROM node:14 AS builder
 # Create directory under root to build from
 WORKDIR /app
 # Add package install files and run install separately to help with rebuild caching
-ADD package*.json .
+ADD package*.json ./
 RUN npm install
 # Add all other files into this directory
 ADD . .
