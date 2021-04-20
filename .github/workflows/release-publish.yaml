@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPOSITORY: ${{ secrets.ACR_NAME }}.azurecr.io
-      IMAGE: interactive-tsp
+      IMAGE: parking-enforcement-apps
     steps:
       - name: Set $IMAGE_TAG
         run: echo "IMAGE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
@@ -44,7 +44,7 @@ jobs:
       K8S_CLUSTER_RG: ${{ secrets.K8S_CLUSTER_RG }}
       K8S_NAMESPACE: ${{ secrets.K8S_NAMESPACE }}
       REPOSITORY: ${{ secrets.ACR_NAME }}.azurecr.io
-      IMAGE: interactive-tsp
+      IMAGE: parking-enforcement-apps
       RELEASE_NAME: ${{ secrets.HELM_RELEASE_NAME }}
     steps:
       - uses: actions/checkout@v2
