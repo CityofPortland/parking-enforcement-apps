@@ -1,5 +1,4 @@
 import { Meta, Story } from '@storybook/vue3';
-import { ref } from 'vue';
 
 import Component from './Input.vue';
 

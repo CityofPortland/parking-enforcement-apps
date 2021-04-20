@@ -2,7 +2,7 @@ import { createStore } from 'vuex';
 
 import axios from 'axios';
 
-import { AreaPermit, AreaPermitZone, GraphQLResponse } from './types';
+import { AreaPermit, AreaPermitZone, GraphQLResponse, State } from './types';
 
 function submitQuery<T>(query: unknown) {
   if (!process.env.VUE_APP_GRAPHQL_URL) {
@@ -18,16 +18,11 @@ function submitQuery<T>(query: unknown) {
       }
     })
     .catch(() => {
-      console.error('Error querying GraphQL server');
       throw Error();
     });
 }
 
-export default createStore<{
-  loading: boolean;
-  zones: Array<AreaPermitZone>;
-  permit?: AreaPermit;
-}>({
+export default createStore<State>({
   state: {
     loading: false,
     zones: new Array<AreaPermitZone>(),
