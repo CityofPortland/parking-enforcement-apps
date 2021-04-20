@@ -25,7 +25,7 @@ jobs:
       - run: npm install
 
   test:
-    needs: intall
+    needs: install
 
     runs-on: ubuntu-latest
 
@@ -48,7 +48,7 @@ jobs:
       - run: npm run test:unit
 
   lint:
-    needs: intall
+    needs: install
 
     runs-on: ubuntu-latest
 
