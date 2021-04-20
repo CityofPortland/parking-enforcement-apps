@@ -32,11 +32,6 @@
         <section class="grid grid-cols-1 md:grid-cols-4 gap-3">
           <div class="order-last md:order-first">
             <Copyright />
-            <img
-              alt="PBOT Vertical Applications logo"
-              src="./pbot-verticalapps-logo-dark.png"
-              class="max-h-32"
-            />
           </div>
           <div class="md:col-span-3">
             <slot name="middle"></slot>

@@ -14,9 +14,36 @@
       {{ summary }}
     </span>
 
-    <span class="block text-center">
+    <p class="block text-center">
       {{ body }}
-    </span>
+    </p>
+
+    <i18n-t
+      v-if="!permit.isValid"
+      keypath="permitNotFoundMap"
+      tag="p"
+      class="block text-center"
+    >
+      <template v-slot:useMapLink>
+        <Anchor
+          url="https://pdx.maps.arcgis.com/apps/MapSeries/index.html?appid=ad171d005d4442bba3c640735d070aa3&entry=3"
+          target="_blank"
+          rel="noopener"
+          >{{ t('useMap') }}</Anchor
+        >
+      </template>
+    </i18n-t>
+
+    <i18n-t
+      v-if="!permit.isValid"
+      keypath="permitNotFoundCaveat"
+      tag="p"
+      class="block text-center"
+    >
+      <template v-slot:callEnforcementLink>
+        <Anchor url="tel:503-823-5195">503-823-5195</Anchor>
+      </template>
+    </i18n-t>
   </Box>
 </template>
 
@@ -24,13 +51,14 @@
 import { defineComponent, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import Anchor from '@/elements/anchor/Anchor.vue';
 import Box from '@/elements/box/Box';
 import Icon from '@/elements/icon/Icon.vue';
 import { AreaPermit } from '@/store/types';
 
 export default defineComponent({
   name: 'PermitLookupResult',
-  components: { Box, Icon },
+  components: { Anchor, Box, Icon },
   props: {
     permit: {
       type: Object as () => AreaPermit,
@@ -71,10 +99,13 @@ export default defineComponent({
 <i18n>
 {
   "en": {
-    "permitFoundHeader": "Permit Found for '{licensePlate}'!",
-    "permitNotFoundHeader": "No permit found for '{licensePlate}'.",
-    "permitFoundBody": "Vehicle with license '{licensePlate}' has an area parking permit in '{zone}'.",
-    "permitNotFoundBody": "Vehicle with license '{licensePlate}' does not have an area parking permit in '{zone}'."
+    "permitFoundHeader": "Area parking permit found for '{licensePlate}'!",
+    "permitNotFoundHeader": "No area parking permit found for '{licensePlate}'.",
+    "permitFoundBody": "Vehicle with license plate '{licensePlate}' has an active area parking permit in '{zone}'.",
+    "permitNotFoundBody": "Vehicle with license plate '{licensePlate}' does not have an active area parking permit in '{zone}'.",
+    "permitNotFoundMap": "{useMapLink} to view visitor time limits and enforcement hours in your zone.",
+    "useMap": "Use the zone enforcement map",
+    "permitNotFoundCaveat": "A vehicle without an active area parking permit can park up to the visitor time limit in the zone. Vehicles might have other permits allowing them to park in this area, not all vehicles with a result ‘no area parking permit found’ will be in violation. If you’d like to report this vehicle to Parking Enforcement call {callEnforcementLink}, choose option 1 to report a vehicle."
   },
   "no": {
     "permitFoundHeader": "Tillatelse funnet for '{licensePlate}'!",

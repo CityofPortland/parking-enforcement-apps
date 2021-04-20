@@ -11,10 +11,10 @@
       />
     </header>
     <main class="max-w-xl flex flex-col space-y-4">
-      <i18n-t keypath="help" tag="p" for="seeHere" class="">
+      <i18n-t keypath="help" tag="p">
         <template v-slot:seeHere>
           <Anchor
-            url="https://www.portland.gov/transportation/parking/appp-info"
+            url="https://www.portland.gov/zoneparking"
             target="_blank"
             rel="noopener"
             >{{ t('seeHere') }}</Anchor
