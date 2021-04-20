@@ -18,21 +18,25 @@
     </main>
     <Footer color="gray" variant="light">
       <template v-slot:middle>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <Nav title="Application information">
+            <nav-item
+              url="https://pdx.maps.arcgis.com/apps/MapSeries/index.html?appid=ad171d005d4442bba3c640735d070aa3&entry=3"
+              text="Area parking permit zones map"
+            />
+          </Nav>
           <Nav title="General information">
             <nav-item>
               <Anchor url="https://portland.gov">City of Portland</Anchor>
             </nav-item>
-            <nav-item>
-              <Anchor url="https://portland.gov/transportation"
-                >Portland Bureau of Transportation</Anchor
-              >
-            </nav-item>
-            <nav-item>
-              <Anchor url="https://www.portland.gov/transportation/parking"
-                >PBOT Parking Enforcement and Operations</Anchor
-              >
-            </nav-item>
+            <nav-item
+              url="https://portland.gov/transportation"
+              text="Portland Bureau of Transportation"
+            />
+            <nav-item
+              url="https://www.portland.gov/transportation/parking"
+              text="PBOT Parking Enforcement and Operations"
+            />
           </Nav>
           <Nav title="Legal notices">
             <nav-item>
