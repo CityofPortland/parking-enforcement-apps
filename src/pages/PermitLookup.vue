@@ -46,9 +46,17 @@
           required
           :placeholder="t('selectZone')"
         >
-          <option v-for="zone in zones" :key="zone.value" :value="zone.value">{{
-            zone.text
-          }}</option>
+          <option
+            v-for="zone in zones.sort((a, b) => {
+              if (a.id < b.id) return -1;
+              if (a.id > b.id) return 1;
+              return 0;
+            })"
+            :key="zone.id"
+            :value="zone.id"
+          >
+            Zone {{ zone.id }}
+          </option>
         </Select>
 
         <Button

@@ -20,17 +20,20 @@
 
     <i18n-t
       v-if="!permit.isValid"
-      keypath="permitNotFoundMap"
+      keypath="permitNotFoundEnforcementInfo"
       tag="p"
       class="block text-center"
     >
-      <template v-slot:useMapLink>
-        <Anchor
-          url="https://pdx.maps.arcgis.com/apps/MapSeries/index.html?appid=ad171d005d4442bba3c640735d070aa3&entry=3"
-          target="_blank"
-          rel="noopener"
-          >{{ t('useMap') }}</Anchor
-        >
+      <template v-slot:zoneName> Zone {{ permit.zone.id }} </template>
+      <template v-slot:visitorLimit>
+        {{
+          permit.zone.visitorLimit == 'varies'
+            ? 'is limited'
+            : `is limited to ${permit.zone.visitorLimit}`
+        }}
+      </template>
+      <template v-slot:enforcementHours>
+        {{ permit.zone.enforcementHours }}
       </template>
     </i18n-t>
 
@@ -84,11 +87,11 @@ export default defineComponent({
         props.permit.isValid
           ? t('permitFoundBody', {
               licensePlate: props.permit.licensePlate,
-              zone: props.permit.zone.text
+              zone: `Zone ${props.permit.zone.id}`
             })
           : t('permitNotFoundBody', {
               licensePlate: props.permit.licensePlate,
-              zone: props.permit.zone.text
+              zone: `Zone ${props.permit.zone.id}`
             })
       )
     };
@@ -103,6 +106,7 @@ export default defineComponent({
     "permitNotFoundHeader": "No area parking permit found for '{licensePlate}'.",
     "permitFoundBody": "Vehicle with license plate '{licensePlate}' has an active area parking permit in '{zone}'.",
     "permitNotFoundBody": "Vehicle with license plate '{licensePlate}' does not have an active area parking permit in '{zone}'.",
+    "permitNotFoundEnforcementInfo" : "Visitor parking in {zoneName} {visitorLimit} during the hours of {enforcementHours}",
     "permitNotFoundMap": "{useMapLink} to view visitor time limits and enforcement hours in your zone.",
     "useMap": "Use the zone enforcement map",
     "permitNotFoundCaveat": "A vehicle without an active area parking permit can park up to the visitor time limit in the zone. Vehicles might have other permits allowing them to park in this area, not all vehicles with a result ‘no area parking permit found’ will be in violation. If you’d like to report this vehicle to Parking Enforcement call {callEnforcementLink}, choose option 1 to report a vehicle."
