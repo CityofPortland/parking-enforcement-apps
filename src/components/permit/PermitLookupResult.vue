@@ -99,7 +99,7 @@ export default defineComponent({
 <i18n>
 {
   "en": {
-    "permitFoundHeader": "Area parking permit found for '{licensePlate}'!",
+    "permitFoundHeader": "Active area parking permit found for '{licensePlate}'!",
     "permitNotFoundHeader": "No active area parking permit found for '{licensePlate}'.",
     "permitFoundBody": "Vehicle with license plate '{licensePlate}' has an active area parking permit in '{zone}'.",
     "permitNotFoundBody": "Vehicle with license plate '{licensePlate}' does not have an active area parking permit in '{zone}'.",
