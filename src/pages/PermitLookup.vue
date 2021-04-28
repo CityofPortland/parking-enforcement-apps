@@ -12,12 +12,16 @@
     </header>
     <main class="max-w-xl flex flex-col space-y-4">
       <i18n-t keypath="help" tag="p">
-        <template v-slot:seeHere>
+        <template v-slot:licenseFAQLink>
           <Anchor
-            url="https://www.portland.gov/zoneparking"
-            target="_blank"
-            rel="noopener"
-            >{{ t('seeHere') }}</Anchor
+            url="https://www.portland.gov/transportation/parking/pay-plate-faqs#toc-how-do-i-enter-my-license-plate-"
+            >{{ t('licenseFAQLink') }}
+          </Anchor>
+        </template>
+        <template v-slot:generalHelp>
+          <Anchor
+            url="https://www.portland.gov/transportation/parking/appp-info"
+            >{{ t('generalHelp') }}</Anchor
           >
         </template>
       </i18n-t>
@@ -161,16 +165,17 @@ export default {
     "enterPlatePlaceholder" : "Enter License Plate",
     "selectZone" : "Select Zone",
     "appHeader" : "Area Parking Permit Lookup",
-    "help": "Use the form below to enter a vehicle's license plate number, and select a parking permit zone, then query whether the vehicle has an active parking permit for the selected zone. For more information {seeHere}.",
-    "seeHere": "see here"
+    "help": "Use the form below to search for a vehicle's active parking permit in a selected zone. For help entering license plates, {licenseFAQLink}, and for information on the area parking permit program, {generalHelp}.",
+    "licenseFAQLink":"view our license plate entry FAQ",
+    "generalHelp": "view our area parking permit guide"
   },
   "no": {
     "search" : "Søk",
     "enterPlatePlaceholder": "Skriv inn lisensplaten",
     "selectZone" : "Velg sone",
     "appHeader" : "Område parkering tillatelse oppslag",
-    "help" : "Bruk skjemaet nedenfor for å skrive inn bilens lisensnummer, og velg en parkeringsstillatelsone, og spør deretter om kjøretøyet har en aktiv parkeringstillatelse for den valgte sonen. For mer informasjon {seeHere}.",
-    "seeHere" : "se her"
+    "help" : "Bruk skjemaet nedenfor for å skrive inn bilens lisensnummer, og velg en parkeringsstillatelsone, og spør deretter om kjøretøyet har en aktiv parkeringstillatelse for den valgte sonen. For mer informasjon {generalHelp}.",
+    "generalHelp" : "se her"
   }
 }
 </i18n>
