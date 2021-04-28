@@ -7,10 +7,10 @@
       :lang="locale"
     >
       <template v-slot:branding>
-        <a href="/" class="w-full flex items-center">
+        <router-link to="/" class="w-full flex items-center">
           <Logo class="w-16 md:w-20 mr-3 flex-shrink-0" />
           <span class="truncate text-xl">Parking Services</span>
-        </a>
+        </router-link>
       </template>
 
       <template v-slot:menu>
@@ -36,15 +36,15 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <Nav title="General information">
             <nav-item>
-              <Anchor url="https://portland.gov">City of Portland</Anchor>
+              <Anchor url="//portland.gov">City of Portland</Anchor>
             </nav-item>
             <nav-item>
-              <Anchor url="https://portland.gov/transportation"
+              <Anchor url="//portland.gov/transportation"
                 >Portland Bureau of Transportation</Anchor
               >
             </nav-item>
             <nav-item>
-              <Anchor url="https://www.portland.gov/transportation/parking"
+              <Anchor url="//portland.gov/transportation/parking"
                 >PBOT Parking Enforcement and Operations</Anchor
               >
             </nav-item>
