@@ -2,17 +2,13 @@ import { Story } from '@storybook/vue3';
 
 import Box from '@/elements/box/Box';
 import Footer from './Footer.vue';
+import { ColorArgs } from '@/elements/box/Box.stories';
 
 export default {
   title: 'Component/Footer',
   component: Footer,
   argTypes: {
-    color: {
-      control: {
-        type: 'select',
-        options: ['white', 'gray', 'cyan', 'orange', 'blue']
-      }
-    }
+    ...ColorArgs
   }
 };
 

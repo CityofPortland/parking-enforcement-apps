@@ -2,7 +2,18 @@
   <small class="grid grid-cols-1 gap-2">
     <slot>
       <h2 class="font-semibold text-lg">City of Portland, Oregon</h2>
-      <img class="w-32 h-32" alt="Portland City Seal" src="./city_seal.png" />
+      <div class="flex flex-wrap space-x-3 md:space-x-0 lg:space-x-3">
+        <img
+          class="max-w-16 max-h-16"
+          alt="Portland City Seal"
+          src="./city_seal.png"
+        />
+        <img
+          class="max-h-16"
+          alt="PBOT Vertical Applications logo"
+          src="./pbot-verticalapps-logo_dark.png"
+        />
+      </div>
       <p class="text-gray-700 text-base">© Copyright {{ copyrightDate }}</p>
     </slot>
   </small>
@@ -19,7 +30,11 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const startYear = props.startDate && props.startDate.getFullYear();
+    const nowYear = new Date().getFullYear();
+    const startYear =
+      props.startDate &&
+      props.startDate.getFullYear() !== nowYear &&
+      props.startDate.getFullYear();
 
     return {
       copyrightDate: `${

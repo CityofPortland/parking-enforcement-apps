@@ -1,85 +1,97 @@
 <template>
-  <h1 class="text-2xl font-bold mb-8">
-    {{ t('appHeader') }}
-  </h1>
-  <section class="max-w-xl flex flex-col space-y-4">
-    <i18n-t keypath="help" tag="p" for="seeHere" class="">
-      <template v-slot:seeHere>
-        <Anchor
-          url="https://www.portland.gov/transportation/parking/appp-info"
-          target="_blank"
-          rel="noopener"
-          >{{ t('seeHere') }}</Anchor
-        >
-      </template>
-    </i18n-t>
-    <form
-      class="flex flex-col md:flex-row md:space-x-4 md:space-y-0 space-y-4"
-      @submit.prevent="handleSubmit"
-    >
-      <Input
-        id="licensePlateInput"
-        name="licensePlate"
-        type="text"
-        :placeholder="t('enterPlatePlaceholder')"
-        v-model="licensePlate"
-        required
-        pattern="[A-Za-z0-9]+"
+  <article class="grid grid-cols-1 gap-8">
+    <header class="grid grid-cols-1 gap-8">
+      <h1 class="text-2xl font-bold">
+        {{ t('appHeader') }}
+      </h1>
+      <img
+        class="max-h-24 px-4"
+        src="../assets/pbot_appp_logo.png"
+        alt="PBOT Area Parking Permit Program logo"
       />
-
-      <Select
-        id="zoneInput"
-        name="zone"
-        v-model="zone"
-        required
-        :placeholder="t('selectZone')"
-      >
-        <option v-for="zone in zones" :key="zone.value" :value="zone.value">{{
-          zone.text
-        }}</option>
-      </Select>
-
-      <Button
-        type="submit"
-        :label="t('search')"
-        color="blue"
-        :class="{
-          'opacity-50': isLoading
-        }"
-        :disabled="isLoading"
-      >
-        <div
-          v-if="isLoading"
-          class="flex items-center justify-center space-x-3"
-        >
-          <span>Loading</span>
-          <svg
-            class="animate-spin h-4 w-4"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
+    </header>
+    <main class="max-w-xl flex flex-col space-y-4">
+      <i18n-t keypath="help" tag="p">
+        <template v-slot:seeHere>
+          <Anchor
+            url="https://www.portland.gov/zoneparking"
+            target="_blank"
+            rel="noopener"
+            >{{ t('seeHere') }}</Anchor
           >
-            <circle
-              class="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              stroke-width="4"
-            ></circle>
-            <path
-              class="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            ></path>
-          </svg>
-        </div>
-        <span v-else>{{ t('search') }}</span>
-      </Button>
-    </form>
+        </template>
+      </i18n-t>
+      <form
+        class="flex flex-col md:flex-row md:space-x-4 md:space-y-0 space-y-4"
+        @submit.prevent="handleSubmit"
+      >
+        <Input
+          id="licensePlateInput"
+          name="licensePlate"
+          aria-label="License plate"
+          type="text"
+          :placeholder="t('enterPlatePlaceholder')"
+          required
+          pattern="[A-Za-z0-9]+"
+          :patternModifiers="{ input: true }"
+          :size="10"
+          v-model.uppercase="licensePlate"
+        />
 
-    <Result v-if="permit" :permit="permit" />
-  </section>
+        <Select
+          id="zoneInput"
+          name="zone"
+          aria-label="Area parking permit zone"
+          v-model="zone"
+          required
+          :placeholder="t('selectZone')"
+        >
+          <option v-for="zone in zones" :key="zone.value" :value="zone.value">{{
+            zone.text
+          }}</option>
+        </Select>
+
+        <Button
+          :label="t('search')"
+          color="blue"
+          :class="{
+            'opacity-50': isLoading
+          }"
+          :disabled="isLoading"
+        >
+          <div
+            v-if="isLoading"
+            class="flex items-center justify-center space-x-3"
+          >
+            <span>Loading</span>
+            <svg
+              class="animate-spin h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </div>
+          <span v-else>{{ t('search') }}</span>
+        </Button>
+      </form>
+
+      <Result v-if="permit" :permit="permit" />
+    </main>
+  </article>
 </template>
 
 <script>

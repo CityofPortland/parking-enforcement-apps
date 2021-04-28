@@ -12,28 +12,19 @@
           <span class="truncate text-xl">Parking Services</span>
         </router-link>
       </template>
-
-      <template v-slot:menu>
-        <div class="p-4 md:ml-auto">
-          <select
-            id="locale"
-            name="locale"
-            aria-label="Select locale"
-            v-model="locale"
-            class="px-3 py-2 placeholder-gray-600 rounded-md text-gray-900 border border-gray-500 shadow-md bg-gray-100 focus:outline-none focus:ring"
-          >
-            <option value="en">English</option>
-            <option value="no">Norwegian</option>
-          </select>
-        </div>
-      </template>
     </Header>
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 mt-8" :lang="locale">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 mt-4" :lang="locale">
       <router-view />
     </main>
-    <Footer color="gray">
+    <Footer color="gray" variant="light">
       <template v-slot:middle>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <Nav title="Application information">
+            <nav-item
+              url="https://pdx.maps.arcgis.com/apps/MapSeries/index.html?appid=ad171d005d4442bba3c640735d070aa3&entry=3"
+              text="Area parking permit zones map"
+            />
+          </Nav>
           <Nav title="General information">
             <nav-item>
               <Anchor url="//portland.gov">City of Portland</Anchor>

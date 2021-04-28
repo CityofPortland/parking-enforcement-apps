@@ -4,9 +4,10 @@
     :name="name"
     :type="type"
     :required="required"
+    :pattern="pattern"
     :class="classes"
     :value="modelValue"
-    @input="handleInput"
+    @input.prevent="handleInput"
   />
 </template>
 
@@ -33,17 +34,73 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    modelValue: String
+    pattern: {
+      type: String
+    },
+    patternModifiers: {
+      type: Object,
+      default: () => ({})
+    },
+    size: {
+      type: Number
+    },
+    modelValue: {
+      type: String,
+      default: ''
+    },
+    modelModifiers: {
+      type: Object,
+      default: () => ({})
+    }
   },
+  emits: ['keypress', 'update:modelValue'],
   setup(props, { emit }) {
-    const handleInput = (event: Event) => {
-      const target = event.target as HTMLInputElement;
-      emit('update:modelValue', target.value);
-    };
-
     const { required, modelValue } = toRefs(props);
 
     const { classes } = useInput(required, modelValue);
+
+    const handleInput = (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      let value: string | undefined = target.value;
+
+      if (props.pattern && props.patternModifiers.input) {
+        const regex = new RegExp(props.pattern);
+        const matches = regex.exec(value);
+
+        // if any part matches, keep the first part, otherwise, clear
+        matches
+          ? (value = target.value = matches[0])
+          : (value = target.value = '');
+      }
+
+      if (props.size) {
+        if (value.length >= props.size) {
+          value = value.substr(0, props.size);
+          target.value = value;
+        }
+      }
+
+      const modifierMap = new Map<string, (value: string) => string>([
+        ['uppercase', value => value.toLocaleUpperCase()],
+        ['lowercase', value => value.toLocaleLowerCase()],
+        [
+          'capitalize',
+          value => value.charAt(0).toLocaleUpperCase() + value.slice(1)
+        ]
+      ]);
+
+      if (value) {
+        Object.keys(props.modelModifiers).forEach(modifier => {
+          const func = modifierMap.get(modifier);
+
+          if (func && value) {
+            value = func(value);
+          }
+        });
+      }
+
+      !(value == modelValue.value) && emit('update:modelValue', value);
+    };
 
     return {
       classes,

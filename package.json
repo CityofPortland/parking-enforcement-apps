@@ -1,6 +1,6 @@
 {
-  "name": "parking-enforcement-apps",
-  "version": "0.1.0",
+  "name": "parking-services-apps",
+  "version": "1.0.0-beta.2",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -28,6 +28,7 @@
     "@storybook/addon-links": "6.2.0-alpha.24",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/vue3": "6.2.0-alpha.24",
+    "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "@types/color": "^3.0.1",
     "@types/jest": "^24.0.19",

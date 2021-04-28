@@ -8,7 +8,17 @@ export type BoxColor =
   | 'orange'
   | 'red'
   | 'transparent';
+
 export type BoxColorVariant = 'light' | 'neutral' | 'dark';
+
+export interface ColorProps {
+  color: BoxColor;
+  variant: BoxColorVariant;
+}
+
+export interface BoxProps {
+  as: string;
+}
 
 export default defineComponent({
   props: {

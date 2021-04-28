@@ -1,5 +1,5 @@
 <template>
-  <Box as="footer" :color="color" variant="light" class="mt-8">
+  <Box as="footer" :color="color" :variant="variant" class="mt-8">
     <div class="max-w-7xl mx-auto p-4">
       <div class="grid grid-cols-1 gap-3">
         <section>
@@ -32,11 +32,6 @@
         <section class="grid grid-cols-1 md:grid-cols-4 gap-3">
           <div class="order-last md:order-first">
             <Copyright />
-            <img
-              alt="PBOT Vertical Applications logo"
-              src="./pbot-verticalapps-logo-dark.png"
-              class="max-h-32"
-            />
           </div>
           <div class="md:col-span-3">
             <slot name="middle"></slot>
@@ -53,10 +48,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { FooterColor } from './Footer.types';
-
 import Anchor from '@/elements/anchor/Anchor.vue';
-import Box from '@/elements/box/Box';
+import Box, { BoxColor, BoxColorVariant } from '@/elements/box/Box';
 import Copyright from '@/components/copyright/Copyright.vue';
 
 export default defineComponent({
@@ -64,8 +57,12 @@ export default defineComponent({
   components: { Anchor, Box, Copyright },
   props: {
     color: {
-      type: String as () => FooterColor,
+      type: String as () => BoxColor,
       default: 'white'
+    },
+    variant: {
+      type: String as () => BoxColorVariant,
+      default: 'neutral'
     }
   },
   setup(_, { slots }) {

@@ -1,14 +1,21 @@
 <template>
-  <a :href="url">
-    <span class="border-b-2 border-current font-medium hover:font-bold">
+  <a :href="url" class="font-medium">
+    <slot name="before"></slot>
+    <span :class="{ ...borderClasses }">
       <slot>{{ url }}</slot>
     </span>
-    <Icon v-if="external" type="external-link" class="h-4 w-4 ml-1 inline" />
+    <slot name="after">
+      <Icon
+        v-if="externalIcon"
+        type="external-link"
+        class="h-4 w-4 ml-1 inline"
+      />
+    </slot>
   </a>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 import Icon from '@/elements/icon/Icon.vue';
 
@@ -23,11 +30,23 @@ export default defineComponent({
     border: {
       type: Boolean,
       default: true
+    },
+    external: {
+      type: Boolean
     }
   },
   setup(props) {
     return {
-      external: props.url.startsWith('http')
+      externalIcon:
+        props.external === undefined
+          ? props.external
+          : /[////]{2}/.test(props.url), // matches '//'
+      borderClasses: computed(() => {
+        return {
+          'border-b-2': props.border,
+          'border-current': props.border
+        };
+      })
     };
   }
 });

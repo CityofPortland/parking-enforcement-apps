@@ -27,7 +27,7 @@ export default defineComponent({
   },
   setup(props) {
     return {
-      display: props.text ? props.text : props.url
+      display: props.text || props.url
     };
   }
 });

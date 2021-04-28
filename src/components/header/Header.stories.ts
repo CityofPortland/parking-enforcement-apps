@@ -6,19 +6,15 @@ import Button from '@/elements/button/Button.vue';
 import Header from './Header.vue';
 import Nav from '../nav/Nav.vue';
 import NavItem from '../nav/NavItem.vue';
+import { ColorArgs } from '@/elements/box/Box.stories';
 
 export default {
   title: 'Component/Header',
   component: Header,
   argTypes: {
     appName: { control: { type: 'text', default: 'PBOT App' } },
-    color: {
-      control: {
-        type: 'select',
-        options: ['white', 'gray', 'cyan', 'orange', 'blue']
-      }
-    },
-    onToggle: { action: 'toggled' }
+    onToggle: { action: 'toggled' },
+    ...ColorArgs
   }
 };
 
@@ -37,7 +33,7 @@ const Template: Story = (args, { argTypes }) => ({
   setup: () => {
     return { ...args };
   },
-  template: `<Header :color="color" :open="open" @toggle="onToggle">
+  template: `<Header :color="color" :variant="variant" :open="open" @toggle="onToggle">
       <template v-slot:branding>
         <Logo class="w-20 mr-3 hidden md:inline-flex" />
         <h1 class="truncate text-xl">{{ appName }}</h1>
@@ -69,11 +65,12 @@ const NoMenuTemplate: Story = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Header, Branding },
   setup: () => {
-    return { args };
+    return { ...args };
   },
-  template: `<Header :color="color">
+  template: `<Header :color="color" :variant="variant">
       <template v-slot:branding>
-        <Branding :app-name="$props.appName" />
+        <Logo class="w-20 mr-3 hidden md:inline-flex" />
+        <h1 class="truncate text-xl">{{ appName }}</h1>
       </template>
     </Header>`
 });

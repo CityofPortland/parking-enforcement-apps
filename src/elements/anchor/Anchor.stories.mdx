@@ -1,6 +1,9 @@
 import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
 
 import Anchor from './Anchor.vue';
+import Box from '../box/Box';
+
+import { Slots, SlotsWithIcons } from './Anchor.stories';
 
 <Meta title="Element/Anchor" component={Anchor} />
 
@@ -42,4 +45,9 @@ Anchors have special behavior when they detect that the url being linked to is a
                 <span>an external link with an icon.</span>
             </Anchor> The link is within the context of a paragraph.</p>`,
     }}</Story>
+</Canvas>
+
+<Canvas>
+    <Story story={Slots}></Story>
+    <Story story={SlotsWithIcons}></Story>
 </Canvas>

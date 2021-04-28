@@ -2,14 +2,22 @@ import { computed, Ref } from 'vue';
 
 export type TextInputType = 'email' | 'text';
 
+export interface TextInputProps {
+  id: string;
+  name: string;
+  pattern?: string;
+  patternModifiers?: Record<string, boolean>;
+  size?: number;
+  modelValue?: string;
+  modelProperties?: Record<string, boolean>;
+}
+
 export function useInput(
   required: Ref<boolean>,
   modelValue: Ref<string | undefined> | undefined
 ) {
   return {
     classes: computed(() => [
-      'max-w-full',
-      'p-2',
       'border',
       required.value && !modelValue?.value
         ? 'border-red-500'
@@ -22,7 +30,8 @@ export function useInput(
         : 'placeholder-gray-500',
       'truncate',
       'focus:outline-none',
-      'focus:ring'
+      'focus:ring',
+      'focus:ring-blue-500'
     ])
   };
 }
