@@ -102,14 +102,14 @@ export default defineComponent({
 <i18n>
 {
   "en": {
-    "permitFoundHeader": "Area parking permit found for '{licensePlate}'!",
-    "permitNotFoundHeader": "No area parking permit found for '{licensePlate}'.",
+    "permitFoundHeader": "Active area parking permit found for '{licensePlate}'!",
+    "permitNotFoundHeader": "No active area parking permit found for '{licensePlate}'.",
     "permitFoundBody": "Vehicle with license plate '{licensePlate}' has an active area parking permit in '{zone}'.",
     "permitNotFoundBody": "Vehicle with license plate '{licensePlate}' does not have an active area parking permit in '{zone}'.",
     "permitNotFoundEnforcementInfo" : "Visitor parking in {zoneName} {visitorLimit} during the hours of {enforcementHours}",
     "permitNotFoundMap": "{useMapLink} to view visitor time limits and enforcement hours in your zone.",
     "useMap": "Use the zone enforcement map",
-    "permitNotFoundCaveat": "A vehicle without an active area parking permit can park up to the visitor time limit in the zone. Vehicles might have other permits allowing them to park in this area, not all vehicles with a result ‘no area parking permit found’ will be in violation. If you’d like to report this vehicle to Parking Enforcement call {callEnforcementLink}, choose option 1 to report a vehicle."
+    "permitNotFoundCaveat": "A vehicle without an active area parking permit can park up to the visitor time limit in the zone. Vehicles might have other permits allowing them to park in this area, not all vehicles with a result ‘no active area parking permit found’ will be in violation. If you’d like to report this vehicle to Parking Enforcement call {callEnforcementLink}, choose option 1 to report a vehicle."
   },
   "no": {
     "permitFoundHeader": "Tillatelse funnet for '{licensePlate}'!",
