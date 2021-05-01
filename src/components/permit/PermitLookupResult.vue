@@ -24,7 +24,7 @@
       tag="p"
       class="block text-center"
     >
-      <template v-slot:zoneName> Zone {{ permit.zone.id }} </template>
+      <template v-slot:zoneName>'Zone {{ permit.zone.id }}'</template>
       <template v-slot:visitorLimit>
         {{
           permit.zone.visitorLimit == 'varies'
