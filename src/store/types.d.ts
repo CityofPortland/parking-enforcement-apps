@@ -5,7 +5,8 @@ export type GraphQLResponse<T> = {
 
 export type AreaPermitZone = {
   id: string;
-  name: string;
+  name?: string;
+  displayName: string;
   visitorLimit: string;
   enforcementHours: string;
 };
