@@ -55,7 +55,7 @@ export default createStore<State>({
 
       const res = await submitQuery<{ areaPermit: AreaPermit }>({
         query: `{ areaPermit(licensePlate:"${licensePlate}", zone:"${zone}") {
-          licensePlate, zone { id, displayName, visitorLimit, enforcementHours }, isValid
+          licensePlate, zone { id, displayName, enforcementInfo { visitorLimit, enforcementHours } }, isValid
         } }`
       });
 

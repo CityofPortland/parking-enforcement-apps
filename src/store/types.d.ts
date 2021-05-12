@@ -3,12 +3,16 @@ export type GraphQLResponse<T> = {
   data?: T;
 };
 
+export type ZoneEnforcementInfo = {
+  visitorLimit: string;
+  enforcementHours: string;
+};
+
 export type AreaPermitZone = {
   id: string;
   name?: string;
   displayName: string;
-  visitorLimit: string;
-  enforcementHours: string;
+  enforcementInfo: Set<ZoneEnforcementInfo>;
 };
 
 export type AreaPermit = {
