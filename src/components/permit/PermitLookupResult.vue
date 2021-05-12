@@ -25,17 +25,14 @@
       class="block text-center"
     >
       <template v-slot:zoneName>'Zone {{ permit.zone.id }}'</template>
-      <template v-slot:visitorLimit>
-        {{
-          permit.zone.visitorLimit == 'varies'
-            ? 'is limited'
-            : `is limited to ${permit.zone.visitorLimit}`
-        }}
-      </template>
-      <template v-slot:enforcementHours>
-        {{ permit.zone.enforcementHours }}
-      </template>
     </i18n-t>
+
+    <ul class="list-disc">
+      <li v-for="(info, index) in permit.zone.enforcementInfo" :key="index">
+        {{ capitalize(info.visitorLimit) }} during the hours of
+        {{ info.enforcementHours }}
+      </li>
+    </ul>
 
     <i18n-t
       v-if="!permit.isValid"
@@ -93,7 +90,10 @@ export default defineComponent({
               licensePlate: props.permit.licensePlate,
               zone: `Zone ${props.permit.zone.id}`
             })
-      )
+      ),
+      capitalize: (str: string) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
     };
   }
 });
@@ -106,7 +106,7 @@ export default defineComponent({
     "permitNotFoundHeader": "No active area parking permit found for '{licensePlate}'.",
     "permitFoundBody": "Vehicle with license plate '{licensePlate}' has an active area parking permit in '{zone}'.",
     "permitNotFoundBody": "Vehicle with license plate '{licensePlate}' does not have an active area parking permit in '{zone}'.",
-    "permitNotFoundEnforcementInfo" : "Visitor parking in {zoneName} {visitorLimit} during the hours of {enforcementHours}",
+    "permitNotFoundEnforcementInfo" : "Visitor parking in {zoneName} has the following limits:",
     "permitNotFoundMap": "{useMapLink} to view visitor time limits and enforcement hours in your zone.",
     "useMap": "Use the zone enforcement map",
     "permitNotFoundCaveat": "A vehicle without an active area parking permit can park up to the visitor time limit in the zone. Vehicles might have other permits allowing them to park in this area, not all vehicles with a result ‘no active area parking permit found’ will be in violation. If you’d like to report this vehicle to Parking Enforcement call {callEnforcementLink}, choose option 1 to report a vehicle."
