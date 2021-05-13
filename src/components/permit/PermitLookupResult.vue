@@ -4,10 +4,10 @@
     variant="light"
     class="flex flex-col md:flex-row p-6 border border-current rounded-md shadow-md"
   >
-    <Box class="flex-shrink-0 self-center md:self-start md:mt-1 md:mr-4">
+    <Box class="flex-shrink-0 self-center md:self-start md:mr-4 mb-3">
       <Icon
         :type="permit.isValid ? 'check-circle' : 'x-circle'"
-        class="h-10 w-10"
+        class="h-8 w-8"
       />
     </Box>
 
@@ -15,7 +15,7 @@
       <i18n-t
         :keypath="permit.isValid ? 'permitFoundHeader' : 'permitNotFoundHeader'"
         tag="p"
-        class="font-semibold text-2xl leading-snug"
+        class="font-semibold text-lg"
       >
         <template v-slot:licensePlate>{{ permit.licensePlate }}</template>
       </i18n-t>
@@ -84,16 +84,16 @@ export default defineComponent({
     "permitFoundHeader": "Active area parking permit found for '{licensePlate}'!",
     "permitNotFoundHeader": "No active area parking permit found for '{licensePlate}'.",
     "permitFoundBody": "Vehicle with license plate '{licensePlate}' has an active area parking permit in '{zone}'.",
-    "permitNotFoundBody": "Vehicle with license plate '{licensePlate}' does not have an active area parking permit in '{zone}'. A vehicle without an active area parking permit in '{zone}' can park up to the following time limits:",
+    "permitNotFoundBody": "Vehicle with license plate '{licensePlate}' does not have an active area parking permit in '{zone}'. Vehicles without an active area parking permit in '{zone}' can park up to the following time limits:",
     "permitNotFoundMap": "{useMapLink} to view visitor time limits and enforcement hours in your zone.",
     "useMap": "Use the zone enforcement map",
-    "permitNotFoundCaveat": "Vehicles might have other permits allowing them to park in this area, not all vehicles with a result ‘no active area parking permit found’ will be in violation. If you’d like to report this vehicle to Parking Enforcement call {callEnforcementLink}, choose option 1 to report a vehicle."
+    "permitNotFoundCaveat": "Vehicles may have other permits allowing them to park in this area. Not all vehicles with a ‘no active area parking permit found’ result will be in violation. If you’d like to report this vehicle to Parking Enforcement, call {callEnforcementLink} and choose option 1 to report a vehicle."
   },
   "no": {
     "permitFoundHeader": "Tillatelse funnet for '{licensePlate}'!",
     "permitNotFoundHeader": "Tillatelse ikke funnet for '{licensePlate}'.",
     "permitFoundBody": "Kjøretøy med lisens '{licensePlate}' har områdeparkeringstillatelse i '{zone}'.",
-    "permitNotFoundBody": "Kjøretøy med lisens  '{licensePlate}' har ikke områdeparkeringstillatelse i '{zone}'."    
+    "permitNotFoundBody": "Kjøretøy med lisens  '{licensePlate}' har ikke områdeparkeringstillatelse i '{zone}'."
   }
 }
 </i18n>
