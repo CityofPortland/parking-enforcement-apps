@@ -7,6 +7,7 @@ export type BoxColor =
   | 'green'
   | 'orange'
   | 'red'
+  | 'tangerine'
   | 'transparent';
 
 export type BoxColorVariant = 'light' | 'neutral' | 'dark';
@@ -83,6 +84,14 @@ export default defineComponent({
           ['light', ['bg-red-200', 'text-red-900']],
           ['neutral', ['bg-red-500', 'text-red-100']],
           ['dark', ['bg-red-900', 'text-red-100']]
+        ])
+      ],
+      [
+        'tangerine',
+        new Map([
+          ['light', ['bg-tangerine-200', 'text-tangerine-900']],
+          ['neutral', ['bg-tangerine-500', 'text-tangerine-100']],
+          ['dark', ['bg-tangerine-900', 'text-tangerine-100']]
         ])
       ],
       [

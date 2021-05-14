@@ -6,7 +6,16 @@ export const ColorArgs = {
   color: {
     control: {
       type: 'select',
-      options: ['blue', 'cyan', 'gray', 'green', 'orange', 'red', 'transparent']
+      options: [
+        'blue',
+        'cyan',
+        'gray',
+        'green',
+        'orange',
+        'red',
+        'tangerine',
+        'transparent'
+      ]
     }
   },
   variant: {

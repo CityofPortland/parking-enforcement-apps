@@ -36,6 +36,10 @@
           type="text"
           :placeholder="t('enterPlatePlaceholder')"
           required
+          :disabled="error"
+          :class="{
+            'cursor-not-allowed': error
+          }"
           pattern="[A-Za-z0-9]+"
           :patternModifiers="{ input: true }"
           :size="10"
@@ -49,6 +53,10 @@
           v-model="zone"
           required
           :placeholder="t('selectZone')"
+          :disabled="error"
+          :class="{
+            'cursor-not-allowed': error
+          }"
         >
           <option v-for="zone in zones" :key="zone.value" :value="zone.value">{{
             zone.text
@@ -59,9 +67,9 @@
           :label="t('search')"
           color="blue"
           :class="{
-            'opacity-50': isLoading
+            'opacity-50 cursor-not-allowed': isLoading || error
           }"
-          :disabled="isLoading"
+          :disabled="isLoading || error"
         >
           <div
             v-if="isLoading"
@@ -94,6 +102,19 @@
       </form>
 
       <Result v-if="permit" :permit="permit" />
+
+      <Box
+        v-if="error"
+        color="tangerine"
+        variant="light"
+        class="p-3 border border-current rounded shadow flex space-x-3"
+      >
+        <Icon type="exclamation" class="h-6 w-6" />
+        <p>
+          An error occured in the application. Please try again later.
+          {{ error }}
+        </p>
+      </Box>
     </main>
   </article>
 </template>
@@ -102,6 +123,8 @@
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
+import Box from '@/elements/box/Box';
+import Icon from '@/elements/icon/Icon.vue';
 
 import Anchor from '@/elements/anchor/Anchor.vue';
 import Button from '@/elements/button/Button.vue';
@@ -113,6 +136,8 @@ export default {
   name: 'PermitLookup',
   components: {
     Anchor,
+    Box,
+    Icon,
     Button,
     Input,
     Result,
@@ -144,7 +169,8 @@ export default {
       handleSubmit,
       isLoading: computed(() => store.state.loading),
       permit: computed(() => store.state.permit),
-      zones: computed(() => store.state.zones)
+      zones: computed(() => store.state.zones),
+      error: computed(() => store.state.error)
     };
   }
 };
