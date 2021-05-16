@@ -31,6 +31,10 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     placeholder: {
       type: String,
       default: 'Select option'
@@ -43,9 +47,9 @@ export default defineComponent({
       emit('update:modelValue', target.value);
     };
 
-    const { required, modelValue } = toRefs(props);
+    const { disabled, modelValue, required } = toRefs(props);
 
-    const { classes } = useInput(required, modelValue);
+    const { classes } = useInput(required, disabled, modelValue);
 
     return {
       classes,

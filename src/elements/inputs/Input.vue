@@ -4,6 +4,7 @@
     :name="name"
     :type="type"
     :required="required"
+    :disabled="disabled"
     :pattern="pattern"
     :class="classes"
     :value="modelValue"
@@ -34,6 +35,10 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     pattern: {
       type: String
     },
@@ -55,9 +60,9 @@ export default defineComponent({
   },
   emits: ['keypress', 'update:modelValue'],
   setup(props, { emit }) {
-    const { required, modelValue } = toRefs(props);
+    const { required, disabled, modelValue } = toRefs(props);
 
-    const { classes } = useInput(required, modelValue);
+    const { classes } = useInput(required, disabled, modelValue);
 
     const handleInput = (event: Event) => {
       const target = event.target as HTMLInputElement;
