@@ -1,29 +1,15 @@
 <template>
-  <Box
+  <Message
     :color="permit.isValid ? 'green' : 'red'"
     variant="light"
-    class="p-6 flex flex-col items-center justify-center space-y-4 border border-current rounded-md shadow-md"
+    :icon="permit.isValid ? 'check-circle' : 'x-circle'"
+    :summary="summary"
   >
-    <Icon
-      :type="permit.isValid ? 'check-circle' : 'x-circle'"
-      class="h-12 w-12"
-    />
-
-    <span class="font-semibold block text-2xl text-center">
-      <!-- Permit Found for '{{ plateSearchedFor }}'! -->
-      {{ summary }}
-    </span>
-
-    <p class="block text-center">
+    <p>
       {{ body }}
     </p>
 
-    <i18n-t
-      v-if="!permit.isValid"
-      keypath="permitNotFoundMap"
-      tag="p"
-      class="block text-center"
-    >
+    <i18n-t v-if="!permit.isValid" keypath="permitNotFoundMap" tag="p">
       <template v-slot:useMapLink>
         <Anchor
           url="https://pdx.maps.arcgis.com/apps/MapSeries/index.html?appid=ad171d005d4442bba3c640735d070aa3&entry=3"
@@ -34,17 +20,12 @@
       </template>
     </i18n-t>
 
-    <i18n-t
-      v-if="!permit.isValid"
-      keypath="permitNotFoundCaveat"
-      tag="p"
-      class="block text-center"
-    >
+    <i18n-t v-if="!permit.isValid" keypath="permitNotFoundCaveat" tag="p">
       <template v-slot:callEnforcementLink>
         <Anchor url="tel:503-823-5195">503-823-5195</Anchor>
       </template>
     </i18n-t>
-  </Box>
+  </Message>
 </template>
 
 <script lang="ts">
@@ -52,13 +33,12 @@ import { defineComponent, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import Anchor from '@/elements/anchor/Anchor.vue';
-import Box from '@/elements/box/Box';
-import Icon from '@/elements/icon/Icon.vue';
+import Message from '@/components/message/Message.vue';
 import { AreaPermit } from '@/store/types';
 
 export default defineComponent({
   name: 'PermitLookupResult',
-  components: { Anchor, Box, Icon },
+  components: { Anchor, Message },
   props: {
     permit: {
       type: Object as () => AreaPermit,

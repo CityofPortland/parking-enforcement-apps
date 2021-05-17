@@ -103,18 +103,18 @@
 
       <Result v-if="permit" :permit="permit" />
 
-      <Box
+      <Message
         v-if="error"
         color="tangerine"
         variant="light"
-        class="p-3 border border-current rounded shadow flex space-x-3"
+        icon="exclamation"
+        summary="An error occured in the application."
       >
-        <Icon type="exclamation" class="h-6 w-6" />
         <p>
-          An error occured in the application. Please try again later.
+          Please try again later.
           {{ error }}
         </p>
-      </Box>
+      </Message>
     </main>
   </article>
 </template>
@@ -123,8 +123,8 @@
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
-import Box from '@/elements/box/Box';
-import Icon from '@/elements/icon/Icon.vue';
+
+import Message from '@/components/message/Message.vue';
 
 import Anchor from '@/elements/anchor/Anchor.vue';
 import Button from '@/elements/button/Button.vue';
@@ -136,12 +136,11 @@ export default {
   name: 'PermitLookup',
   components: {
     Anchor,
-    Box,
-    Icon,
     Button,
     Input,
     Result,
-    Select
+    Select,
+    Message
   },
   setup() {
     const { t, locale } = useI18n();
