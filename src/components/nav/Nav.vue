@@ -14,7 +14,7 @@ export default defineComponent({
   name: 'Nav',
   inheritAttrs: false,
   props: {
-    title: String
-  }
+    title: String,
+  },
 });
 </script>

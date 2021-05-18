@@ -5,12 +5,12 @@ module.exports = {
       rules: [
         {
           test: /\.mdx?$/,
-          use: ['babel-loader', '@mdx-js/vue-loader']
-        }
-      ]
-    }
+          use: ['babel-loader', '@mdx-js/vue-loader'],
+        },
+      ],
+    },
   },
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     config.module
       .rule('i18n')
       .resourceQuery(/blockType=i18n/)
@@ -18,5 +18,5 @@ module.exports = {
       .use('i18n')
       .loader('@intlify/vue-i18n-loader')
       .end();
-  }
+  },
 };

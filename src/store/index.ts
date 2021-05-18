@@ -14,8 +14,8 @@ function submitQuery<T>(query: unknown) {
   return axios
     .post<GraphQLResponse<T>>(process.env.VUE_APP_GRAPHQL_URL, query, {
       headers: {
-        'content-type': 'application/json'
-      }
+        'content-type': 'application/json',
+      },
     })
     .catch(() => {
       throw Error();
@@ -26,7 +26,7 @@ export default createStore<State>({
   state: {
     loading: false,
     zones: new Array<AreaPermitZone>(),
-    permit: undefined
+    permit: undefined,
   },
   mutations: {
     setLoading(state, loading: boolean) {
@@ -37,13 +37,13 @@ export default createStore<State>({
     },
     setPermit(state, permit: AreaPermit) {
       state.permit = permit;
-    }
+    },
   },
   actions: {
     async retrieveZones({ state, commit }) {
       if (!state.zones.length) {
         const res = await submitQuery<{ areaPermitZone: AreaPermitZone }>({
-          query: '{ areaPermitZone { value, text } }'
+          query: '{ areaPermitZone { value, text } }',
         });
 
         commit('setZones', res.data.data?.areaPermitZone);
@@ -56,12 +56,12 @@ export default createStore<State>({
       const res = await submitQuery<{ areaPermit: AreaPermit }>({
         query: `{ areaPermit(licensePlate:"${licensePlate}", zone:"${zone}") {
           licensePlate, zone { value, text }, isValid
-        } }`
+        } }`,
       });
 
       commit('setLoading', false);
       commit('setPermit', res.data.data?.areaPermit);
-    }
+    },
   },
-  modules: {}
+  modules: {},
 });

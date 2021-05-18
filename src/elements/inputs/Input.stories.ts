@@ -7,8 +7,8 @@ export default {
   component: Component,
   argTypes: {
     onInput: { action: 'input' },
-    onKeypress: { action: 'keypress' }
-  }
+    onKeypress: { action: 'keypress' },
+  },
 } as Meta;
 
 const Basic: Story = (args, { argTypes }) => ({
@@ -16,7 +16,7 @@ const Basic: Story = (args, { argTypes }) => ({
   components: { Component },
   setup() {
     return {
-      ...args
+      ...args,
     };
   },
   template: `<Component
@@ -31,7 +31,7 @@ const Basic: Story = (args, { argTypes }) => ({
       :model-value="value"
       :model-modifiers="modelModifiers"
       @keypress="onKeypress"
-      @update:model-value="onInput" />`
+      @update:model-value="onInput" />`,
 });
 
 export const Input = Basic.bind({});
@@ -41,5 +41,5 @@ Input.args = {
   type: 'text',
   required: false,
   placeholder: 'Fill me...',
-  modelValue: undefined
+  modelValue: undefined,
 };

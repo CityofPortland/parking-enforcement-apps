@@ -24,13 +24,13 @@ export default defineComponent({
   props: {
     type: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     return {
-      path: computed(() => icons[props.type])
+      path: computed(() => icons[props.type]),
     };
-  }
+  },
 });
 </script>

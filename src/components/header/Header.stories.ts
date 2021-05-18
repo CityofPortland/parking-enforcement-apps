@@ -14,8 +14,8 @@ export default {
   argTypes: {
     appName: { control: { type: 'text', default: 'PBOT App' } },
     onToggle: { action: 'toggled' },
-    ...ColorArgs
-  }
+    ...ColorArgs,
+  },
 };
 
 const Branding = defineComponent({
@@ -24,7 +24,7 @@ const Branding = defineComponent({
   template: `<div class="flex items-center truncate">
     <Logo class="w-16 mr-3" />
     <h1 class="truncate">{{ appName }}</h1>
-  </div>`
+  </div>`,
 });
 
 const Template: Story = (args, { argTypes }) => ({
@@ -48,17 +48,17 @@ const Template: Story = (args, { argTypes }) => ({
           <Button label="Log in" size="small" primary>Log in</Button>
         </div>
       </template>
-    </Header>`
+    </Header>`,
 });
 
 export const Basic = Template.bind({});
 Basic.args = {
-  appName: 'Transportation App'
+  appName: 'Transportation App',
 };
 
 export const LongTitle = Template.bind({});
 LongTitle.args = {
-  appName: 'Transportation App With a Name That is Too Long'
+  appName: 'Transportation App With a Name That is Too Long',
 };
 
 const NoMenuTemplate: Story = (args, { argTypes }) => ({
@@ -72,10 +72,10 @@ const NoMenuTemplate: Story = (args, { argTypes }) => ({
         <Logo class="w-20 mr-3 hidden md:inline-flex" />
         <h1 class="truncate text-xl">{{ appName }}</h1>
       </template>
-    </Header>`
+    </Header>`,
 });
 
 export const NoMenu = NoMenuTemplate.bind({});
 NoMenu.args = {
-  appName: 'Transportation App'
+  appName: 'Transportation App',
 };

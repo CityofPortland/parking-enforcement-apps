@@ -14,7 +14,7 @@ export const Slots: Story = (args, { argTypes }) => ({
         v-slot:after>
         <Box as="span" class="p-1 border border-current rounded-md">After</Box>
     </template>
-  </Anchor>`
+  </Anchor>`,
 });
 
 export const SlotsWithIcons: Story = (args, { argTypes }) => ({
@@ -27,5 +27,5 @@ export const SlotsWithIcons: Story = (args, { argTypes }) => ({
           v-slot:after>
           <Icon type="check-circle" class="h-4 w-4 inline" />
       </template>
-    </Anchor>`
+    </Anchor>`,
 });

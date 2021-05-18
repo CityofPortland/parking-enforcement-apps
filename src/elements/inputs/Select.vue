@@ -21,21 +21,21 @@ export default defineComponent({
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     placeholder: {
       type: String,
-      default: 'Select option'
+      default: 'Select option',
     },
-    modelValue: String
+    modelValue: String,
   },
   setup(props, { emit }) {
     const handleChange = (event: Event) => {
@@ -49,8 +49,8 @@ export default defineComponent({
 
     return {
       classes,
-      handleChange
+      handleChange,
     };
-  }
+  },
 });
 </script>

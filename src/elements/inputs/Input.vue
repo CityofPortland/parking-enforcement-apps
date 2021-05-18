@@ -20,38 +20,38 @@ export default defineComponent({
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     type: {
       type: String as () => TextInputType,
-      default: 'text'
+      default: 'text',
     },
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     pattern: {
-      type: String
+      type: String,
     },
     patternModifiers: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     size: {
-      type: Number
+      type: Number,
     },
     modelValue: {
       type: String,
-      default: ''
+      default: '',
     },
     modelModifiers: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   emits: ['keypress', 'update:modelValue'],
   setup(props, { emit }) {
@@ -81,16 +81,16 @@ export default defineComponent({
       }
 
       const modifierMap = new Map<string, (value: string) => string>([
-        ['uppercase', value => value.toLocaleUpperCase()],
-        ['lowercase', value => value.toLocaleLowerCase()],
+        ['uppercase', (value) => value.toLocaleUpperCase()],
+        ['lowercase', (value) => value.toLocaleLowerCase()],
         [
           'capitalize',
-          value => value.charAt(0).toLocaleUpperCase() + value.slice(1)
-        ]
+          (value) => value.charAt(0).toLocaleUpperCase() + value.slice(1),
+        ],
       ]);
 
       if (value) {
-        Object.keys(props.modelModifiers).forEach(modifier => {
+        Object.keys(props.modelModifiers).forEach((modifier) => {
           const func = modifierMap.get(modifier);
 
           if (func && value) {
@@ -104,8 +104,8 @@ export default defineComponent({
 
     return {
       classes,
-      handleInput
+      handleInput,
     };
-  }
+  },
 });
 </script>

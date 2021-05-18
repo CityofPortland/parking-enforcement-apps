@@ -50,16 +50,16 @@
           required
           :placeholder="t('selectZone')"
         >
-          <option v-for="zone in zones" :key="zone.value" :value="zone.value">{{
-            zone.text
-          }}</option>
+          <option v-for="zone in zones" :key="zone.value" :value="zone.value">
+            {{ zone.text }}
+          </option>
         </Select>
 
         <Button
           :label="t('search')"
           color="blue"
           :class="{
-            'opacity-50': isLoading
+            'opacity-50': isLoading,
           }"
           :disabled="isLoading"
         >
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
 
@@ -109,14 +109,14 @@ import Input from '@/elements/inputs/Input.vue';
 import Result from '@/components/permit/PermitLookupResult.vue';
 import Select from '@/elements/inputs/Select.vue';
 
-export default {
+export default defineComponent({
   name: 'PermitLookup',
   components: {
     Anchor,
     Button,
     Input,
     Result,
-    Select
+    Select,
   },
   setup() {
     const { t, locale } = useI18n();
@@ -131,7 +131,7 @@ export default {
       if (licensePlate.value && zone.value) {
         store.dispatch('searchLicense', {
           licensePlate: licensePlate.value,
-          zone: zone.value
+          zone: zone.value,
         });
       }
     }
@@ -144,10 +144,10 @@ export default {
       handleSubmit,
       isLoading: computed(() => store.state.loading),
       permit: computed(() => store.state.permit),
-      zones: computed(() => store.state.zones)
+      zones: computed(() => store.state.zones),
     };
-  }
-};
+  },
+});
 </script>
 
 <i18n>

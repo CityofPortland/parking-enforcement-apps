@@ -25,15 +25,15 @@ export default defineComponent({
   props: {
     url: {
       type: String,
-      required: true
+      required: true,
     },
     border: {
       type: Boolean,
-      default: true
+      default: true,
     },
     external: {
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
   setup(props) {
     return {
@@ -44,10 +44,10 @@ export default defineComponent({
       borderClasses: computed(() => {
         return {
           'border-b-2': props.border,
-          'border-current': props.border
+          'border-current': props.border,
         };
-      })
+      }),
     };
-  }
+  },
 });
 </script>
