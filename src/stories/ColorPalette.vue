@@ -40,17 +40,29 @@
             <div class="flex flex-row space-x-2">
               <div
                 class="flex flex-col items-center justify-between"
-                style="font-size: 18px;"
+                style="font-size: 18px"
               >
                 <span>{{ textWeight }}</span>
                 <span
                   v-if="contrast(color, bgWeight, textWeight) < 3"
-                  class="px-2 bg-red-600 text-white text-base font-medium rounded-lg"
+                  class="
+                    px-2
+                    bg-red-600
+                    text-white text-base
+                    font-medium
+                    rounded-lg
+                  "
                   >Fail
                 </span>
                 <span
                   v-else
-                  class="px-2 bg-black text-white text-base font-medium rounded-lg"
+                  class="
+                    px-2
+                    bg-black
+                    text-white text-base
+                    font-medium
+                    rounded-lg
+                  "
                   >{{
                     contrast(color, bgWeight, textWeight) > 4.5 ? 'AAA' : 'AA'
                   }}
@@ -58,17 +70,29 @@
               </div>
               <div
                 class="flex flex-col items-center justify-between"
-                style="font-size: 16px;"
+                style="font-size: 16px"
               >
                 <span>{{ textWeight }}</span>
                 <span
                   v-if="contrast(color, bgWeight, textWeight) < 4.5"
-                  class="px-2 bg-red-600 text-white text-base font-medium rounded-lg"
+                  class="
+                    px-2
+                    bg-red-600
+                    text-white text-base
+                    font-medium
+                    rounded-lg
+                  "
                   >Fail
                 </span>
                 <span
                   v-else
-                  class="px-2 bg-black text-white text-base font-medium rounded-lg"
+                  class="
+                    px-2
+                    bg-black
+                    text-white text-base
+                    font-medium
+                    rounded-lg
+                  "
                   >{{
                     contrast(color, bgWeight, textWeight) > 7 ? 'AAA' : 'AA'
                   }}
@@ -76,17 +100,29 @@
               </div>
               <div
                 class="flex flex-col items-center justify-between"
-                style="font-size: 14px; font-weight: bold;"
+                style="font-size: 14px; font-weight: bold"
               >
                 <span>{{ textWeight }}</span>
                 <span
                   v-if="contrast(color, bgWeight, textWeight) < 4.5"
-                  class="px-2 bg-red-600 text-white text-base font-medium rounded-lg"
+                  class="
+                    px-2
+                    bg-red-600
+                    text-white text-base
+                    font-medium
+                    rounded-lg
+                  "
                   >Fail
                 </span>
                 <span
                   v-else
-                  class="px-2 bg-black text-white text-base font-medium rounded-lg"
+                  class="
+                    px-2
+                    bg-black
+                    text-white text-base
+                    font-medium
+                    rounded-lg
+                  "
                   >{{
                     contrast(color, bgWeight, textWeight) > 7 ? 'AAA' : 'AA'
                   }}
@@ -100,7 +136,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from 'vue';
 import Color from 'color';
 import resolveConfig from 'tailwindcss/resolveConfig';
@@ -114,31 +150,29 @@ export default defineComponent({
   props: {
     color: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      weights: [100, 200, 300, 400, 500, 600, 700, 800, 900]
+      weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
     };
   },
   methods: {
-    colorValue(color: string, weight: number) {
+    colorValue(color, weight) {
       return fullConfig.theme.colors[color][weight];
     },
-    hslText(color: string, weight: number) {
-      const c = Color(fullConfig.theme.colors[color][weight])
-        .hsl()
-        .array();
+    hslText(color, weight) {
+      const c = Color(fullConfig.theme.colors[color][weight]).hsl().array();
       return `${c[0].toPrecision(3)}°, ${c[1].toPrecision(
         3
       )}%, ${c[2].toPrecision(3)}%`;
     },
-    contrast(color: string, bgWeight: number, textWeight: number) {
+    contrast(color, bgWeight, textWeight) {
       const bg = Color(fullConfig.theme.colors[color][bgWeight]);
       const text = Color(fullConfig.theme.colors[color][textWeight]);
       return text.contrast(bg);
-    }
-  }
+    },
+  },
 });
 </script>
