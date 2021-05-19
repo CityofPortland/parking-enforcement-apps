@@ -49,21 +49,14 @@
 import { defineComponent } from 'vue';
 
 import Anchor from '@/elements/anchor/Anchor.vue';
-import Box, { BoxColor, BoxColorVariant } from '@/elements/box/Box';
+import Box, { ColorProps } from '@/elements/box/Box';
 import Copyright from '@/components/copyright/Copyright.vue';
 
 export default defineComponent({
   name: 'Footer',
   components: { Anchor, Box, Copyright },
   props: {
-    color: {
-      type: String as () => BoxColor,
-      default: 'white',
-    },
-    variant: {
-      type: String as () => BoxColorVariant,
-      default: 'neutral',
-    },
+    ...ColorProps,
   },
   setup(_, { slots }) {
     return {

@@ -2,7 +2,6 @@ import { Story, Meta } from '@storybook/vue3';
 
 import Button from './Button.vue';
 import { ButtonProps } from '@/elements/button/Button.types';
-import { BoxProps } from '@/elements/box/Box';
 import { ColorArgs } from '@/elements/box/Box.stories';
 
 export default {
@@ -17,7 +16,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ButtonProps & BoxProps> = (args, { argTypes }) => ({
+const Template: Story<ButtonProps> = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Button },
   setup() {
@@ -27,19 +26,25 @@ const Template: Story<ButtonProps & BoxProps> = (args, { argTypes }) => ({
     '<Button @click="onClick" :color="color" :variant="variant" :size="size" :label="label" />',
 });
 
+const defaultArgs = {
+  color: 'blue',
+  variant: 'neutral',
+  label: 'Button',
+};
+
 export const Medium = Template.bind({});
 Medium.args = {
-  label: 'Button',
+  ...defaultArgs,
 };
 
 export const Large = Template.bind({});
 Large.args = {
   size: 'large',
-  label: 'Button',
+  ...defaultArgs,
 };
 
 export const Small = Template.bind({});
 Small.args = {
   size: 'small',
-  label: 'Button',
+  ...defaultArgs,
 };

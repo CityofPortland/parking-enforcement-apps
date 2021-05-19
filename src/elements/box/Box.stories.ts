@@ -27,9 +27,11 @@ export const ColorArgs = {
   },
 };
 
-const Template: Story = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template: Story = (args) => ({
   components: { Box },
+  setup() {
+    return { ...args };
+  },
   template: `<Box :as="as" :color="color" :variant="variant" :class="classes">This is a box.</Box>`,
 });
 

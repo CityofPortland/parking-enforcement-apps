@@ -70,7 +70,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 
-import Box, { BoxColor, BoxColorVariant, ColorProps } from '@/elements/box/Box';
+import Box, { BoxColor, ColorProps } from '@/elements/box/Box';
 
 import { HeaderProps } from './Header.types';
 
@@ -82,21 +82,13 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    color: {
-      type: String as () => BoxColor,
-      default: 'white',
-    },
-    variant: {
-      type: String as () => BoxColorVariant,
-      default: 'neutral',
-    },
+    ...ColorProps,
   },
-  setup(props: HeaderProps & ColorProps, { slots, emit }) {
+  setup(props: HeaderProps & { color: BoxColor }, { slots, emit }) {
     const hasMenu = slots.menu !== undefined;
 
     const buttonClasses = computed(() => {
-      const classMap = new Map([
-        ['white', []],
+      const classMap = new Map<BoxColor, Array<string>>([
         [
           'cyan',
           [

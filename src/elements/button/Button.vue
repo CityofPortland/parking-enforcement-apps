@@ -15,7 +15,7 @@ import { defineComponent, computed } from 'vue';
 
 import { ButtonProps, ButtonSize } from './Button.types';
 
-import Box, { BoxColor, BoxColorVariant } from '@/elements/box/Box';
+import Box, { ColorProps } from '@/elements/box/Box';
 
 export default defineComponent({
   name: 'pbot-button',
@@ -29,14 +29,7 @@ export default defineComponent({
       type: String as () => ButtonSize,
       default: 'medium',
     },
-    color: {
-      type: String as () => BoxColor,
-      default: 'blue',
-    },
-    variant: {
-      type: String as () => BoxColorVariant,
-      default: 'neutral',
-    },
+    ...ColorProps,
   },
   emits: ['click'],
   setup(props: ButtonProps, { emit }) {

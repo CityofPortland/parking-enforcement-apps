@@ -11,14 +11,16 @@ export type BoxColor =
 
 export type BoxColorVariant = 'light' | 'neutral' | 'dark';
 
-export interface ColorProps {
-  color: BoxColor;
-  variant: BoxColorVariant;
-}
-
-export interface BoxProps {
-  as: string;
-}
+export const ColorProps = {
+  color: {
+    type: String as () => BoxColor,
+    default: 'transparent',
+  },
+  variant: {
+    type: String as () => BoxColorVariant,
+    default: 'neutral',
+  },
+};
 
 export default defineComponent({
   props: {
@@ -26,14 +28,7 @@ export default defineComponent({
       type: String,
       default: 'div',
     },
-    color: {
-      type: String as () => BoxColor,
-      default: 'transparent',
-    },
-    variant: {
-      type: String as () => BoxColorVariant,
-      default: 'neutral',
-    },
+    ...ColorProps,
   },
   render() {
     const classMap = new Map([
