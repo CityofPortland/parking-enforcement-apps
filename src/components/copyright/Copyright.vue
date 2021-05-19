@@ -26,8 +26,8 @@ export default defineComponent({
   props: {
     startDate: {
       type: Object as PropType<Date>,
-      required: false
-    }
+      required: false,
+    },
   },
   setup(props) {
     const nowYear = new Date().getFullYear();
@@ -39,8 +39,8 @@ export default defineComponent({
     return {
       copyrightDate: `${
         startYear ? startYear + '-' : ''
-      }${new Date().getFullYear()}`
+      }${new Date().getFullYear()}`,
     };
-  }
+  },
 });
 </script>

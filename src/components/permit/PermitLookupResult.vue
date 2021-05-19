@@ -2,7 +2,16 @@
   <Box
     :color="permit.isValid ? 'green' : 'red'"
     variant="light"
-    class="p-6 flex flex-col items-center justify-center space-y-4 border border-current rounded-md shadow-md"
+    class="
+      p-6
+      flex flex-col
+      items-center
+      justify-center
+      space-y-4
+      border border-current
+      rounded-md
+      shadow-md
+    "
   >
     <Icon
       :type="permit.isValid ? 'check-circle' : 'x-circle'"
@@ -62,8 +71,8 @@ export default defineComponent({
   props: {
     permit: {
       type: Object as () => AreaPermit,
-      required: true
-    }
+      required: true,
+    },
   },
 
   setup(props) {
@@ -77,22 +86,22 @@ export default defineComponent({
         props.permit.isValid
           ? t('permitFoundHeader', { licensePlate: props.permit.licensePlate })
           : t('permitNotFoundHeader', {
-              licensePlate: props.permit.licensePlate
+              licensePlate: props.permit.licensePlate,
             })
       ),
       body: computed(() =>
         props.permit.isValid
           ? t('permitFoundBody', {
               licensePlate: props.permit.licensePlate,
-              zone: props.permit.zone.text
+              zone: props.permit.zone.text,
             })
           : t('permitNotFoundBody', {
               licensePlate: props.permit.licensePlate,
-              zone: props.permit.zone.text
+              zone: props.permit.zone.text,
             })
-      )
+      ),
     };
-  }
+  },
 });
 </script>
 

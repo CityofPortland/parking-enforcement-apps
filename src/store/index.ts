@@ -16,8 +16,8 @@ async function submitQuery<T>(query: unknown) {
     query,
     {
       headers: {
-        'content-type': 'application/json'
-      }
+        'content-type': 'application/json',
+      },
     }
   );
 }
@@ -26,7 +26,7 @@ export default createStore<State>({
   state: {
     loading: false,
     zones: new Array<AreaPermitZone>(),
-    permit: undefined
+    permit: undefined,
   },
   mutations: {
     setLoading(state, loading: boolean) {
@@ -40,14 +40,14 @@ export default createStore<State>({
     },
     setError(state, message: string) {
       state.error = message;
-    }
+    },
   },
   actions: {
     async retrieveZones({ state, commit }) {
       if (!state.zones.length) {
         try {
           const res = await submitQuery<{ areaPermitZone: AreaPermitZone }>({
-            query: '{ areaPermitZone { value, text } }'
+            query: '{ areaPermitZone { value, text } }',
           });
 
           commit('setZones', res.data.data?.areaPermitZone);
@@ -64,7 +64,7 @@ export default createStore<State>({
         const res = await submitQuery<{ areaPermit: AreaPermit }>({
           query: `{ areaPermit(licensePlate:"${licensePlate}", zone:"${zone}") {
           licensePlate, zone { value, text }, isValid
-        } }`
+        } }`,
         });
 
         commit('setPermit', res.data.data?.areaPermit);
@@ -73,7 +73,7 @@ export default createStore<State>({
       } finally {
         commit('setLoading', false);
       }
-    }
+    },
   },
-  modules: {}
+  modules: {},
 });

@@ -6,10 +6,10 @@ import PermitLookup from '@/pages/PermitLookup.vue';
 const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/permit-lookup' },
   { path: '/permit-lookup', component: PermitLookup },
-  { path: '/disclaimer', component: Disclaimer }
+  { path: '/disclaimer', component: Disclaimer },
 ];
 
 export default createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
 });

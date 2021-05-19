@@ -3,15 +3,14 @@ const path = require("path");
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: ["@storybook/addon-a11y", "@storybook/addon-links", "@storybook/addon-essentials", "@storybook/addon-postcss"],
+  core: {
+    builder: 'webpack4',
+  },
   webpackFinal: async (config, { configType }) => {
-    config.module.rules.push({
-      resolve: {
-        alias: {
-          // correct dir path resolution from import "@/..." in your project
-          "@": path.resolve(__dirname, "../src")
-        }
-      }
-    });
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, "../src")
+    }
 
     config.module.rules.push({
       test: /\.css$/,

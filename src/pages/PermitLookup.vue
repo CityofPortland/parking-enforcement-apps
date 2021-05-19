@@ -38,7 +38,7 @@
           required
           :disabled="error"
           :class="{
-            'cursor-not-allowed': error
+            'cursor-not-allowed': error,
           }"
           pattern="[A-Za-z0-9]+"
           :patternModifiers="{ input: true }"
@@ -55,19 +55,19 @@
           :placeholder="t('selectZone')"
           :disabled="error"
           :class="{
-            'cursor-not-allowed': error
+            'cursor-not-allowed': error,
           }"
         >
-          <option v-for="zone in zones" :key="zone.value" :value="zone.value">{{
-            zone.text
-          }}</option>
+          <option v-for="zone in zones" :key="zone.value" :value="zone.value">
+            {{ zone.text }}
+          </option>
         </Select>
 
         <Button
           :label="t('search')"
           color="blue"
           :class="{
-            'opacity-50 cursor-not-allowed': isLoading || error
+            'opacity-50 cursor-not-allowed': isLoading || error,
           }"
           :disabled="isLoading || error"
         >
@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
 import Box from '@/elements/box/Box';
@@ -132,7 +132,7 @@ import Input from '@/elements/inputs/Input.vue';
 import Result from '@/components/permit/PermitLookupResult.vue';
 import Select from '@/elements/inputs/Select.vue';
 
-export default {
+export default defineComponent({
   name: 'PermitLookup',
   components: {
     Anchor,
@@ -141,7 +141,7 @@ export default {
     Button,
     Input,
     Result,
-    Select
+    Select,
   },
   setup() {
     const { t, locale } = useI18n();
@@ -156,7 +156,7 @@ export default {
       if (licensePlate.value && zone.value) {
         store.dispatch('searchLicense', {
           licensePlate: licensePlate.value,
-          zone: zone.value
+          zone: zone.value,
         });
       }
     }
@@ -170,10 +170,10 @@ export default {
       isLoading: computed(() => store.state.loading),
       permit: computed(() => store.state.permit),
       zones: computed(() => store.state.zones),
-      error: computed(() => store.state.error)
+      error: computed(() => store.state.error),
     };
-  }
-};
+  },
+});
 </script>
 
 <i18n>

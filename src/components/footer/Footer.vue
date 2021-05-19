@@ -58,18 +58,18 @@ export default defineComponent({
   props: {
     color: {
       type: String as () => BoxColor,
-      default: 'white'
+      default: 'white',
     },
     variant: {
       type: String as () => BoxColorVariant,
-      default: 'neutral'
-    }
+      default: 'neutral',
+    },
   },
   setup(_, { slots }) {
     return {
       hasTop: slots.top !== undefined,
-      hasBottom: slots.bottom !== undefined
+      hasBottom: slots.bottom !== undefined,
     };
-  }
+  },
 });
 </script>

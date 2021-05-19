@@ -10,11 +10,11 @@ export default {
   component: Button,
   argTypes: {
     size: {
-      control: { type: 'select', options: ['small', 'medium', 'large'] }
+      control: { type: 'select', options: ['small', 'medium', 'large'] },
     },
     onClick: { action: 'clicked' },
-    ...ColorArgs
-  }
+    ...ColorArgs,
+  },
 } as Meta;
 
 const Template: Story<ButtonProps & BoxProps> = (args, { argTypes }) => ({
@@ -24,22 +24,22 @@ const Template: Story<ButtonProps & BoxProps> = (args, { argTypes }) => ({
     return { ...args };
   },
   template:
-    '<Button @click="onClick" :color="color" :variant="variant" :size="size" :label="label" />'
+    '<Button @click="onClick" :color="color" :variant="variant" :size="size" :label="label" />',
 });
 
 export const Medium = Template.bind({});
 Medium.args = {
-  label: 'Button'
+  label: 'Button',
 };
 
 export const Large = Template.bind({});
 Large.args = {
   size: 'large',
-  label: 'Button'
+  label: 'Button',
 };
 
 export const Small = Template.bind({});
 Small.args = {
   size: 'small',
-  label: 'Button'
+  label: 'Button',
 };

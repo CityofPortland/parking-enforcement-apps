@@ -8,10 +8,10 @@ export default {
   argTypes: {
     startDate: {
       control: {
-        type: 'date'
-      }
-    }
-  }
+        type: 'date',
+      },
+    },
+  },
 };
 
 const Template: Story = (args, { argTypes }) => ({
@@ -20,7 +20,7 @@ const Template: Story = (args, { argTypes }) => ({
   setup: () => {
     return { startDate: new Date(args.startDate) };
   },
-  template: `<Component :startDate="startDate" />`
+  template: `<Component :startDate="startDate" />`,
 });
 
 export const Copyright = Template.bind({});

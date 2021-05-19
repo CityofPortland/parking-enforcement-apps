@@ -19,16 +19,16 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     url: {
-      type: String
+      type: String,
     },
     text: {
-      type: String
-    }
+      type: String,
+    },
   },
   setup(props) {
     return {
-      display: props.text || props.url
+      display: props.text || props.url,
     };
-  }
+  },
 });
 </script>
