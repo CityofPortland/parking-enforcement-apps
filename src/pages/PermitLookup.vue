@@ -58,9 +58,9 @@
             'cursor-not-allowed': error
           }"
         >
-          <option v-for="zone in zones" :key="zone.value" :value="zone.value">{{
-            zone.text
-          }}</option>
+          <option v-for="zone in zones" :key="zone.value" :value="zone.value">
+            {{ zone.text }}
+          </option>
         </Select>
 
         <Button
@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
 
@@ -132,7 +132,7 @@ import Input from '@/elements/inputs/Input.vue';
 import Result from '@/components/permit/PermitLookupResult.vue';
 import Select from '@/elements/inputs/Select.vue';
 
-export default {
+export default defineComponent({
   name: 'PermitLookup',
   components: {
     Anchor,
@@ -172,7 +172,7 @@ export default {
       error: computed(() => store.state.error)
     };
   }
-};
+});
 </script>
 
 <i18n>

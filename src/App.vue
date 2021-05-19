@@ -80,8 +80,8 @@ export default defineComponent({
     Header,
     Logo,
     Nav,
-    NavItem
-  }
+    NavItem,
+  },
 });
 </script>
 

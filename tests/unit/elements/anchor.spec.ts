@@ -4,8 +4,8 @@ import Anchor from '@/elements/anchor/Anchor.vue';
 describe('Anchor.vue', () => {
   const options = {
     props: {
-      url: 'https://portland.gov'
-    }
+      url: 'https://portland.gov',
+    },
   };
 
   it('outputs url by default', () => {
@@ -21,8 +21,8 @@ describe('Anchor.vue', () => {
   it(`doesn't output external icon by default with internal url`, async () => {
     const wrapper = mount(Anchor, {
       props: {
-        url: '/other'
-      }
+        url: '/other',
+      },
     });
     expect(wrapper.find('svg').exists()).toBeFalsy();
   });
@@ -33,8 +33,8 @@ describe('Anchor.vue', () => {
       props: {
         ...options.props,
         url: '/other',
-        external: true
-      }
+        external: true,
+      },
     });
     expect(wrapper.find('svg')).toBeTruthy();
   });
@@ -45,8 +45,8 @@ describe('Anchor.vue', () => {
       props: {
         ...options.props,
         url: '/other',
-        external: false
-      }
+        external: false,
+      },
     });
     expect(wrapper.find('svg')).toBeTruthy();
   });

@@ -12,7 +12,15 @@
         </div>
         <div v-if="hasMenu" class="-mr-2 flex md:hidden flex-grow">
           <button
-            class="inline-flex items-center justify-center p-2 ml-auto rounded-md hover:opacity-50"
+            class="
+              inline-flex
+              items-center
+              justify-center
+              p-2
+              ml-auto
+              rounded-md
+              hover:opacity-50
+            "
             :class="buttonClasses"
             @click="handleToggle"
           >
@@ -72,16 +80,16 @@ export default defineComponent({
   props: {
     open: {
       type: Boolean,
-      default: false
+      default: false,
     },
     color: {
       type: String as () => BoxColor,
-      default: 'white'
+      default: 'white',
     },
     variant: {
       type: String as () => BoxColorVariant,
-      default: 'neutral'
-    }
+      default: 'neutral',
+    },
   },
   setup(props: HeaderProps & ColorProps, { slots, emit }) {
     const hasMenu = slots.menu !== undefined;
@@ -94,33 +102,33 @@ export default defineComponent({
           [
             'hover:bg-cyan-300',
             'focus:bg-cyan-300',
-            'focus:ring-offset-cyan-500'
-          ]
+            'focus:ring-offset-cyan-500',
+          ],
         ],
         [
           'gray',
           [
             'hover:bg-gray-400',
             'focus:bg-gray-400',
-            'focus:ring-offset-gray-500'
-          ]
+            'focus:ring-offset-gray-500',
+          ],
         ],
         [
           'orange',
           [
             'hover:bg-orange-400',
             'focus:bg-orange-400',
-            'focus:ring-offset-orange-500'
-          ]
+            'focus:ring-offset-orange-500',
+          ],
         ],
         [
           'blue',
           [
             'hover:bg-blue-400',
             'focus:bg-blue-400',
-            'focus:ring-offset-blue-500'
-          ]
-        ]
+            'focus:ring-offset-blue-500',
+          ],
+        ],
       ]);
 
       return classMap.get(props.color);
@@ -133,8 +141,8 @@ export default defineComponent({
     return {
       hasMenu,
       buttonClasses,
-      handleToggle
+      handleToggle,
     };
-  }
+  },
 });
 </script>

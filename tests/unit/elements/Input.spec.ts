@@ -6,8 +6,8 @@ describe('Input.vue', () => {
   let options = {
     props: {
       id: 'input',
-      name: 'input'
-    } as TextInputProps
+      name: 'input',
+    } as TextInputProps,
   };
 
   it('outputs id and name attributes', () => {
@@ -22,8 +22,8 @@ describe('Input.vue', () => {
       ...options,
       props: {
         ...options.props,
-        modelValue: 'abc'
-      }
+        modelValue: 'abc',
+      },
     });
     expect(wrapper.find('input').element.value).toBe('abc');
   });
@@ -42,8 +42,8 @@ describe('Input.vue', () => {
       ...options,
       props: {
         ...options.props,
-        modelValue: 'abc'
-      }
+        modelValue: 'abc',
+      },
     });
     const input = wrapper.find('input');
 
@@ -59,8 +59,8 @@ describe('Input.vue', () => {
       props: {
         ...options.props,
         pattern: '[a-z]+',
-        modelValue: ''
-      }
+        modelValue: '',
+      },
     };
 
     it('renders the pattern on the input', () => {
@@ -76,9 +76,9 @@ describe('Input.vue', () => {
           props: {
             ...options.props,
             patternModifiers: {
-              input: true
-            }
-          }
+              input: true,
+            },
+          },
         });
         const input = wrapper.find('input');
         await input.setValue('a');
@@ -91,10 +91,10 @@ describe('Input.vue', () => {
           props: {
             ...options.props,
             patternModifiers: {
-              input: true
+              input: true,
             },
-            modelValue: ''
-          }
+            modelValue: '',
+          },
         });
         const input = wrapper.find('input');
 
@@ -111,8 +111,8 @@ describe('Input.vue', () => {
         ...options,
         props: {
           ...options.props,
-          size: 1
-        }
+          size: 1,
+        },
       });
       expect(wrapper.attributes().size).toBeFalsy();
     });
@@ -123,8 +123,8 @@ describe('Input.vue', () => {
         props: {
           ...options.props,
           size: 1,
-          modelValue: 'a'
-        }
+          modelValue: 'a',
+        },
       });
       const input = wrapper.find('input');
 

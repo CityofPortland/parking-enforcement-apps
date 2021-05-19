@@ -1,4 +1,4 @@
-import { computed, Ref } from 'vue';
+import { computed, ComputedRef, Ref } from 'vue';
 
 export type TextInputType = 'email' | 'text';
 
@@ -16,7 +16,7 @@ export function useInput(
   required: Ref<boolean>,
   disabled: Ref<boolean>,
   modelValue: Ref<string | undefined> | undefined
-) {
+): { classes: ComputedRef<string[]> } {
   return {
     classes: computed(() => [
       'border',
@@ -34,7 +34,7 @@ export function useInput(
       'truncate',
       'focus:outline-none',
       'focus:ring',
-      'focus:ring-blue-500'
-    ])
+      'focus:ring-blue-500',
+    ]),
   };
 }

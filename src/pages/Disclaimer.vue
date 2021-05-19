@@ -43,6 +43,6 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Disclaimer'
+  name: 'Disclaimer',
 });
 </script>

@@ -23,20 +23,20 @@ export default defineComponent({
   props: {
     label: {
       type: String,
-      required: true
+      required: true,
     },
     size: {
       type: String as () => ButtonSize,
-      default: 'medium'
+      default: 'medium',
     },
     color: {
       type: String as () => BoxColor,
-      default: 'blue'
+      default: 'blue',
     },
     variant: {
       type: String as () => BoxColorVariant,
-      default: 'neutral'
-    }
+      default: 'neutral',
+    },
   },
   emits: ['click'],
   setup(props: ButtonProps, { emit }) {
@@ -45,14 +45,14 @@ export default defineComponent({
       'shadow',
       'cursor-pointer',
       'focus:outline-none',
-      'focus:ring'
+      'focus:ring',
     ];
 
     const sizeClasses = computed(() => {
       const sizeMap = new Map<ButtonSize, string[]>([
         ['small', ['px-2', 'py-1', 'text-sm']],
         ['medium', ['px-3', 'py-2']],
-        ['large', ['px-4', 'py-3', 'text-lg']]
+        ['large', ['px-4', 'py-3', 'text-lg']],
       ]);
 
       return props.size && sizeMap.get(props.size);
@@ -65,8 +65,8 @@ export default defineComponent({
     return {
       baseClasses,
       sizeClasses,
-      onClick
+      onClick,
     };
-  }
+  },
 });
 </script>
