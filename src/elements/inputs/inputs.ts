@@ -14,6 +14,7 @@ export interface TextInputProps {
 
 export function useInput(
   required: Ref<boolean>,
+  disabled: Ref<boolean>,
   modelValue: Ref<string | undefined> | undefined
 ): { classes: ComputedRef<string[]> } {
   return {
@@ -22,9 +23,11 @@ export function useInput(
       required.value && !modelValue?.value
         ? 'border-red-500'
         : 'border-gray-500',
+      disabled.value ? 'opacity-50' : 'opacity-100',
       'rounded-md',
       'shadow-md',
       required.value && !modelValue?.value ? 'bg-red-100' : 'bg-gray-100',
+      required.value && !modelValue?.value ? 'text-red-500' : 'text-current',
       required.value && !modelValue?.value
         ? 'placeholder-red-500'
         : 'placeholder-gray-500',

@@ -13,6 +13,7 @@ export const ColorArgs = {
         'green',
         'orange',
         'red',
+        'tangerine',
         'transparent',
       ],
     },

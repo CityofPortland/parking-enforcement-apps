@@ -36,6 +36,10 @@
           type="text"
           :placeholder="t('enterPlatePlaceholder')"
           required
+          :disabled="error"
+          :class="{
+            'cursor-not-allowed': error,
+          }"
           pattern="[A-Za-z0-9]+"
           :patternModifiers="{ input: true }"
           :size="10"
@@ -49,6 +53,10 @@
           v-model="zone"
           required
           :placeholder="t('selectZone')"
+          :disabled="error"
+          :class="{
+            'cursor-not-allowed': error,
+          }"
         >
           <option v-for="zone in zones" :key="zone.value" :value="zone.value">
             {{ zone.text }}
@@ -59,9 +67,9 @@
           :label="t('search')"
           color="blue"
           :class="{
-            'opacity-50': isLoading,
+            'opacity-50 cursor-not-allowed': isLoading || error,
           }"
-          :disabled="isLoading"
+          :disabled="isLoading || error"
         >
           <div
             v-if="isLoading"
@@ -94,6 +102,19 @@
       </form>
 
       <Result v-if="permit" :permit="permit" />
+
+      <Message
+        v-if="error"
+        color="tangerine"
+        variant="light"
+        icon="exclamation"
+        summary="An error occured in the application."
+      >
+        <p>
+          Please try again later.
+          {{ error }}
+        </p>
+      </Message>
     </main>
   </article>
 </template>
@@ -102,6 +123,8 @@
 import { ref, computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
+
+import Message from '@/components/message/Message.vue';
 
 import Anchor from '@/elements/anchor/Anchor.vue';
 import Button from '@/elements/button/Button.vue';
@@ -117,6 +140,7 @@ export default defineComponent({
     Input,
     Result,
     Select,
+    Message,
   },
   setup() {
     const { t, locale } = useI18n();
@@ -145,6 +169,7 @@ export default defineComponent({
       isLoading: computed(() => store.state.loading),
       permit: computed(() => store.state.permit),
       zones: computed(() => store.state.zones),
+      error: computed(() => store.state.error),
     };
   },
 });
