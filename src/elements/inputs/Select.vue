@@ -33,7 +33,7 @@ export default defineComponent({
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     placeholder: {
       type: String,

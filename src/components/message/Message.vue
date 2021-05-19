@@ -20,25 +20,25 @@ import Icon from '@/elements/icon/Icon.vue';
 export default defineComponent({
   components: {
     Icon,
-    Box
+    Box,
   },
   props: {
     color: {
       type: String as () => BoxColor,
-      default: 'transparent'
+      default: 'transparent',
     },
     variant: {
       type: String as () => BoxColorVariant,
-      default: 'neutral'
+      default: 'neutral',
     },
     summary: {
       type: String,
-      required: false
+      required: false,
     },
     icon: {
       type: String,
-      required: false
-    }
-  }
+      required: false,
+    },
+  },
 });
 </script>

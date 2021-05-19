@@ -38,7 +38,7 @@
           required
           :disabled="error"
           :class="{
-            'cursor-not-allowed': error
+            'cursor-not-allowed': error,
           }"
           pattern="[A-Za-z0-9]+"
           :patternModifiers="{ input: true }"
@@ -55,7 +55,7 @@
           :placeholder="t('selectZone')"
           :disabled="error"
           :class="{
-            'cursor-not-allowed': error
+            'cursor-not-allowed': error,
           }"
         >
           <option v-for="zone in zones" :key="zone.value" :value="zone.value">
@@ -67,7 +67,7 @@
           :label="t('search')"
           color="blue"
           :class="{
-            'opacity-50 cursor-not-allowed': isLoading || error
+            'opacity-50 cursor-not-allowed': isLoading || error,
           }"
           :disabled="isLoading || error"
         >
@@ -140,7 +140,7 @@ export default defineComponent({
     Input,
     Result,
     Select,
-    Message
+    Message,
   },
   setup() {
     const { t, locale } = useI18n();
@@ -155,7 +155,7 @@ export default defineComponent({
       if (licensePlate.value && zone.value) {
         store.dispatch('searchLicense', {
           licensePlate: licensePlate.value,
-          zone: zone.value
+          zone: zone.value,
         });
       }
     }
@@ -169,9 +169,9 @@ export default defineComponent({
       isLoading: computed(() => store.state.loading),
       permit: computed(() => store.state.permit),
       zones: computed(() => store.state.zones),
-      error: computed(() => store.state.error)
+      error: computed(() => store.state.error),
     };
-  }
+  },
 });
 </script>
 

@@ -42,8 +42,8 @@ export default defineComponent({
   props: {
     permit: {
       type: Object as () => AreaPermit,
-      required: true
-    }
+      required: true,
+    },
   },
 
   setup(props) {
@@ -57,22 +57,22 @@ export default defineComponent({
         props.permit.isValid
           ? t('permitFoundHeader', { licensePlate: props.permit.licensePlate })
           : t('permitNotFoundHeader', {
-              licensePlate: props.permit.licensePlate
+              licensePlate: props.permit.licensePlate,
             })
       ),
       body: computed(() =>
         props.permit.isValid
           ? t('permitFoundBody', {
               licensePlate: props.permit.licensePlate,
-              zone: props.permit.zone.text
+              zone: props.permit.zone.text,
             })
           : t('permitNotFoundBody', {
               licensePlate: props.permit.licensePlate,
-              zone: props.permit.zone.text
+              zone: props.permit.zone.text,
             })
-      )
+      ),
     };
-  }
+  },
 });
 </script>
 

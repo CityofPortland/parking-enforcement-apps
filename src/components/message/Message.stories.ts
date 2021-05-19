@@ -12,15 +12,15 @@ export default {
     icon: IconArgs.type,
     summary: {
       control: {
-        type: 'text'
-      }
+        type: 'text',
+      },
     },
     message: {
       control: {
-        type: 'text'
-      }
-    }
-  }
+        type: 'text',
+      },
+    },
+  },
 };
 
 const Template: Story = (args, { argTypes }) => ({
@@ -29,7 +29,7 @@ const Template: Story = (args, { argTypes }) => ({
   setup: () => {
     return { ...args };
   },
-  template: `<Component :icon="icon" :color="color" :variant="variant" :summary="summary"><p>{{message}}</p></Component>`
+  template: `<Component :icon="icon" :color="color" :variant="variant" :summary="summary"><p>{{message}}</p></Component>`,
 });
 
 export const Message = Template.bind({});

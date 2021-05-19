@@ -7,18 +7,18 @@ export const IconArgs = {
   type: {
     control: {
       type: 'select',
-      options: Object.keys(icons)
-    }
-  }
+      options: Object.keys(icons),
+    },
+  },
 };
 
 const Template: Story = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Component },
-  template: `<Component v-bind="$props" class="h-12 w-12" />`
+  template: `<Component v-bind="$props" class="h-12 w-12" />`,
 });
 
 export const Basic = Template.bind({});
 Basic.args = {
-  type: 'check-circle'
+  type: 'check-circle',
 };
