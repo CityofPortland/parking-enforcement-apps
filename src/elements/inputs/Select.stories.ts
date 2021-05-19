@@ -6,8 +6,8 @@ export default {
   title: 'Element/Inputs/Select',
   component: Component,
   argTypes: {
-    onUpdate: { action: 'update' }
-  }
+    onUpdate: { action: 'update' },
+  },
 } as Meta;
 
 const Template: Story = (args, { argTypes }) => ({
@@ -24,7 +24,7 @@ const Template: Story = (args, { argTypes }) => ({
       :modelValue="modelValue"
       @update:modelValue="onUpdate">
         <option value="1">First option</option>
-      </Component>`
+      </Component>`,
 });
 
 export const Select = Template.bind({});
@@ -33,5 +33,5 @@ Select.args = {
   name: 'input',
   required: false,
   placeholder: 'Select me...',
-  modelValue: undefined
+  modelValue: undefined,
 };

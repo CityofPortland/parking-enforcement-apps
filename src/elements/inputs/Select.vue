@@ -21,21 +21,25 @@ export default defineComponent({
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     required: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     placeholder: {
       type: String,
-      default: 'Select option'
+      default: 'Select option',
     },
-    modelValue: String
+    modelValue: String,
   },
   setup(props, { emit }) {
     const handleChange = (event: Event) => {
@@ -43,14 +47,14 @@ export default defineComponent({
       emit('update:modelValue', target.value);
     };
 
-    const { required, modelValue } = toRefs(props);
+    const { disabled, modelValue, required } = toRefs(props);
 
-    const { classes } = useInput(required, modelValue);
+    const { classes } = useInput(required, disabled, modelValue);
 
     return {
       classes,
-      handleChange
+      handleChange,
     };
-  }
+  },
 });
 </script>

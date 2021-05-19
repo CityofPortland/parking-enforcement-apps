@@ -6,6 +6,8 @@
     stroke="currentColor"
   >
     <path
+      v-for="(path, index) in paths"
+      :key="index"
       stroke-linecap="round"
       stroke-linejoin="round"
       stroke-width="2"
@@ -24,13 +26,17 @@ export default defineComponent({
   props: {
     type: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     return {
-      path: computed(() => icons[props.type])
+      paths: computed(() =>
+        Array.isArray(icons[props.type])
+          ? icons[props.type]
+          : [icons[props.type]]
+      ),
     };
-  }
+  },
 });
 </script>

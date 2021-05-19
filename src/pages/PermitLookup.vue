@@ -36,6 +36,10 @@
           type="text"
           :placeholder="t('enterPlatePlaceholder')"
           required
+          :disabled="error"
+          :class="{
+            'cursor-not-allowed': error,
+          }"
           pattern="[A-Za-z0-9]+"
           :patternModifiers="{ input: true }"
           :size="10"
@@ -49,6 +53,10 @@
           v-model="zone"
           required
           :placeholder="t('selectZone')"
+          :disabled="error"
+          :class="{
+            'cursor-not-allowed': error,
+          }"
         >
           <option
             v-for="zone in zones.sort((a, b) => {
@@ -67,9 +75,9 @@
           :label="t('search')"
           color="blue"
           :class="{
-            'opacity-50': isLoading
+            'opacity-50 cursor-not-allowed': isLoading || error,
           }"
-          :disabled="isLoading"
+          :disabled="isLoading || error"
         >
           <div v-if="isLoading" class="flex items-center justify-center px-3">
             <svg
@@ -98,14 +106,29 @@
       </form>
 
       <Result v-if="permit" :permit="permit" />
+
+      <Message
+        v-if="error"
+        color="tangerine"
+        variant="light"
+        icon="exclamation"
+        summary="An error occured in the application."
+      >
+        <p>
+          Please try again later.
+          {{ error }}
+        </p>
+      </Message>
     </main>
   </article>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
+
+import Message from '@/components/message/Message.vue';
 
 import Anchor from '@/elements/anchor/Anchor.vue';
 import Button from '@/elements/button/Button.vue';
@@ -113,14 +136,15 @@ import Input from '@/elements/inputs/Input.vue';
 import Result from '@/components/permit/PermitLookupResult.vue';
 import Select from '@/elements/inputs/Select.vue';
 
-export default {
+export default defineComponent({
   name: 'PermitLookup',
   components: {
     Anchor,
     Button,
     Input,
     Result,
-    Select
+    Select,
+    Message,
   },
   setup() {
     const { t, locale } = useI18n();
@@ -135,7 +159,7 @@ export default {
       if (licensePlate.value && zone.value) {
         store.dispatch('searchLicense', {
           licensePlate: licensePlate.value,
-          zone: zone.value
+          zone: zone.value,
         });
       }
     }
@@ -148,10 +172,11 @@ export default {
       handleSubmit,
       isLoading: computed(() => store.state.loading),
       permit: computed(() => store.state.permit),
-      zones: computed(() => store.state.zones)
+      zones: computed(() => store.state.zones),
+      error: computed(() => store.state.error),
     };
-  }
-};
+  },
+});
 </script>
 
 <i18n>

@@ -10,15 +10,15 @@ export default {
   argTypes: {
     navClasses: {
       control: { type: 'text' },
-      description: 'Classes applied to the nav list'
+      description: 'Classes applied to the nav list',
     },
     navItemClasses: {
       control: {
-        type: 'text'
+        type: 'text',
       },
-      description: 'Classes applied to each NavItem'
-    }
-  }
+      description: 'Classes applied to each NavItem',
+    },
+  },
 } as Meta;
 
 const Template: Story = (args, { argTypes }) => ({
@@ -32,7 +32,7 @@ const Template: Story = (args, { argTypes }) => ({
     <NavItem url="#" :class="navItemClasses" text="News"></NavItem>
     <NavItem url="#" :class="navItemClasses" text="Events"></NavItem>
     <NavItem url="#" :class="navItemClasses" text="Apps"></NavItem>
-  </Nav>`
+  </Nav>`,
 });
 
 export const Basic = Template.bind({});
@@ -40,5 +40,5 @@ Basic.args = {};
 
 export const Header = Template.bind({});
 Header.args = {
-  navClasses: 'flex flex-col md:flex-row md:space-x-3'
+  navClasses: 'flex flex-col md:flex-row md:space-x-3',
 };

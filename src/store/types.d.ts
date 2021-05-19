@@ -25,4 +25,5 @@ export type State = {
   loading: boolean;
   zones: Array<AreaPermitZone>;
   permit?: AreaPermit;
+  error?: string;
 };

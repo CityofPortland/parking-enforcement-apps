@@ -1,25 +1,11 @@
 <template>
-  <Box
+  <Message
     :color="permit.isValid ? 'green' : 'red'"
     variant="light"
-    class="flex flex-col md:flex-row p-6 border border-current rounded-md shadow-md"
+    :icon="permit.isValid ? 'check-circle' : 'x-circle'"
+    :summary="summary"
   >
-    <Box class="flex-shrink-0 self-center md:self-start md:mr-4 mb-3">
-      <Icon
-        :type="permit.isValid ? 'check-circle' : 'x-circle'"
-        class="h-8 w-8"
-      />
-    </Box>
-
     <Box class="flex flex-col space-y-3">
-      <i18n-t
-        :keypath="permit.isValid ? 'permitFoundHeader' : 'permitNotFoundHeader'"
-        tag="p"
-        class="font-semibold text-lg"
-      >
-        <template v-slot:licensePlate>{{ permit.licensePlate }}</template>
-      </i18n-t>
-
       <i18n-t
         :keypath="permit.isValid ? 'permitFoundBody' : 'permitNotFoundBody'"
         tag="p"
@@ -42,25 +28,45 @@
       </i18n-t>
     </Box>
   </Box>
+    <p>
+      {{ body }}
+    </p>
+
+    <i18n-t v-if="!permit.isValid" keypath="permitNotFoundMap" tag="p">
+      <template v-slot:useMapLink>
+        <Anchor
+          url="https://pdx.maps.arcgis.com/apps/MapSeries/index.html?appid=ad171d005d4442bba3c640735d070aa3&entry=3"
+          target="_blank"
+          rel="noopener"
+          >{{ t('useMap') }}</Anchor
+        >
+      </template>
+    </i18n-t>
+
+    <i18n-t v-if="!permit.isValid" keypath="permitNotFoundCaveat" tag="p">
+      <template v-slot:callEnforcementLink>
+        <Anchor url="tel:503-823-5195">503-823-5195</Anchor>
+      </template>
+    </i18n-t>
+  </Message>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import Anchor from '@/elements/anchor/Anchor.vue';
-import Box from '@/elements/box/Box';
-import Icon from '@/elements/icon/Icon.vue';
+import Message from '@/components/message/Message.vue';
 import { AreaPermit } from '@/store/types';
 
 export default defineComponent({
   name: 'PermitLookupResult',
-  components: { Anchor, Box, Icon },
+  components: { Anchor, Message },
   props: {
     permit: {
       type: Object as () => AreaPermit,
-      required: true
-    }
+      required: true,
+    },
   },
 
   setup(props) {
@@ -72,9 +78,16 @@ export default defineComponent({
       zone: props.permit.zone,
       capitalize: (str: string) => {
         return str.charAt(0).toUpperCase() + str.slice(1);
-      }
+      },
+      summary: computed(() =>
+        props.permit.isValid
+          ? t('permitFoundHeader', { licensePlate: props.permit.licensePlate })
+          : t('permitNotFoundHeader', {
+              licensePlate: props.permit.licensePlate,
+            })
+      ),
     };
-  }
+  },
 });
 </script>
 
