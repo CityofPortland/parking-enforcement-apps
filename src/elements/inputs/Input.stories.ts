@@ -28,7 +28,7 @@ const Basic: Story = (args, { argTypes }) => ({
       :pattern-modifiers="patternModifiers"
       :size="size"
       :placeholder="placeholder"
-      :model-value="value"
+      :model-value="modelValue"
       :model-modifiers="modelModifiers"
       @keypress="onKeypress"
       @update:model-value="onInput" />`,
