@@ -27,27 +27,6 @@
         </template>
       </i18n-t>
     </Box>
-  </Box>
-    <p>
-      {{ body }}
-    </p>
-
-    <i18n-t v-if="!permit.isValid" keypath="permitNotFoundMap" tag="p">
-      <template v-slot:useMapLink>
-        <Anchor
-          url="https://pdx.maps.arcgis.com/apps/MapSeries/index.html?appid=ad171d005d4442bba3c640735d070aa3&entry=3"
-          target="_blank"
-          rel="noopener"
-          >{{ t('useMap') }}</Anchor
-        >
-      </template>
-    </i18n-t>
-
-    <i18n-t v-if="!permit.isValid" keypath="permitNotFoundCaveat" tag="p">
-      <template v-slot:callEnforcementLink>
-        <Anchor url="tel:503-823-5195">503-823-5195</Anchor>
-      </template>
-    </i18n-t>
   </Message>
 </template>
 
