@@ -112,12 +112,9 @@
         color="tangerine"
         variant="light"
         icon="exclamation"
-        summary="An error occured in the application."
+        :summary="t('errorSummary')"
       >
-        <p>
-          Please try again later.
-          {{ error }}
-        </p>
+        <p>{{ t('errorMessage') }}</p>
       </Message>
     </main>
   </article>
@@ -188,7 +185,9 @@ export default defineComponent({
     "appHeader" : "Area Parking Permit Lookup",
     "help": "Use the form below to search for a vehicle's active parking permit in a selected zone. For help entering license plates, {licenseFAQLink}, and for information on the area parking permit program, {generalHelp}.",
     "licenseFAQLink":"view our license plate entry FAQ",
-    "generalHelp": "view our area parking permit guide"
+    "generalHelp": "view our area parking permit guide",
+    "errorSummary": "Unable to process lookups.",
+    "errorMessage": "An error occured while querying area parking permit information. Please try again later by refreshing or re-opening this application. We apologize for this inconvenience."
   },
   "no": {
     "search" : "Søk",
