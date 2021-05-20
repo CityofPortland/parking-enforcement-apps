@@ -2,11 +2,11 @@
   <Box
     :color="color"
     :variant="variant"
-    class="p-3 border border-current rounded shadow flex space-x-3"
+    class="p-4 border border-current rounded shadow flex space-x-3"
   >
-    <Icon v-if="icon" :type="icon" class="h-8 w-8 flex flex-shrink-0" />
+    <Icon v-if="icon" :type="icon" class="h-10 w-10 flex-shrink-0" />
     <div class="flex flex-col space-y-3">
-      <p class="text-xl font-semibold" v-if="summary">{{ summary }}</p>
+      <p class="mt-1 text-xl font-semibold" v-if="summary">{{ summary }}</p>
       <slot></slot>
     </div>
   </Box>

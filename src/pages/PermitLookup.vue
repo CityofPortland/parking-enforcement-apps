@@ -58,8 +58,16 @@
             'cursor-not-allowed': error,
           }"
         >
-          <option v-for="zone in zones" :key="zone.value" :value="zone.value">
-            {{ zone.text }}
+          <option
+            v-for="zone in zones.sort((a, b) => {
+              if (a.id < b.id) return -1;
+              if (a.id > b.id) return 1;
+              return 0;
+            })"
+            :key="zone.id"
+            :value="zone.id"
+          >
+            {{ zone.displayName }}
           </option>
         </Select>
 
@@ -71,13 +79,9 @@
           }"
           :disabled="isLoading || error"
         >
-          <div
-            v-if="isLoading"
-            class="flex items-center justify-center space-x-3"
-          >
-            <span>Loading</span>
+          <div v-if="isLoading" class="flex items-center justify-center px-3">
             <svg
-              class="animate-spin h-4 w-4"
+              class="animate-spin h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
