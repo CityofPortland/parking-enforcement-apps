@@ -21,6 +21,8 @@
         </li>
       </ul>
 
+      <p>{{ t('regulationsNote') }}</p>
+
       <i18n-t v-if="!permit.isValid" keypath="permitNotFoundCaveat" tag="p">
         <template v-slot:callEnforcementLink>
           <Anchor url="tel:503-823-5195">503-823-5195</Anchor>
@@ -79,7 +81,8 @@ export default defineComponent({
     "permitNotFoundBody": "Vehicle with license plate '{licensePlate}' does not have an active area parking permit in '{zone}'. Vehicles without an active area parking permit in '{zone}' can park up to the following time limits:",
     "permitNotFoundMap": "{useMapLink} to view visitor time limits and enforcement hours in your zone.",
     "useMap": "Use the zone enforcement map",
-    "permitNotFoundCaveat": "Vehicles may have other permits allowing them to park in this area. Not all vehicles with a ‘no active area parking permit found’ result will be in violation. If you’d like to report this vehicle to Parking Enforcement, call {callEnforcementLink} and choose option 1 to report a vehicle."
+    "permitNotFoundCaveat": "Vehicles may have other permits allowing them to park in this area. Not all vehicles with a ‘no active area parking permit found’ result will be in violation. If you’d like to report this vehicle to Parking Enforcement, call {callEnforcementLink} and choose option 1 to report a vehicle.",
+    "regulationsNote": "Please note that parking regulations may vary within a block. Use the posted parking sign adjacent to the vehicle to verify the applicable regulations."
   },
   "no": {
     "permitFoundHeader": "Tillatelse funnet for '{licensePlate}'!",
