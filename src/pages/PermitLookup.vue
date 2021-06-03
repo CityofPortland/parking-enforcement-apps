@@ -114,7 +114,15 @@
         icon="exclamation"
         :summary="t('errorSummary')"
       >
-        <p>{{ t('errorMessage') }}</p>
+        <p>{{ t('errorMessageFirst') }}</p>
+        <i18n-t keypath="errorMessageSecond" tag="p">
+          <template v-slot:errorEmail>
+            <Anchor :url="emailLink">{{ emailAddress }}</Anchor>
+          </template>
+          <template v-slot:errorTelephone>
+            <Anchor url="tel:503-823-2777">503-823-2777</Anchor>
+          </template>
+        </i18n-t>
       </Message>
     </main>
   </article>
@@ -161,12 +169,19 @@ export default defineComponent({
       }
     }
 
+    const emailAddress = 'pbotparkingpermits@portlandoregon.gov';
+    const emailSubject = 'Unable to use Area Parking Permit Lookup';
+
+    const emailLink = `mailto:${emailAddress}?subject=${emailSubject}`;
+
     return {
       t,
       locale,
       licensePlate,
       zone,
       handleSubmit,
+      emailAddress,
+      emailLink,
       isLoading: computed(() => store.state.loading),
       permit: computed(() => store.state.permit),
       zones: computed(() => store.state.zones),
@@ -187,7 +202,8 @@ export default defineComponent({
     "licenseFAQLink":"view our license plate entry FAQ",
     "generalHelp": "view our area parking permit guide",
     "errorSummary": "Unable to process lookups.",
-    "errorMessage": "An error occured while querying area parking permit information. Please try again later by refreshing or re-opening this application. We apologize for this inconvenience."
+    "errorMessageFirst": "An error occured while querying area parking permit information. Please try again later by refreshing or re-opening this application. We apologize for this inconvenience.",
+    "errorMessageSecond": "If you continue to receive this error message, please contact PBOT Parking Enforcement at {errorEmail} or {errorTelephone}."
   },
   "no": {
     "search" : "Søk",
