@@ -12,14 +12,13 @@
       >
         <template v-slot:licensePlate>{{ permit.licensePlate }}</template>
         <template v-slot:zone>Zone {{ permit.zone.id }}</template>
+        <template v-slot:useMapLink>
+          <Anchor
+            url="//pdx.maps.arcgis.com/apps/MapSeries/index.html?appid=ad171d005d4442bba3c640735d070aa3&entry=3"
+            >{{ t('useMap') }}</Anchor
+          >
+        </template>
       </i18n-t>
-
-      <ul v-if="!permit.isValid" class="pl-4 list-disc list-outside">
-        <li v-for="(info, index) in permit.zone.enforcementInfo" :key="index">
-          {{ capitalize(info.visitorLimit) }} during the hours of
-          {{ info.enforcementHours }}
-        </li>
-      </ul>
 
       <p>{{ t('regulationsNote') }}</p>
 
@@ -78,8 +77,7 @@ export default defineComponent({
     "permitFoundHeader": "Active area parking permit found for '{licensePlate}'!",
     "permitNotFoundHeader": "No active area parking permit found for '{licensePlate}'.",
     "permitFoundBody": "Vehicle with license plate '{licensePlate}' has an active area parking permit in '{zone}'.",
-    "permitNotFoundBody": "Vehicle with license plate '{licensePlate}' does not have an active area parking permit in '{zone}'. Vehicles without an active area parking permit in '{zone}' can park up to the following time limits:",
-    "permitNotFoundMap": "{useMapLink} to view visitor time limits and enforcement hours in your zone.",
+    "permitNotFoundBody": "Vehicle with license plate '{licensePlate}' does not have an active area parking permit in '{zone}'. Vehicles without an active area parking permit can park up to the visitor time limit. {useMapLink} to view visitor time limits and enforcement hours in your zone.",
     "useMap": "Use the zone enforcement map",
     "permitNotFoundCaveat": "Vehicles may have other permits allowing them to park in this area. Not all vehicles with a ‘no active area parking permit found’ result will be in violation. If you’d like to report this vehicle to Parking Enforcement, call {callEnforcementLink} and choose option 1 to report a vehicle.",
     "regulationsNote": "Please note that parking regulations may vary within a block. Use the posted parking sign adjacent to the vehicle to verify the applicable regulations."
