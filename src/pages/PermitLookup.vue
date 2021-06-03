@@ -203,7 +203,7 @@ export default defineComponent({
     "generalHelp": "view our area parking permit guide",
     "errorSummary": "Unable to process lookups.",
     "errorMessageFirst": "An error occured while querying area parking permit information. Please try again later by refreshing or re-opening this application. We apologize for this inconvenience.",
-    "errorMessageSecond": "If you continue to receive this error message, please contact PBOT Parking Enforcement at {errorEmail} or {errorTelephone}."
+    "errorMessageSecond": "If you continue to receive this error message, please contact PBOT Parking Permits at {errorEmail} or {errorTelephone}."
   },
   "no": {
     "search" : "Søk",
