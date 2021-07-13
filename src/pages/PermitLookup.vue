@@ -67,7 +67,7 @@
             :key="zone.id"
             :value="zone.id"
           >
-            {{ zone.displayName }}
+            {{ zone.name }}
           </option>
         </Select>
 

@@ -10,9 +10,7 @@ export type ZoneEnforcementInfo = {
 
 export type AreaPermitZone = {
   id: string;
-  name?: string;
-  displayName: string;
-  enforcementInfo: Set<ZoneEnforcementInfo>;
+  name: string;
 };
 
 export type AreaPermit = {
