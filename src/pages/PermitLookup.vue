@@ -67,7 +67,7 @@
             :key="zone.id"
             :value="zone.id"
           >
-            {{ zone.name }}
+            {{ zone.displayName }}
           </option>
         </Select>
 
@@ -128,16 +128,17 @@
   </article>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
 
-import Message from '@/components/message/Message.vue';
+import { AreaPermitZone } from '@/store/types';
 
 import Anchor from '@/elements/anchor/Anchor.vue';
 import Button from '@/elements/button/Button.vue';
 import Input from '@/elements/inputs/Input.vue';
+import Message from '@/components/message/Message.vue';
 import Result from '@/components/permit/PermitLookupResult.vue';
 import Select from '@/elements/inputs/Select.vue';
 
@@ -184,7 +185,21 @@ export default defineComponent({
       emailLink,
       isLoading: computed(() => store.state.loading),
       permit: computed(() => store.state.permit),
-      zones: computed(() => store.state.zones),
+      zones: computed(() =>
+        Array.from(
+          store.state.zones
+            .reduce(
+              (acc: Map<string, AreaPermitZone>, curr: AreaPermitZone) => {
+                if (!acc.has(curr.id) && !curr.subSection) {
+                  acc.set(curr.id, curr);
+                }
+                return acc;
+              },
+              new Map<string, AreaPermitZone>()
+            )
+            .values()
+        )
+      ),
       error: computed(() => store.state.error),
     };
   },
