@@ -32,7 +32,7 @@ export default createStore<State>({
     setLoading(state, loading: boolean) {
       state.loading = loading;
     },
-    setZones(state, zones: Array<never>) {
+    setZones(state, zones: Array<AreaPermitZone>) {
       state.zones = zones;
     },
     setPermit(state, permit: AreaPermit) {
@@ -47,9 +47,8 @@ export default createStore<State>({
       if (!state.zones.length) {
         try {
           const res = await submitQuery<{ areaPermitZone: AreaPermitZone }>({
-            query: '{ areaPermitZone { id, name } }',
+            query: '{ areaPermitZone { id, displayName subSection } }',
           });
-
           commit('setZones', res.data.data?.areaPermitZone);
         } catch (err) {
           commit('setError', 'Error while contacting server.');
