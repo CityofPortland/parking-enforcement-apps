@@ -47,7 +47,7 @@ export default createStore<State>({
       if (!state.zones.length) {
         try {
           const res = await submitQuery<{ areaPermitZone: AreaPermitZone }>({
-            query: '{ areaPermitZone { id, displayName subSection } }',
+            query: '{ areaPermitZone { id displayName subSection } }',
           });
           commit('setZones', res.data.data?.areaPermitZone);
         } catch (err) {
@@ -62,7 +62,7 @@ export default createStore<State>({
       try {
         const res = await submitQuery<{ areaPermit: AreaPermit }>({
           query: `{ areaPermit(licensePlate:"${licensePlate}", zone:"${zone}") {
-            licensePlate, zone { id, name }, isValid
+            licensePlate, zone { id }, isValid
           } }`,
         });
 
