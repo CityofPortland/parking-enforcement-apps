@@ -4,7 +4,7 @@ ingress:
   hosts:
     - host: pbotapps-test.portland.gov
       paths:
-        - /parking
+        - path: /parking
   tls:
     - secretName: pbotapps-test-portland-gov-tls
       hosts:
