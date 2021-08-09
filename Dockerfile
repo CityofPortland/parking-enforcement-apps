@@ -9,8 +9,8 @@ ADD package*.json ./
 RUN npm install
 # Add all other files into this directory
 ADD . .
-# Use NPM to build our application
-RUN npm run build --mode ${MODE}
+# Use Vue CLI to build our application
+RUN npx vue-cli-service build --mode ${MODE}
 
 FROM nginx
 # Switch to a directory and use as starting directory for following commands and entrypoint
