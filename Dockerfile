@@ -1,7 +1,6 @@
+FROM node:14 AS builder
 # In case we want to test with a different mode or environment variables
 ARG MODE=production
-
-FROM node:14 AS builder
 # Create directory under root to build from
 WORKDIR /app
 # Add package install files and run install separately to help with rebuild caching
