@@ -1,0 +1,11 @@
+image:
+  tag: main
+ingress:
+  hosts:
+    - host: pbotapps-test.portland.gov
+      paths:
+        - /parking
+  tls:
+    - secretName: pbotapps-test-portland-gov-tls
+      hosts:
+        - pbotapps-test.portland.gov
