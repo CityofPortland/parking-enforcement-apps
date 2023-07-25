@@ -9,8 +9,8 @@ jobs:
   build-image:
     runs-on: ubuntu-latest
     env:
-      REPOSITORY: ${{ secrets.ACR_NAME }}.azurecr.io
-      IMAGE: parking-enforcement-apps
+      REPOSITORY: ${{ vars.REGISTRY_NAME }}.azurecr.io
+      IMAGE: interactive-tsp
     steps:
       - name: Set $IMAGE_TAG
         run: echo "IMAGE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
@@ -19,10 +19,10 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Log in to Azure Container Registry
-        env:
-          ACR_NAME: ${{ secrets.ACR_NAME }}
+      - name: Login to Azure Container Repository
         run: az acr login --name $ACR_NAME
+        env:
+          ACR_NAME: ${{ vars.REGISTRY_NAME }}
       - name: Run Docker build
         run: docker build -t $REPOSITORY/$IMAGE:$IMAGE_TAG --build-arg MODE=production .
       - name: Push image to repository
@@ -34,27 +34,31 @@ jobs:
       - build-image
     runs-on: ubuntu-latest
     env:
-      K8S_CLUSTER_NAME: ${{ secrets.K8S_CLUSTER_NAME }}
-      K8S_CLUSTER_RG: ${{ secrets.K8S_CLUSTER_RG }}
-      K8S_NAMESPACE: ${{ secrets.K8S_NAMESPACE }}
-      REPOSITORY: ${{ secrets.ACR_NAME }}.azurecr.io
+      K8S_CLUSTER_NAME: ${{ vars.AKS_CLUSTER_NAME }}
+      K8S_CLUSTER_RG: ${{ vars.AKS_CLUSTER_RG }}
+      K8S_NAMESPACE: ${{ vars.AKS_CLUSTER_NAMESPACE }}
+      REPOSITORY: ${{ vars.REGISTRY_NAME }}.azurecr.io
       IMAGE: parking-enforcement-apps
-      RELEASE_NAME: ${{ secrets.HELM_RELEASE_NAME }}
+      RELEASE_NAME: ${{ vars.HELM_RELEASE_NAME }}
     steps:
       - uses: actions/checkout@v2
-      - uses: azure/setup-kubectl@v1
-      - uses: azure/setup-helm@v1
+      - uses: azure/setup-kubectl@v3
+      - uses: azure/setup-helm@v3
       - name: Login via Az module
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Log in to AKS
-        run: az aks get-credentials --name $K8S_CLUSTER_NAME --resource-group $K8S_CLUSTER_RG
+        run: |
+          az aks get-credentials \
+          --name $K8S_CLUSTER_NAME \
+          --resource-group $K8S_CLUSTER_RG
       - name: Deploy release
         run: |
           helm \
           upgrade \
           --namespace $K8S_NAMESPACE \
+          --create-namespace \
           --install \
-          $RELEASE_NAME \
+          $HELM_RELEASE_NAME \
           chart/
