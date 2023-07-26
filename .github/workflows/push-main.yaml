@@ -36,7 +36,7 @@ jobs:
       K8S_CLUSTER_RG: ${{ vars.AKS_CLUSTER_RG }}
       K8S_NAMESPACE: pbotapps-test
       REPOSITORY: ${{ vars.REGISTRY_NAME }}.azurecr.io
-      IMAGE: parking-enforcement-apps
+      IMAGE: parking-services
       RELEASE_NAME: ${{ vars.HELM_RELEASE_NAME }}
     steps:
       - uses: actions/checkout@v2
