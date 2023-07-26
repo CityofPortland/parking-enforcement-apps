@@ -32,12 +32,12 @@ jobs:
       - build-image
     runs-on: ubuntu-latest
     env:
-      K8S_CLUSTER_NAME: ${{ secrets.K8S_CLUSTER_NAME }}
-      K8S_CLUSTER_RG: ${{ secrets.K8S_CLUSTER_RG }}
-      K8S_NAMESPACE: test
-      REPOSITORY: ${{ secrets.ACR_NAME }}.azurecr.io
+      K8S_CLUSTER_NAME: ${{ vars.AKS_CLUSTER_NAME }}
+      K8S_CLUSTER_RG: ${{ vars.AKS_CLUSTER_RG }}
+      K8S_NAMESPACE: pbotapps-test
+      REPOSITORY: ${{ vars.REGISTRY_NAME }}.azurecr.io
       IMAGE: parking-enforcement-apps
-      RELEASE_NAME: ${{ secrets.HELM_RELEASE_NAME }}-test
+      RELEASE_NAME: ${{ vars.HELM_RELEASE_NAME }}
     steps:
       - uses: actions/checkout@v2
       - uses: azure/setup-kubectl@v1
@@ -53,6 +53,7 @@ jobs:
           helm \
           upgrade \
           --namespace $K8S_NAMESPACE \
+          --create-namespace \
           --install \
           $RELEASE_NAME \
           chart/ \
@@ -64,14 +65,14 @@ jobs:
       - deploy
     runs-on: ubuntu-latest
     env:
-      K8S_CLUSTER_NAME: ${{ secrets.K8S_CLUSTER_NAME }}
-      K8S_CLUSTER_RG: ${{ secrets.K8S_CLUSTER_RG }}
-      K8S_NAMESPACE: test
-      RELEASE_NAME: ${{ secrets.HELM_RELEASE_NAME }}-test
+      K8S_CLUSTER_NAME: ${{ vars.AKS_CLUSTER_NAME }}
+      K8S_CLUSTER_RG: ${{ vars.AKS_CLUSTER_RG }}
+      K8S_NAMESPACE: pbotapps-test
+      RELEASE_NAME: ${{ vars.HELM_RELEASE_NAME }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: azure/setup-kubectl@v1
-      - uses: azure/setup-helm@v1
+      - uses: actions/checkout@v3
+      - uses: azure/setup-kubectl@v3
+      - uses: azure/setup-helm@v3
       - name: Login via Az module
         uses: azure/login@v1
         with:
