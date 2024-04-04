@@ -18,7 +18,7 @@
         summary="Parking permit lookups unavailable"
       >
         <p>
-          The parking permit lookup tool is unavailable from Sunday April 7
+          The parking permit lookup tool will be unavailable from Sunday April 7
           through Monday April 8. We apologize for the inconvenience.
         </p>
       </Message>
@@ -213,7 +213,7 @@ export default defineComponent({
             .values()
         )
       ),
-      error: computed(() => store.state.error),
+      error: computed(() => true),
     };
   },
 });
