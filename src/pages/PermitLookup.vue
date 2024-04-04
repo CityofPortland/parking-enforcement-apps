@@ -10,6 +10,19 @@
         alt="PBOT Area Parking Permit Program logo"
       />
     </header>
+    <section role="notification" class="max-w-xl flex flex-col space-y-4">
+      <Message
+        color="tangerine"
+        variant="light"
+        icon="exclamation"
+        summary="Parking permit lookups unavailable"
+      >
+        <p>
+          The parking permit lookup tool is unavailable from Sunday April 7
+          through Monday April 8. We apologize for the inconvenience.
+        </p>
+      </Message>
+    </section>
     <main class="max-w-xl flex flex-col space-y-4">
       <i18n-t keypath="help" tag="p">
         <template v-slot:licenseFAQLink>
@@ -77,7 +90,7 @@
           :class="{
             'opacity-50 cursor-not-allowed': isLoading || error,
           }"
-          :disabled="isLoading || error"
+          disabled
         >
           <div v-if="isLoading" class="flex items-center justify-center px-3">
             <svg
