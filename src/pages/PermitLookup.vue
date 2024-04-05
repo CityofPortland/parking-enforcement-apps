@@ -49,9 +49,10 @@
           type="text"
           :placeholder="t('enterPlatePlaceholder')"
           required
-          :disabled="error"
+          :disabled="true"
+          class="flex-none"
           :class="{
-            'cursor-not-allowed': error,
+            'cursor-not-allowed': true,
           }"
           pattern="[A-Za-z0-9]+"
           :patternModifiers="{ input: true }"
@@ -66,9 +67,10 @@
           v-model="zone"
           required
           :placeholder="t('selectZone')"
-          :disabled="error"
+          :disabled="true"
+          class="flex-initial"
           :class="{
-            'cursor-not-allowed': error,
+            'cursor-not-allowed': true,
           }"
         >
           <option
@@ -88,7 +90,7 @@
           :label="t('search')"
           color="blue"
           :class="{
-            'opacity-50 cursor-not-allowed': isLoading || error,
+            'opacity-50 cursor-not-allowed': true,
           }"
           disabled
         >
@@ -213,7 +215,7 @@ export default defineComponent({
             .values()
         )
       ),
-      error: computed(() => true),
+      error: computed(() => store.state.error),
     };
   },
 });
