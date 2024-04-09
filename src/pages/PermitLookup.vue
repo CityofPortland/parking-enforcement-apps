@@ -79,7 +79,7 @@
           :class="{
             'opacity-50 cursor-not-allowed': error,
           }"
-          disabled
+          :disabled="error"
         >
           <div v-if="isLoading" class="flex items-center justify-center px-3">
             <svg
