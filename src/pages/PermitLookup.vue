@@ -18,8 +18,8 @@
         summary="Parking permit lookups unavailable"
       >
         <p>
-          The parking permit lookup tool will be unavailable from Sunday April 7
-          through Monday April 8. We apologize for the inconvenience.
+          The parking permit lookup tool is unavailable. We apologize for the
+          inconvenience.
         </p>
       </Message>
     </section>
