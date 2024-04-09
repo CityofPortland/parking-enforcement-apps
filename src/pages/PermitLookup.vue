@@ -10,19 +10,6 @@
         alt="PBOT Area Parking Permit Program logo"
       />
     </header>
-    <section role="notification" class="max-w-xl flex flex-col space-y-4">
-      <Message
-        color="tangerine"
-        variant="light"
-        icon="exclamation"
-        summary="Parking permit lookups unavailable"
-      >
-        <p>
-          The parking permit lookup tool is unavailable. We apologize for the
-          inconvenience.
-        </p>
-      </Message>
-    </section>
     <main class="max-w-xl flex flex-col space-y-4">
       <i18n-t keypath="help" tag="p">
         <template v-slot:licenseFAQLink>
@@ -49,10 +36,10 @@
           type="text"
           :placeholder="t('enterPlatePlaceholder')"
           required
-          :disabled="true"
+          :disabled="error"
           class="flex-none"
           :class="{
-            'cursor-not-allowed': true,
+            'cursor-not-allowed': error,
           }"
           pattern="[A-Za-z0-9]+"
           :patternModifiers="{ input: true }"
@@ -67,10 +54,10 @@
           v-model="zone"
           required
           :placeholder="t('selectZone')"
-          :disabled="true"
+          :disabled="error"
           class="flex-initial"
           :class="{
-            'cursor-not-allowed': true,
+            'cursor-not-allowed': error,
           }"
         >
           <option
@@ -90,7 +77,7 @@
           :label="t('search')"
           color="blue"
           :class="{
-            'opacity-50 cursor-not-allowed': true,
+            'opacity-50 cursor-not-allowed': error,
           }"
           disabled
         >
