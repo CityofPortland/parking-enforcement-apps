@@ -79,7 +79,7 @@ export default defineComponent({
     "permitFoundBody": "Vehicle with license plate '{licensePlate}' has an active area parking permit in '{zone}'.",
     "permitNotFoundBody": "Vehicle with license plate '{licensePlate}' does not have an active area parking permit in '{zone}'. Vehicles without an active area parking permit can park up to the visitor time limit. {useMapLink} to view visitor time limits and enforcement hours in your zone.",
     "useMap": "Use the zone enforcement map",
-    "permitNotFoundCaveat": "Vehicles may have other permits allowing them to park in this area. Not all vehicles with a ‘no active area parking permit found’ result will be in violation. If you’d like to report this vehicle to Parking Enforcement, call {callEnforcementLink} and choose option 1 to report a vehicle.",
+    "permitNotFoundCaveat": "Vehicles may have other permits allowing them to park in this area. Not all vehicles with a ‘no active area parking permit found’ result will be in violation. If you’d like to report this vehicle to Parking Enforcement, call {callEnforcementLink} and choose option 3 to report a vehicle.",
     "regulationsNote": "Please note that parking regulations may vary within a block. Use the posted parking sign adjacent to the vehicle to verify the applicable regulations."
   },
   "no": {
