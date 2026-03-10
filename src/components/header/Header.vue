@@ -1,5 +1,5 @@
 <template>
-  <Box as="nav" :color="color" :variant="variant">
+  <Box as="nav" :color="color" :variant="variant" aria-label="Main navigation">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex items-center space-x-3 h-16">
         <div class="flex items-center truncate">
@@ -23,6 +23,7 @@
             "
             :class="buttonClasses"
             @click="handleToggle"
+            :aria-expanded="open.toString()"
           >
             <span class="sr-only">Open main menu</span>
             <svg

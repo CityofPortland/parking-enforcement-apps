@@ -3,6 +3,7 @@
     :color="color"
     :variant="variant"
     class="p-4 border border-current rounded shadow flex space-x-4"
+    :role="role"
   >
     <Icon v-if="icon" :type="icon" class="h-10 w-10 flex-shrink-0" />
     <div class="flex flex-col space-y-3">
@@ -38,6 +39,10 @@ export default defineComponent({
     icon: {
       type: String,
       required: false,
+    },
+    role: {
+      type: String,
+      default: 'status',
     },
   },
 });

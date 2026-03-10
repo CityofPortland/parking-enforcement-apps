@@ -10,7 +10,7 @@
         alt="PBOT Area Parking Permit Program logo"
       />
     </header>
-    <main class="max-w-xl flex flex-col space-y-4">
+    <section class="max-w-xl flex flex-col space-y-4">
       <i18n-t keypath="help" tag="p">
         <template v-slot:licenseFAQLink>
           <Anchor
@@ -29,37 +29,38 @@
         class="flex flex-col md:flex-row md:space-x-4 md:space-y-0 space-y-4"
         @submit.prevent="handleSubmit"
       >
-        <Input
-          id="licensePlateInput"
-          name="licensePlate"
-          aria-label="License plate"
-          type="text"
-          :placeholder="t('enterPlatePlaceholder')"
-          required
-          :disabled="error"
-          class="flex-none"
-          :class="{
-            'cursor-not-allowed': error,
-          }"
-          pattern="[A-Za-z0-9]+"
-          :patternModifiers="{ input: true }"
-          :size="10"
-          v-model.uppercase="licensePlate"
-        />
+        <div class="flex-none">
+          <label for="licensePlateInput" class="block text-sm font-medium mb-1">{{ t('licensePlateLabel') }}</label>
+          <Input
+            id="licensePlateInput"
+            name="licensePlate"
+            type="text"
+            :placeholder="t('enterPlatePlaceholder')"
+            required
+            :disabled="error"
+            :class="{
+              'cursor-not-allowed': error,
+            }"
+            pattern="[A-Za-z0-9]+"
+            :patternModifiers="{ input: true }"
+            :size="10"
+            v-model.uppercase="licensePlate"
+          />
+        </div>
 
-        <Select
-          id="zoneInput"
-          name="zone"
-          aria-label="Area parking permit zone"
-          v-model="zone"
-          required
-          :placeholder="t('selectZone')"
-          :disabled="error"
-          class="flex-initial"
-          :class="{
-            'cursor-not-allowed': error,
-          }"
-        >
+        <div class="flex-initial">
+          <label for="zoneInput" class="block text-sm font-medium mb-1">{{ t('zoneLabel') }}</label>
+          <Select
+            id="zoneInput"
+            name="zone"
+            v-model="zone"
+            required
+            :placeholder="t('selectZone')"
+            :disabled="error"
+            :class="{
+              'cursor-not-allowed': error,
+            }"
+          >
           <option
             v-for="zone in zones.sort((a, b) => {
               if (a.id < b.id) return -1;
@@ -72,6 +73,7 @@
             {{ zone.displayName }}
           </option>
         </Select>
+        </div>
 
         <Button
           :label="t('search')"
@@ -87,6 +89,7 @@
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <circle
                 class="opacity-25"
@@ -102,12 +105,15 @@
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               ></path>
             </svg>
+            <span class="sr-only">{{ t('loading') }}</span>
           </div>
           <span v-else>{{ t('search') }}</span>
         </Button>
       </form>
 
-      <Result v-if="permit" :permit="permit" />
+      <div aria-live="polite">
+        <Result v-if="permit" :permit="permit" />
+      </div>
 
       <Message
         v-if="error"
@@ -115,6 +121,7 @@
         variant="light"
         icon="exclamation"
         :summary="t('errorSummary')"
+        role="alert"
       >
         <p>{{ t('errorMessageFirst') }}</p>
         <i18n-t keypath="errorMessageSecond" tag="p">
@@ -126,7 +133,7 @@
           </template>
         </i18n-t>
       </Message>
-    </main>
+    </section>
   </article>
 </template>
 
@@ -214,6 +221,9 @@ export default defineComponent({
     "search" : "Search",
     "enterPlatePlaceholder" : "Enter License Plate",
     "selectZone" : "Select Zone",
+    "licensePlateLabel" : "License Plate",
+    "zoneLabel" : "Parking Permit Zone",
+    "loading" : "Loading, please wait",
     "appHeader" : "Area Parking Permit Lookup",
     "help": "Use the form below to search for a vehicle's active parking permit in a selected zone. For help entering license plates, {licenseFAQLink}, and for information on the area parking permit program, {generalHelp}.",
     "licenseFAQLink":"view our license plate entry FAQ",
@@ -226,6 +236,9 @@ export default defineComponent({
     "search" : "Søk",
     "enterPlatePlaceholder": "Skriv inn lisensplaten",
     "selectZone" : "Velg sone",
+    "licensePlateLabel" : "Lisensplate",
+    "zoneLabel" : "Parkeringssone",
+    "loading" : "Laster, vennligst vent",
     "appHeader" : "Område parkering tillatelse oppslag",
     "help" : "Bruk skjemaet nedenfor for å skrive inn bilens lisensnummer, og velg en parkeringsstillatelsone, og spør deretter om kjøretøyet har en aktiv parkeringstillatelse for den valgte sonen. For mer informasjon {generalHelp}.",
     "generalHelp" : "se her"

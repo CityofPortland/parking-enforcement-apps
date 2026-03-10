@@ -108,7 +108,7 @@ export default defineComponent({
 
     return h(
       this.as,
-      { class: classes },
+      { ...this.$attrs, class: [classes, this.$attrs.class] },
       this.$slots.default && this.$slots.default()
     );
   },
