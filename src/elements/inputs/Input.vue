@@ -8,6 +8,8 @@
     :pattern="pattern"
     :class="classes"
     :value="modelValue"
+    :aria-required="required"
+    :aria-invalid="required && !modelValue"
     @input.prevent="handleInput"
   />
 </template>

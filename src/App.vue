@@ -1,5 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-col">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-blue-700 focus:underline">Skip to main content</a>
     <Header
       color="white"
       :open="menuOpen"
@@ -13,7 +14,7 @@
         </router-link>
       </template>
     </Header>
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 mt-4" :lang="locale">
+    <main id="main-content" class="flex-grow max-w-7xl w-full mx-auto px-4 mt-4" :lang="locale">
       <router-view />
     </main>
     <Footer color="gray" variant="light">

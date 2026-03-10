@@ -4,6 +4,8 @@
     :name="name"
     :class="classes"
     :required="required"
+    :disabled="disabled"
+    :aria-required="required"
     @change="handleChange"
   >
     <option value="" disabled selected>{{ placeholder }}</option>
