@@ -10,7 +10,6 @@
         type="external-link"
         class="h-4 w-4 ml-1 inline"
       />
-      <span v-if="externalIcon" class="sr-only">(external link)</span>
     </slot>
   </a>
 </template>
